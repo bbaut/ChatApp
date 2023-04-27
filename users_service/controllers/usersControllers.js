@@ -28,7 +28,7 @@ const addContact = async (req,res) => {
     const [userOne, userTwo] = req.body;
 
     try {
-        const user = await Users.findOne({email: userOne.email});
+        const user = await Users.findOne({email: userOne.email}); //The one who sends the contact request
         const contact = await Users.findOne({email: userTwo.email});
 
         if(!user || !contact){
@@ -48,16 +48,52 @@ const addContact = async (req,res) => {
             return res.status(400).json({msg: error.message});
         }
 
-        await Users.findOneAndUpdate(
+        const contactUpdated = await Users.findOneAndUpdate(
             {email: contact.email},
             { $push: { requests: userId } },
             { new: true }
         )
 
-        return res.status(200).json(contact);
+        return res.status(200).json(contactUpdated);
     }
     catch (error) {
         return res.status(500).send({ error: err.message });
+    }
+}
+
+const acceptContact = async (req,res) => {
+    const [userOne, userTwo] = req.body;
+
+    try {
+        const user = await Users.findOne({email: userOne.email}); //The one who receives the contact request
+        const contact = await Users.findOne({email: userTwo.email});
+
+        if(!user || !contact){
+            const error = new Error('User not found');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const userId = user._id;
+        const contactId = contact._id; 
+
+        const userUpdated = await Users.findOneAndUpdate(
+            {email: user.email},
+            {   $push: { contacts: contactId },
+                $pull: { requests: contactId }                            
+            },
+            { new: true }
+        )
+
+        const contactUpdated = await Users.findOneAndUpdate(
+            {email: contact.email},
+            { $push: { contacts: userId } },
+            { new: true }
+        )
+
+        return res.status(200).json({userUpdated, contactUpdated});
+    }
+    catch (error) {
+        return res.status(500).send({ error: error.message });
     }
 }
 
@@ -68,6 +104,7 @@ const deleteContact = async (req,res) => {
 export {
     searchContact,
     addContact,
+    acceptContact,
     deleteContact,
     createUser
 }
