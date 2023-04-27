@@ -8,7 +8,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - /Users/brandonbautista/Desktop/chat-app/users_service/data:/data/db
+      - /Users/brandonbautista/Documents/chat-app/users_service/data:/data/db
     networks:
       - mongo-network
 
