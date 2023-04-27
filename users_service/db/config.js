@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const dbConnection = async () => {
     const MONGO_HOST = "localhost"
-    const MONGO_DB = "users_credentials"
+    const MONGO_DB = "db_users"
 
     const URI = `mongodb://${MONGO_HOST}/${MONGO_DB}`;
     

@@ -16,7 +16,7 @@ const UserSchema = new Schema({
         unique: true
     },
     friends: {
-        type: String,
+        type: Array,
         default: []
     },
     requests: [{
