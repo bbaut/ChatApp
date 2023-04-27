@@ -1,0 +1,14 @@
+{
+  "name": "users_service",
+  "version": "1.0.0",
+  "description": "Users service chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Users"
+  ],
+  "author": "Brandon Bautista",
+  "license": "ISC"
+}

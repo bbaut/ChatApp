@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - /Users/brandonbautista/Desktop/Chat_app/auth_service/data:/data/db
+    networks:
+      - mongo-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports: 
+        - 8081:8081
+    depends_on:
+        - mongo
+    environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: root
+        ME_CONFIG_MONGODB_ADMINPASSWORD: root
+        ME_CONFIG_MONGODB_PORT: 27017  
+    links:
+        - mongo
+    networks:
+        - mongo-network
+
+networks:
+  mongo-network:
+    driver: bridge
