@@ -15,22 +15,14 @@ const UserSchema = new Schema({
         trim: true,
         unique: true
     },
-    friends: {
+    contacts: {
         type: Array,
-        default: []
+        default: [] //It will save ids
     },
-    requests: [{
-        type: new Schema({
-            from: {
-                type: String,
-                required: true
-            },
-            to: {
-                type: String,
-                required: true,
-            }
-        })
-    }]
+    requests: {
+        type: Array,
+        default: [] //It will save ids
+    }
 })
 
 const Users = mongoose.model("User", UserSchema);
