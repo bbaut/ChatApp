@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 
-const pages = ['contacts', 'chats'];
+const pages = ['dashboard', 'contacts', 'chats'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
 
 
@@ -46,7 +46,6 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -57,7 +56,7 @@ function Header() {
               textDecoration: 'none',
             }}
           >
-            MyChatApp
+            Chat app
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -89,12 +88,17 @@ function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to={`${page}`}>
+                  { index === 0 ?  
+                <Link to={"/dashboard"}>
                       {page}
-                    </Link>
+                </Link> :
+                <Link to={`${page}`}>
+                      {page}
+                </Link> 
+              }
                   </Typography>
                 </MenuItem>
               ))}
@@ -117,18 +121,23 @@ function Header() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            My chat app
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-              >
+              > 
+              { index === 0 ?  
+                <Link to={"/dashboard"}>
+                      {page}
+                </Link> :
                 <Link to={`${page}`}>
                       {page}
-                </Link>
+                </Link> 
+              }
               </Button>
             ))}
           </Box>

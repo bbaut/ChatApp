@@ -6,9 +6,6 @@ import ProtectedRoute from "./layouts/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
 import {AuthProvider} from "./context/AuthProvider"
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "./redux/reducers/usersReducer";
 
 function App() {
 

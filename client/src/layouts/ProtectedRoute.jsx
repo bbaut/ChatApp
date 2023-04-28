@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { Box, Stack } from "@mui/system";
 import { useSelector } from "react-redux";
 
+
 const ProtectedRoute = () => {
 
   const auth = useSelector((state) => state.authFunc.auth);
@@ -15,11 +16,12 @@ const ProtectedRoute = () => {
 
   if(loadingUser) return 'Loading'
   else if (auth.hasOwnProperty('profileUser')){
+    console.log("hey")
     return (<Box>
     <Header/>
       <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Sidebar />
-        <Outlet  />
+        <Sidebar sx={{width:1/2}} />
+        <Outlet sx={{width:1/2}}/>
       </Stack>
   </Box>)
   }
@@ -36,19 +38,6 @@ const ProtectedRoute = () => {
 
   return (
     <Navigate to="/"/>
-    // <>
-    //   {auth.hasOwnProperty('meUser') ? 
-    //   (
-    //     <Box>
-    //       <Header/>
-    //         <Stack direction="row" spacing={2} justifyContent="space-between">
-    //           <Sidebar/>
-    //           <Outlet/>
-    //         </Stack>
-    //     </Box>
-    //   )
-    //   : <Navigate to="/"/>}
-    // </>
   )
 }
 

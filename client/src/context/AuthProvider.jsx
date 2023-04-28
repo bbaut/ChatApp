@@ -60,7 +60,7 @@ const AuthProvider = ({children}) => {
             // setAuth(data)
             dispatch(get_loading(false))
             // setLoadingUser(false);
-            navigate('dashboard')
+            // navigate('dashboard')
         },
     })
 
