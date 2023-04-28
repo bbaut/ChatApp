@@ -12,6 +12,9 @@ const AddContact = () => {
       p={2}
     >
         <h1>Add contact</h1>
+        {Object.keys(contact).length === 0 ? 
+        <h2>No contacts shown</h2>
+        :
         <Box sx={{width:500}}>
         <Stack spacing={2} direction="row" alignItems="center">
             <Stack>
@@ -23,6 +26,7 @@ const AddContact = () => {
             <Button>Add Contact</Button>
             </Stack>
         </Box> 
+        }
     </Box>
     )
 }

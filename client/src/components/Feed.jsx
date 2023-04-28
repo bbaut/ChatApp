@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 const Feed = () => {
 
   const auth = useSelector((state) => state.authFunc.auth);
-  console.log(auth)
   // const {loadingUser} = useAuth();
   // const {auth, loadingUser} = useAuth();
 
