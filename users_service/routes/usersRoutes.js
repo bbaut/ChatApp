@@ -3,7 +3,7 @@ import { addContact, acceptContact, createUser, deleteContact, searchContact } f
 
 const router = Router();
 
-router.post('/createUser', createUser);
+router.post('/createuser', createUser);
 router.get('/searchcontact', searchContact);
 router.post('/addcontact', addContact);
 router.patch('/acceptcontact', acceptContact);

@@ -12,9 +12,7 @@ const createUser = async (req,res) => {
 }
 
 const searchContact = async (req,res) => {
-    const {email} = req.body;
-
-    const contact = await Users.findOne({email});
+    const contact = await Users.findOne(req.query);
 
     if (!contact) {
         const error = new Error('User not found');

@@ -1,6 +1,6 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 
-class AuthAPI extends RESTDataSource {
+class UsersAPI extends RESTDataSource {
     baseURL = 'http://localhost:4002/';
 
     constructor(options) {
@@ -8,17 +8,24 @@ class AuthAPI extends RESTDataSource {
         this.memoizeGetRequests;
     }
 
-    async register({username,email,password}){
+    async existance(params) {
+        console.log(params)
+        return this.get(
+            `/api/users/searchcontact`, {params}
+        )
+    };
+
+    //Pass username and email only
+    async create(username,email){
         return this.post(
-            '/api/auth/register', {
+            '/api/users/createuser', {
                 body: {
                     username,
-                    email,
-                    password    
+                    email  
                 }
             }   
         )
     }
 }
 
-export default AuthAPI
+export default UsersAPI

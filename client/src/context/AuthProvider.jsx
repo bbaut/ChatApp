@@ -61,6 +61,7 @@ const AuthProvider = ({children}) => {
             dispatch(get_loading(false))
             // setLoadingUser(false);
             // navigate('dashboard')
+            console.log("loading")
         },
     })
 
@@ -73,7 +74,6 @@ const AuthProvider = ({children}) => {
                 // setLoadingUser(false)
                 return
             }
-
             profileUser()
         }
         authUser();

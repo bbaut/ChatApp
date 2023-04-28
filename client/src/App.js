@@ -6,6 +6,7 @@ import ProtectedRoute from "./layouts/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import Contacts from "./pages/Contacts";
 import {AuthProvider} from "./context/AuthProvider"
+import AddContact from "./pages/AddContact";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/dashboard" element={ <ProtectedRoute/>}>
             <Route index element={<Dashboard/>}/>
             <Route path="contacts" element={<Contacts/>}/>
+            <Route path="addcontact" element={<AddContact/>}/>
           </Route>
         </Routes>
       </AuthProvider>

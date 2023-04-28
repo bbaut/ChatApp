@@ -3,6 +3,7 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import {expressMiddleware} from "@apollo/server/express4";
 import express from "express";
 import AuthAPI from "./data-source/authAPI.js";
+import UsersAPI from "./data-source/usersAPI.js";
 import bodyParser from "body-parser"
 import http from "http"
 import typeDefs from "./schema.js";
@@ -38,6 +39,7 @@ const Server = async () => {
                 const { cache } = server;
                 const dataSources = {
                     authAPI: new AuthAPI({ cache }),
+                    usersAPI: new UsersAPI({ cache }),
                 };
                 return {
                     req,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import AddContact from '../components/AddContact'
+import SearchContact from '../components/SearchContact'
 
 const Contacts = () => {
   return (
@@ -11,7 +11,7 @@ const Contacts = () => {
     >
       <h1>Contacts</h1>
       <Box sx={{width:500}}>
-        <AddContact/>
+        <SearchContact/>
       </Box>
 
     </Box>

@@ -22,9 +22,13 @@ input LoginInput {
 input ProfileInput {
     token: String
 }
+input ExistanceInput {
+    email: String
+}
 
 type Query {
     profileUser(profileInput: ProfileInput): User
+    existanceContact(existanceInput: ExistanceInput): User 
 }
 
 type Mutation {

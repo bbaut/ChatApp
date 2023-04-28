@@ -6,6 +6,10 @@ const resolvers = {
         async profileUser (_,{profileInput}, {dataSources, req, res}) {
             const {token} = profileInput;
             return await dataSources.authAPI.profile(token);
+        },
+        async existanceContact (_,{existanceInput}, {dataSources, req, res}) {
+            const {email} = existanceInput;
+            return await dataSources.usersAPI.existance({email});
         } 
     },
     Mutation: {
@@ -27,8 +31,9 @@ const resolvers = {
             }
 
             try {
+                const userUsers = await dataSources.usersAPI.create(username, email);
                 const user = await dataSources.authAPI.register(registerInput);
-                console.log(user)
+
                 return user
             }
             catch(error){
@@ -72,7 +77,9 @@ const resolvers = {
             catch(error){
                 console.log(error);
             }
-        }
+        },
+
+        // USERS
     }
 }
 
