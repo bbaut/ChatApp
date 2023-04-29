@@ -19,6 +19,7 @@ const LOGIN_USER = gql `
     mutation Mutation($loginInput: LoginInput) {
       loginUser(loginInput: $loginInput) {
         username,
+        email,
         token
     }
   }

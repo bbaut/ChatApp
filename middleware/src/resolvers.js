@@ -7,10 +7,17 @@ const resolvers = {
             const {token} = profileInput;
             return await dataSources.authAPI.profile(token);
         },
+
         async existanceContact (_,{existanceInput}, {dataSources, req, res}) {
+            console.log(req)
             const {email} = existanceInput;
             return await dataSources.usersAPI.existance({email});
-        } 
+        }, 
+
+        async requestsContact (_,{requestsInput}, {dataSources, req, res}) {
+            const {email} = requestsInput;
+            return await dataSources.usersAPI.requests({email});
+        },
     },
     Mutation: {
         async registerUser(_, {registerInput}, {dataSources, req, res}) {
@@ -31,6 +38,7 @@ const resolvers = {
             }
 
             try {
+                console.log(registerInput)
                 const userUsers = await dataSources.usersAPI.create(username, email);
                 const user = await dataSources.authAPI.register(registerInput);
 
@@ -71,7 +79,6 @@ const resolvers = {
                 //   };
             
                 // res.cookie("JWT", token, options);
-                console.log("hey")
                 return auth;
             }
             catch(error){
@@ -80,6 +87,18 @@ const resolvers = {
         },
 
         // USERS
+
+        async addContact(_,{addInput},{dataSources, req, res}){
+            console.log(addInput)
+            try {
+                const contactUpdated = await dataSources.usersAPI.add(addInput)
+                console.log(contactUpdated);
+                return contactUpdated;
+            }
+            catch (error){
+                console.log(error);
+            }
+        }
     }
 }
 

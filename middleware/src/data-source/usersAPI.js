@@ -14,6 +14,12 @@ class UsersAPI extends RESTDataSource {
             `/api/users/searchcontact`, {params}
         )
     };
+    async requests(params) {
+        console.log(params)
+        return this.get(
+            `/api/users/requests`, {params}
+        )
+    };
 
     //Pass username and email only
     async create(username,email){
@@ -24,6 +30,19 @@ class UsersAPI extends RESTDataSource {
                     email  
                 }
             }   
+        )
+    }
+
+    async add(addObject){
+        const user = addObject[0];
+        const contact = addObject[1];
+        return this.post(
+            '/api/users/addcontact', {
+                body: {
+                    user,
+                    contact
+                }
+            }
         )
     }
 }

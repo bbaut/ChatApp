@@ -22,8 +22,23 @@ const searchContact = async (req,res) => {
     res.json(contact);
 }
 
+const requestsContact = async (req,res) => {
+    const contact = await Users.findOne(req.query);
+    console.log(contact)
+
+    if (!contact) {
+        const error = new Error('User not found');
+        return res.status(404).json({msg: error.message});
+    }
+
+    console.log("ye")
+    
+    res.json(contact);
+}
+
 const addContact = async (req,res) => {
-    const [userOne, userTwo] = req.body;
+    const userOne = req.body.user;
+    const userTwo = req.body.contact;
 
     try {
         const user = await Users.findOne({email: userOne.email}); //The one who sends the contact request
@@ -55,7 +70,7 @@ const addContact = async (req,res) => {
         return res.status(200).json(contactUpdated);
     }
     catch (error) {
-        return res.status(500).send({ error: err.message });
+        return res.status(500).send({ error: error.message });
     }
 }
 
@@ -102,6 +117,7 @@ const deleteContact = async (req,res) => {
 export {
     searchContact,
     addContact,
+    requestsContact,
     acceptContact,
     deleteContact,
     createUser
