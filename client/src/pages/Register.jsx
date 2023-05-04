@@ -1,42 +1,44 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Container, Stack, TextField, Button, Typography, Input} from "@mui/material"
-import { gql, useMutation} from '@apollo/client';
+import { Container, Stack, TextField, Button, Typography} from "@mui/material"
+// import { gql, useMutation} from '@apollo/client';
 import { useNavigate } from "react-router-dom";
+import {useDispatch} from "react-redux";
 
-const REGISTER_USER = gql `
-    mutation Mutation($registerInput: RegisterInput) {
-        registerUser(registerInput: $registerInput) {
-            username
-        }
-    }
-`
+// const REGISTER_USER = gql `
+//     mutation Mutation($registerInput: RegisterInput) {
+//         registerUser(registerInput: $registerInput) {
+//             username
+//         }
+//     }
+// `
 
 const Register = () => {
     let navigate = useNavigate();
+    let dispatch = useDispatch();
+
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [image, setImage] = useState('');
     const [alert, setAlert] = useState('');
 
-    const[registerUser] = useMutation(REGISTER_USER,{
-        variables: {registerInput: {
-            username,
-            email,
-            password,
-            confirmPassword
+    // const[registerUser] = useMutation(REGISTER_USER,{
+    //     variables: {registerInput: {
+    //         username,
+    //         email,
+    //         password,
+    //         confirmPassword
             
-        }},
-        onError(graphQLErrors){
-            console.log(graphQLErrors);
-        },
-        onCompleted(){
-            console.log("yey")
-        }
-    })
+    //     }},
+    //     onError(graphQLErrors){
+    //         console.log(graphQLErrors);
+    //     },
+    //     onCompleted(){
+    //         console.log("yey")
+    //     }
+    // })
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,14 +57,27 @@ const Register = () => {
         //     setAlert("Password must have 6 characters length min");
         //     return;
         // }
-        registerUser();
+        // registerUser();
+
+        dispatch({
+            type:"register",
+            payload: {
+                register:
+                {
+                    username,
+                    email,
+                    password,
+                    confirmPassword
+                }
+            }
+        })
 
         setAlert('');
         setUsername('');
         setEmail('');
-        setImage('');
         setPassword('');
         setConfirmPassword('');
+        navigate('/');
     }
 
   return (

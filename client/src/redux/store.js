@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './reducers';
-import { watchSaga } from './saga/rootSaga';
+import rootSaga from './saga/rootSaga';
 
 const saga = createSagaMiddleware();
 
@@ -10,6 +10,6 @@ const store = configureStore({
     middleware: [saga]    
 });
 
-saga.run(watchSaga);
+saga.run(rootSaga);
 
 export default store;
