@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { get_data } from '../redux/reducers/authReducer';
 
 const pages = ['dashboard', 'contacts', 'chats'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
@@ -21,6 +23,13 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout']
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(get_data({}));
+    localStorage.removeItem('token');
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -88,7 +97,15 @@ function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page, index) => (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to={"/dashboard"}>
+                      dashboard
+                    </Link>
+                  </Typography>
+                </MenuItem>
+
+              {/* {pages.map((page, index) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                   { index === 0 ?  
@@ -101,7 +118,7 @@ function Header() {
               }
                   </Typography>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -124,22 +141,28 @@ function Header() {
             My chat app
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, index) => (
               <Button
-                key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               > 
-              { index === 0 ?  
                 <Link to={"/dashboard"}>
-                      {page}
-                </Link> :
-                <Link to={`${page}`}>
-                      {page}
-                </Link> 
-              }
+                      dashboard
+                </Link>
               </Button>
-            ))}
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              > 
+                <Link to={"/dashboard/contacts"}>
+                      contacts
+                </Link>
+              </Button>
+              <Button
+                onClick={handleLogout}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              > 
+                logout
+              </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

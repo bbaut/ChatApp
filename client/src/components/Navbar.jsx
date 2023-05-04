@@ -7,7 +7,7 @@ function Navbar () {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="body1" component="div">
-                        <Link to="/" style={{textDecoration:"none", color:"white"}}>ReactLogin</Link>
+                        <Link to="/" style={{textDecoration:"none", color:"white"}}>Chat app</Link>
                     </Typography>
                     <Box alignItems="right" sx={{flexGrow:1, textAlign: "right"}}>
                         <Link to="/login" style={{textDecoration:"none", color:"white", marginRight:"10px"}}>Login</Link>

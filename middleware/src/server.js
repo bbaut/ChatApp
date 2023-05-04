@@ -1,11 +1,14 @@
 import { ApolloServer } from "@apollo/server";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import {expressMiddleware} from "@apollo/server/express4";
+import { createServer } from 'http';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
 import express from "express";
 import AuthAPI from "./data-source/authAPI.js";
 import UsersAPI from "./data-source/usersAPI.js";
 import bodyParser from "body-parser"
-import http from "http"
 import typeDefs from "./schema.js";
 import resolvers from "./resolvers.js";
 import dotenv from "dotenv";
@@ -20,7 +23,7 @@ const Server = async () => {
 
     const port = process.env.PORT || 3001;
 
-    const httpServer = http.createServer(app);
+    const httpServer = createServer(app);
 
     const server = new ApolloServer({
         typeDefs,

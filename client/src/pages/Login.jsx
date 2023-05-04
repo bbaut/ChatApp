@@ -67,8 +67,7 @@ const Login = () => {
   return (
     <>
         <Container maxWidth="sm">
-                <h3>Log in</h3>
-                <p>and let the fun begin!</p>
+                <h2>Welcome</h2>
 
                 {alert && 
                 <Stack spacing={2} paddingBottom={2} color="red">
@@ -97,9 +96,9 @@ const Login = () => {
                           type="password"
                       />
                   </Stack>
-                  <Button variant="contained" type="submit">Next</Button>
+                  <Button variant="contained" type="submit">Log in</Button>
                 </form>
-                <p> Don't have an account?</p> <Link to="register" style={{textDecoration:"none", color:"Black"}}>Register</Link>
+                <p> Don't have an account?</p> <Link to="register" style={{color:"Black"}}>Register</Link>
         </Container>
     </>
   )
