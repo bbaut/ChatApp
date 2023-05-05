@@ -25,10 +25,41 @@ const Server = async () => {
 
     const httpServer = createServer(app);
 
+    const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+    const wsServer = new WebSocketServer({
+        server: httpServer,
+        path: "/graphql",
+      });
+
+    const serverCleanup = useServer({ 
+        schema,
+        context: async () => {
+            const { cache } = server;
+
+            const dataSources = {
+                authAPI: new AuthAPI({ cache }),
+                usersAPI: new UsersAPI({ cache }),
+            };
+            return {
+                dataSources
+            };
+        }
+    }, wsServer);
+
     const server = new ApolloServer({
-        typeDefs,
-        resolvers,
-        plugins: [ApolloServerPluginDrainHttpServer({httpServer})]
+        schema,
+        plugins: [ApolloServerPluginDrainHttpServer({httpServer}),
+            {
+                async serverWillStart() {
+                    return {
+                        async drainServer() {
+                            await serverCleanup.dispose();
+                        }
+                    }
+                }
+            }
+        ]
     })
 
     await server.start();
@@ -51,7 +82,6 @@ const Server = async () => {
                 }
             }
         })
-
     )
 
     httpServer.listen(port, () => {

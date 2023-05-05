@@ -1,5 +1,7 @@
 import { GraphQLError } from "graphql";
 import validate from "validator";
+import pubsub from "./pubsub.js";
+import subscriptionsResolvers from "./subscriptions.js";
 
 const resolvers = {
     Query: {
@@ -90,16 +92,27 @@ const resolvers = {
 
         async addContact(_,{addInput},{dataSources, req, res}){
             console.log(addInput)
+            console.log("from resolversa add contact")
+            const user = addInput[0];
+            const contact = addInput[1];
+
             try {
                 const contactUpdated = await dataSources.usersAPI.add(addInput)
-                console.log(contactUpdated);
+                
+                const body = addInput
+                console.log(body)
+                pubsub.publish("CONTACT_REQUEST", {
+                    addContactRequest: body
+                })
+
                 return contactUpdated;
             }
             catch (error){
                 console.log(error);
             }
         }
-    }
+    },
+    Subscription: subscriptionsResolvers,
 }
 
 export default resolvers;

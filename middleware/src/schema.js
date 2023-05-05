@@ -15,6 +15,10 @@ type UserUsers {
     requests: [String]
 }
 
+type Email{
+    email: String
+}
+
 input RegisterInput {
     username: String
     email: String
@@ -50,6 +54,10 @@ type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
     addContact(addInput: [AddInput]): User
+}
+
+type Subscription {
+    addContactRequest: [Email]!
 }
 `
 export default typeDefs;

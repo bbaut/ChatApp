@@ -1,20 +1,21 @@
 import { Box, Stack, Avatar, Typography, Button } from "@mui/material"
 import { useSelector } from "react-redux";
-import { gql, useMutation} from '@apollo/client';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-const ADD_CONTACT = gql `
-    mutation AddContact($addInput: [AddInput]) {
-        addContact(addInput: $addInput) {
-            username
-            email
-    }
-}
-`
+// const ADD_CONTACT = gql `
+//     mutation AddContact($addInput: [AddInput]) {
+//         addContact(addInput: $addInput) {
+//             username
+//             email
+//     }
+// }
+// `
 
 const AddContact = () => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const contact = useSelector((state) => state.findContactFunc.contact);
     const user = useSelector((state) => state.authFunc.auth);
@@ -29,27 +30,23 @@ const AddContact = () => {
         emailUser = user.loginUser.email
     }
 
-    const[addContact] = useMutation(ADD_CONTACT,{
-        variables: {addInput: [
-            {"email":emailUser},
-            {"email":emailContact}
-        ]},
-        onError(graphQLErrors){
-            console.log(graphQLErrors);
-        },
-        onCompleted(){
-            navigate("/contacts")
-        }
-    })
-
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        console.log(contact.existanceContact.email)
-        console.log(user)
-        console.log(user)
+        console.log(emailUser)
+        console.log(emailContact)
 
-        addContact();
+        dispatch({
+            type: "addFriend",
+            payload: {
+                add: [
+                    {"email":emailUser},
+                    {"email":emailContact}
+                ]
+            }
+        })
+
+        navigate("/dashboard/contacts")
     }
 
     return (

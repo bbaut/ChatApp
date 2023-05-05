@@ -4,6 +4,7 @@ import loadingReducer from "./loadingReducer.js";
 import findContactReducer from "./findContactReducer.js";
 import requestsContactReducer from "./requestsContactReducer.js";
 import registerReducer from "./registerSlice.js";
+import userReducer from "./userSlice.js"
 
 export default combineReducers({
     register: registerReducer,
@@ -11,5 +12,5 @@ export default combineReducers({
     loadingFunc: loadingReducer,
     findContactFunc: findContactReducer,
     requestContactFunc: requestsContactReducer,
-    
+    user: userReducer,
 })

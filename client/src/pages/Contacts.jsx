@@ -2,22 +2,30 @@ import React, { useEffect } from 'react'
 import { Box } from '@mui/material'
 import SearchContact from '../components/SearchContact'
 import Requests from '../components/Requests'
-import { gql, useLazyQuery } from '@apollo/client'
-import { useSelector } from 'react-redux'
+import { gql, useLazyQuery, useSubscription } from '@apollo/client'
+import { useSelector, useDispatch } from 'react-redux'
+import CONTACT_REQUEST from '../gql/contactRequest'
 
 
-const REQUESTS_CONTACT = gql `
-    query RequestsContact($requestsInput: RequestsInput) {
-        requestsContact(requestsInput: $requestsInput) {
-            requests
-        }
-    }
-`
+// const REQUESTS_CONTACT = gql `
+//     query RequestsContact($requestsInput: RequestsInput) {
+//         requestsContact(requestsInput: $requestsInput) {
+//             requests
+//         }
+//     }
+// `
 
 
 const Contacts = () => {
 
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.authFunc.auth);
+  console.log(user)
+  // const { username } = useSelector(
+  //   (state) => state.user.value
+  // );
+
+  // console.log(username)
 
     let emailUser;
 
@@ -28,23 +36,38 @@ const Contacts = () => {
         emailUser = user.loginUser.email
     }
 
-  const[requestsContact, {loading,error,data}] = useLazyQuery(REQUESTS_CONTACT,{
-    variables: {requestsInput: {
-      emailUser
-    }},
-    onError(graphQLErrors){
-        console.log(graphQLErrors.networkError.result.msg);
-    },
-    onCompleted(data) {
-      console.log("holahola")
-      console.log(data)
-    },
-})
+//   const[requestsContact, {loading,error,data}] = useLazyQuery(REQUESTS_CONTACT,{
+//     variables: {requestsInput: {
+//       emailUser
+//     }},
+//     onError(graphQLErrors){
+//         console.log(graphQLErrors.networkError.result.msg);
+//     },
+//     onCompleted(data) {
+//       console.log("holahola")
+//       console.log(data)
+//     },
+// })
 
-  useEffect(() => {
-    console.log("hey")
-    requestsContact();
-  },[])
+  // useEffect(() => {
+  //   console.log("hey")
+  //   requestsContact();
+  // },[])
+
+ const {data, loading} = useSubscription(CONTACT_REQUEST, {
+    onSubscriptionData: (data) => {
+      console.log("COOL")
+      // dispatch({
+      //   type: "addNewRequest",
+      //   payload: data?.data.addContactRequest,
+      // })
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  })
+
+  console.log(data)
 
   return (
     <Box

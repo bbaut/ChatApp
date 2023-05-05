@@ -18,7 +18,6 @@ function* register(action) {
   };
 
   try {
-    console.log("from try")
     yield put(setRegisterFetching());
     yield call(client.mutate, options);
   } catch (error) {
