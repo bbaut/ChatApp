@@ -48,6 +48,10 @@ const Login = () => {
     onCompleted(data) {
       localStorage.setItem('token', data.loginUser.token);
       dispatch(get_data(data))
+      dispatch({
+        type: "setUser",
+        payload: data
+      })
       // setAuth(data)
       navigate("/dashboard")
     },

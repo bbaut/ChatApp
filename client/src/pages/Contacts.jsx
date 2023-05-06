@@ -20,7 +20,8 @@ const Contacts = () => {
 
   const dispatch = useDispatch()
   const user = useSelector((state) => state.authFunc.auth);
-  console.log(user)
+
+
   // const { username } = useSelector(
   //   (state) => state.user.value
   // );
@@ -54,20 +55,21 @@ const Contacts = () => {
   //   requestsContact();
   // },[])
 
- const {data, loading} = useSubscription(CONTACT_REQUEST, {
-    onSubscriptionData: (data) => {
-      console.log("COOL")
-      // dispatch({
-      //   type: "addNewRequest",
-      //   payload: data?.data.addContactRequest,
-      // })
+useSubscription(CONTACT_REQUEST, {
+    onData: (data) => {
+      // console.log(data.subscriptionData.data.addContactRequest[1])
+      console.log(data.data.data.addContactRequest[1])
+      dispatch({
+        type: "addNewRequest",
+        payload: data.data.data.addContactRequest[1],
+      })
     },
     onError: (error) => {
       console.log(error)
     }
   })
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <Box

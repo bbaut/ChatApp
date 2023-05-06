@@ -11,6 +11,17 @@ const createUser = async (req,res) => {
     }
 }
 
+const userProfile = async (req,res) => {
+    try {
+        const user = await Users.findOne(req.query);
+        res.json(user);
+
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 const searchContact = async (req,res) => {
     const contact = await Users.findOne(req.query);
 
@@ -116,6 +127,7 @@ const deleteContact = async (req,res) => {
 
 export {
     searchContact,
+    userProfile,
     addContact,
     requestsContact,
     acceptContact,

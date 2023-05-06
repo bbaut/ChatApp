@@ -16,6 +16,12 @@ const resolvers = {
             return await dataSources.usersAPI.existance({email});
         }, 
 
+        async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
+            console.log(req)
+            const {email} = userDataInput;
+            return await dataSources.usersAPI.userData({email});
+        }, 
+
         async requestsContact (_,{requestsInput}, {dataSources, req, res}) {
             const {email} = requestsInput;
             return await dataSources.usersAPI.requests({email});

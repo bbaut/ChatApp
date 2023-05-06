@@ -57,6 +57,13 @@ const AuthProvider = ({children}) => {
         },
         onCompleted(data) {
             dispatch(get_data(data))
+            dispatch({
+                type: "setUser",
+                payload: 
+                {
+                    email: data.profileUser.email
+                }
+            })
             // setAuth(data)
             dispatch(get_loading(false))
             // setLoadingUser(false);

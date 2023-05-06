@@ -3,7 +3,7 @@ import { addRequest } from "../reducers/userSlice";
 
 function* addNewRequest(action) {
     console.log("from request saga")
-    console.log(action)
+    console.log(action.payload)
     yield put(addRequest(action.payload));
 };
 

@@ -7,7 +7,7 @@ type User {
     token: String
 }
 
-type UserUsers {
+type UserData {
     _id: ID!
     username: String
     email: String
@@ -37,6 +37,9 @@ input ProfileInput {
 input ExistanceInput {
     email: String
 }
+input UserDataInput {
+    email: String
+}
 input RequestsInput {
     email: String
 }
@@ -45,9 +48,10 @@ input AddInput {
 }
 
 type Query {
-    profileUser(profileInput: ProfileInput): User
+    profileUser(profileInput: ProfileInput): UserData
     existanceContact(existanceInput: ExistanceInput): User
-    requestsContact(requestsInput: RequestsInput): UserUsers
+    profileUserData(userDataInput: UserDataInput): UserData
+    requestsContact(requestsInput: RequestsInput): UserData
 }
 
 type Mutation {
