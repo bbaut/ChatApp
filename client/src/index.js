@@ -5,17 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import client from './apolloClient';
 import { ApolloProvider } from '@apollo/client';
-import { Provider } from 'react-redux';
-import store from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
-      <Provider  store={store}>
         <React.StrictMode>
           <App />
         </React.StrictMode>
-      </Provider>
     </ApolloProvider>
 );
 

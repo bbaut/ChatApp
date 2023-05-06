@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 
 const initialState = {
   isFetching: false,
@@ -12,7 +11,11 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state=null, action) => {
+      state.isFetching = false;
       state.value = action.payload
+    },
+    setUserFetching: (state = null) => {
+      state.isFetching = true;
     },
     addContact: (state = null, action) => {
       console.log(action)
@@ -38,6 +41,7 @@ const userSlice = createSlice({
 
 export const {
   setUser,
+  setUserFetching,
   addContact,
   addRequest
 } = userSlice.actions;
