@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
+import Search from "../components/SearchContact"
 
 const Contacts = () => {
     // const Fetching = useSelector (
@@ -17,6 +18,7 @@ const Contacts = () => {
     );
    
     return (
+      <>
       <Box
         bgcolor="white"
         flex={5}
@@ -24,17 +26,12 @@ const Contacts = () => {
       >
         <h1>Contacts</h1>
         <Box sx={{width:500}}>
-          {contacts.length === 0 ? 
-          <>
             <h2>You dont have contacts yet</h2>
             <h3>Start by adding a contact</h3>
-          </>
-          :
-          {contacts}
-          }
+            <Search/>
         </Box>
-  
       </Box>
+      </>
     )
 
 }

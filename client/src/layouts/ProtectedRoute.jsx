@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import useAuth from "../hooks/useAuth";
 import { Box, Stack } from "@mui/system";
+import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 
 
@@ -14,7 +15,11 @@ const ProtectedRoute = () => {
   // const {loadingUser} = useAuth();
   // const {auth, loadingUser} = useAuth();
 
-  if(loadingUser || isFetching) return 'Loading'
+  if(loadingUser || isFetching) return (
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
+  )
   else if (auth.hasOwnProperty('profileUser')){
     return (<Box>
     <Header/>

@@ -12,12 +12,24 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { get_data } from '../redux/reducers/authReducer';
 
 const pages = ['dashboard', 'contacts', 'chats'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
 
 function Header() {
@@ -157,9 +169,16 @@ function Header() {
                       contacts
                 </Link>
               </Button>
+              <IconButton aria-label="cart">
+                <StyledBadge badgeContent={4} color="secondary">
+                  <Link to={"/dashboard/requests"}>
+                    <PersonAddIcon />
+                  </Link>
+                </StyledBadge>
+              </IconButton>
               <Button
                 onClick={handleLogout}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', paddingLeft:20 }}
               > 
                 logout
               </Button>

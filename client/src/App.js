@@ -9,6 +9,7 @@ import {AuthProvider} from "./context/AuthProvider"
 import AddContact from "./pages/AddContact";
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import Requests from "./pages/Requests";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route index element={<Dashboard/>}/>
             <Route path="contacts" element={<Contacts/>}/>
             <Route path="addcontact" element={<AddContact/>}/>
+            <Route path="requests" element={<Requests/>}/>
           </Route>
         </Routes>
       </AuthProvider>
