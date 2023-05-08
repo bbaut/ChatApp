@@ -6,12 +6,28 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Button, Box } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import CONTACT_REQUEST from '../gql/contactRequest'
+import { useSubscription } from '@apollo/client';
 
 export default function AlignItemsList() {
+    const dispatch = useDispatch();
+
     const { username, requests } = useSelector(
         (state) => state.user.value
     );
+
+    useSubscription(CONTACT_REQUEST, {
+        onData: (data) => {
+            dispatch({
+            type: "addNewRequest",
+            payload: data.data.data.addContactRequest[1],
+            })
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+    })
 
     let requestsArray 
     if (requests.length !== 0) {
