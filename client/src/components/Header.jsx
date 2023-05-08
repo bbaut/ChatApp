@@ -16,8 +16,10 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector ,useDispatch } from 'react-redux';
 import { get_data } from '../redux/reducers/authReducer';
+import CONTACT_REQUEST from '../gql/contactRequest'
+import { useSubscription } from '@apollo/client';
 
 const pages = ['dashboard', 'contacts', 'chats'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
@@ -35,6 +37,22 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  useSubscription(CONTACT_REQUEST, {
+    onData: (data) => {
+        dispatch({
+        type: "addNewRequest",
+        payload: data.data.data.addContactRequest[1],
+        })
+    },
+    onError: (error) => {
+        console.log(error)
+    }
+})
+
+  const { requests } = useSelector(
+    (state) => state.user.value
+);
 
   const dispatch = useDispatch();
 
@@ -170,7 +188,7 @@ function Header() {
                 </Link>
               </Button>
               <IconButton aria-label="cart">
-                <StyledBadge badgeContent={4} color="secondary">
+                <StyledBadge badgeContent={requests.length} color="secondary">
                   <Link to={"/dashboard/requests"}>
                     <PersonAddIcon />
                   </Link>
