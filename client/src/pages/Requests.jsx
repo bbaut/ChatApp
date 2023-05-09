@@ -17,7 +17,7 @@ export default function AlignItemsList() {
         onData: (data) => {
             dispatch({
                 type: "addNewRequest",
-                payload: data.data.data.addContactRequest[1],
+                payload: data.data.data.addContactRequest,
             })
         },
         onError: (error) => {

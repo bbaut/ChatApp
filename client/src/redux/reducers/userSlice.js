@@ -18,21 +18,38 @@ const userSlice = createSlice({
       state.isFetching = true;
     },
     addContact: (state = null, action) => {
-      console.log(action)
       state.isFetching = false;
       state.value = action.payload;
     },
     addRequest: (state = null, action) => {
       state.isFetching = false;
       
-      const userEmail = state.value.email;
-      const contactEmail = action.payload.email;
+      // const userEmail = state.value.email;
+      // const contactEmail = action.payload.email;
 
-      if (userEmail === contactEmail){
-        console.log("i'm here")
-        state.value.requests = [...state.value.requests, action.payload.email];
-        console.log(state.value.requests)
+      const user = action.payload
+
+      if (state.value.username === user.username) {
+        state.value.requests = user.requests
       }
+
+      // if (userEmail === contactEmail){
+      //   state.value.requests = [...state.value.requests, action.payload.email];
+      // }
+    },
+    acceptRequest: (state=null, action) => {
+      state.isFetching = false;
+
+      const user = action.payload[0]
+      const contact = action.payload[1]
+
+      if (state.value.username === user.username) {
+        state.value.contacts = [...state.value.contacts, contact.username]
+      }
+      if (state.value.username === contact.username) {
+        state.value.contacts = [...state.value.contacts, user.username]
+      }
+
     },
     deleteRequest: (state=null, action) => {
       state.isFetching = false;
@@ -46,6 +63,7 @@ export const {
   setUserFetching,
   addContact,
   addRequest,
+  acceptRequest,
   deleteRequest
 } = userSlice.actions;
 

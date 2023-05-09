@@ -2,18 +2,40 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import { Button, Box } from '@mui/material';
+import { Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function RequestLayer({item}) {
     const from = item;
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { username } = useSelector(
         (state) => state.user.value
     );
 
+    const handleAccept = (e) => {
+        e.preventDefault();
+
+        console.log(from)
+        console.log(username)
+
+        dispatch({
+            type: "acceptFriend",
+            payload: [
+                {
+                    username: from
+                },
+                {
+                    username: username
+                }
+            ]
+        })
+
+        navigate("/dashboard/contacts");
+    }
     const handleDelete = (e) => {
         e.preventDefault();
 
@@ -38,7 +60,7 @@ export default function RequestLayer({item}) {
             >
                 {from}
                 <br/>
-                <Button>
+                <Button onClick={handleAccept}>
                     Accept contact
                 </Button>
                 <Button onClick={handleDelete}>

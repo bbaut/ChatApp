@@ -77,7 +77,6 @@ const resolvers = {
             try {
                 const auth = await dataSources.authAPI.login(loginInput);
                 const {token} = auth;
-                console.log(token)
 
                 // const options = {
                 //     maxAge: 1e9,
@@ -103,9 +102,9 @@ const resolvers = {
             try {
                 const contactUpdated = await dataSources.usersAPI.add(addInput);
                 
-                const body = addInput
+                let contact = contactUpdated
                 pubsub.publish("CONTACT_REQUEST", {
-                    addContactRequest: body
+                    addContactRequest: contact
                 })
 
                 return contactUpdated;
@@ -126,7 +125,7 @@ const resolvers = {
 
                 const body = acceptContactInput
                 pubsub.publish("ACCEPT_CONTACT_REQUEST", {
-                    acceptContactRequest: body
+                    acceptContactRequest: friendsArray
                 })
                 return friendsArray;
             }

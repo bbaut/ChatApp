@@ -69,14 +69,14 @@ type Query {
 type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
-    addContact(addInput: [AddInput]): User
+    addContact(addInput: [AddInput]): UserData
     acceptContact(acceptContactInput: [AcceptContactInput]): [UserData]
     deleteRequest(deleteReqInput: [DeleteReqInput]): UserData
 
 }
 
 type Subscription {
-    addContactRequest: [Email]!
+    addContactRequest: UserData
     acceptContactRequest: [UserData]
 }
 `

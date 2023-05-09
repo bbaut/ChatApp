@@ -40,10 +40,10 @@ function Header() {
 
   useSubscription(CONTACT_REQUEST, {
     onData: (data) => {
-        dispatch({
+      dispatch({
         type: "addNewRequest",
-        payload: data.data.data.addContactRequest[1],
-        })
+        payload: data.data.data.addContactRequest,
+    })
     },
     onError: (error) => {
         console.log(error)
