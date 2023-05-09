@@ -2,7 +2,6 @@ import { Router } from "express";
 import { addContact, 
         acceptContact, 
         createUser, 
-        deleteContact, 
         searchContact, 
         requestsContact, 
         userProfile, 
@@ -18,6 +17,5 @@ router.post('/addcontact', addContact);
 router.post('/deleterequest', deleteRequest);
 router.get('/requests', requestsContact);
 router.patch('/acceptcontact', acceptContact);
-router.patch('/deletecontact', deleteContact);
 
 export default router

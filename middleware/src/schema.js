@@ -52,6 +52,9 @@ input AddInput {
     email: String
 }
 
+input AcceptContactInput {
+    username: String
+}
 input DeleteReqInput {
     username: String
 }
@@ -67,12 +70,14 @@ type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
     addContact(addInput: [AddInput]): User
+    acceptContact(acceptContactInput: [AcceptContactInput]): [UserData]
     deleteRequest(deleteReqInput: [DeleteReqInput]): UserData
 
 }
 
 type Subscription {
     addContactRequest: [Email]!
+    acceptContactRequest: [UserData]
 }
 `
 export default typeDefs;

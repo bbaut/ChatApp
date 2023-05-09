@@ -51,6 +51,21 @@ class UsersAPI extends RESTDataSource {
         )
     }
 
+    async acceptContact(acceptObj){
+        const user = acceptObj[0];
+        const contact = acceptObj[1];
+        console.log(user)
+        console.log(contact)
+        return this.patch(
+            '/api/users/acceptcontact', {
+                body: {
+                    user,
+                    contact
+                }
+            }
+        )
+    }
+
     async deleteReq(deleteReqObj){
         const user = deleteReqObj[0];
         const contact = deleteReqObj[1];

@@ -50,6 +50,7 @@ const requestsContact = async (req,res) => {
 const addContact = async (req,res) => {
     const userOne = req.body.user;
     const userTwo = req.body.contact;
+    // const [userOne, userTwo] = req.body;
 
     try {
         const user = await Users.findOne({email: userOne.email}); //The one who sends the contact request
@@ -91,31 +92,42 @@ const addContact = async (req,res) => {
 }
 
 const acceptContact = async (req,res) => {
-    const [userOne, userTwo] = req.body;
+    const userOne = req.body.user;
+    const userTwo = req.body.contact;
+    // const [userOne, userTwo] = req.body;
 
     try {
-        const user = await Users.findOne({email: userOne.email}); //The one who receives the contact request
-        const contact = await Users.findOne({email: userTwo.email});
+        const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
+        const contact = await Users.findOne({username: userTwo.username});
 
         if(!user || !contact){
             const error = new Error('User not found');
             return res.status(404).json({msg: error.message});
         }
 
-        const userId = user._id;
-        const contactId = contact._id; 
+        if(user.contacts.includes(contact.username)){
+            const error = new Error('Already friends');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const requestObj = { 
+            from: user.username,
+            to: contact.username 
+        };
+
+        const userUsername = user.username;
+        const contactUsername = contact.username; 
 
         const userUpdated = await Users.findOneAndUpdate(
-            {email: user.email},
-            {   $push: { contacts: contactId },
-                $pull: { requests: contactId }                            
-            },
+            {username: user.username},
+            { $push: { contacts: contactUsername }},
             { new: true }
         )
 
         const contactUpdated = await Users.findOneAndUpdate(
-            {email: contact.email},
-            { $push: { contacts: userId } },
+            {username: contact.username},
+            {$push: { contacts: userUsername },
+            $pull: { requests: requestObj }},
             { new: true }
         )
 
@@ -124,10 +136,6 @@ const acceptContact = async (req,res) => {
     catch (error) {
         return res.status(500).send({ error: error.message });
     }
-}
-
-const deleteContact = async (req,res) => {
-
 }
 
 const deleteRequest = async (req, res) => {
@@ -147,8 +155,6 @@ const deleteRequest = async (req, res) => {
             from: user.username,
             to: contact.username 
         };
-
-        console.log(requestObj)
 
         const contactUpdated = await Users.findOneAndUpdate(
             {username: contact.username},
@@ -173,6 +179,5 @@ export {
     deleteRequest,
     requestsContact,
     acceptContact,
-    deleteContact,
     createUser
 }

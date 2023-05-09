@@ -16,7 +16,11 @@ const subscriptions = {
         addContactRequest: {
             subscribe:
                 () => pubsub.asyncIterator("CONTACT_REQUEST")
-        }   
+        },
+        acceptContactRequest: {
+            subscribe:
+                () => pubsub.asyncIterator("ACCEPT_CONTACT_REQUEST")
+        } 
 }
 
 export default subscriptions;

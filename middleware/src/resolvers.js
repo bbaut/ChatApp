@@ -104,7 +104,6 @@ const resolvers = {
                 const contactUpdated = await dataSources.usersAPI.add(addInput);
                 
                 const body = addInput
-                console.log(body)
                 pubsub.publish("CONTACT_REQUEST", {
                     addContactRequest: body
                 })
@@ -112,6 +111,26 @@ const resolvers = {
                 return contactUpdated;
             }
             catch (error){
+                console.log(error);
+            }
+        },
+
+        async acceptContact(_,{acceptContactInput}, {dataSources, req, res}){
+            try {
+                const friends = await dataSources.usersAPI.acceptContact(acceptContactInput);
+                
+                const userUpdated = friends.userUpdated;
+                const contactUpdated = friends.contactUpdated
+                
+                let friendsArray = [userUpdated, contactUpdated]
+
+                const body = acceptContactInput
+                pubsub.publish("ACCEPT_CONTACT_REQUEST", {
+                    acceptContactRequest: body
+                })
+                return friendsArray;
+            }
+            catch(error){
                 console.log(error);
             }
         },
