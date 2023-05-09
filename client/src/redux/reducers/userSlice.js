@@ -37,7 +37,7 @@ const userSlice = createSlice({
       //   state.value.requests = [...state.value.requests, action.payload.email];
       // }
     },
-    acceptRequest: (state=null, action) => {
+    acceptNewRequest: (state=null, action) => {
       state.isFetching = false;
 
       const user = action.payload[0]
@@ -63,7 +63,7 @@ export const {
   setUserFetching,
   addContact,
   addRequest,
-  acceptRequest,
+  acceptNewRequest,
   deleteRequest
 } = userSlice.actions;
 

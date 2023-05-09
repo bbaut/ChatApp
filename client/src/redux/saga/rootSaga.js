@@ -47,6 +47,7 @@ export default function* rootSaga() {
         watchSetUser(),
         watchAddContact(),
         watchAddNewRequest(),
+        watchAcceptRequest(),
         watchAcceptFriend(),
         watchRemoveRequest(),
     ]);

@@ -5,7 +5,6 @@ import Search from "../components/SearchContact"
 import { useSubscription } from '@apollo/client';
 import ACCEPT_CONTACT_REQUEST from "../gql/acceptContact"
 import ContactLayer from '../components/ContactLayer';
-import { useEffect } from 'react';
 
 const Contacts = () => {
 
@@ -16,12 +15,11 @@ const Contacts = () => {
     );
 
 
-    const data = useSubscription(ACCEPT_CONTACT_REQUEST, {
+    useSubscription(ACCEPT_CONTACT_REQUEST, {
       onData: (data) => {
-        console.log(data.data.data)
         dispatch({
           type: "acceptRequest",
-          payload: data.data.data.acceptRequest,
+          payload: data.data.data.acceptContactRequest,
       })
       },
       onError: (error) => {
@@ -29,15 +27,6 @@ const Contacts = () => {
       }
     })
 
-    const datos = data.data.data.acceptRequest
-
-    useEffect(() => {
-      dispatch({
-        type: "acceptRequest",
-        payload: datos
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
 
     let contactsArray = [];
 

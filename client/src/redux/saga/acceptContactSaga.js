@@ -25,9 +25,9 @@ function* acceptFriend(action) {
       fetchPolicy: "no-cache",
     };
     try {
-        yield put(setUserFetching());
-        const friends = yield call(client.mutate, options);
-        yield put(acceptRequest(friends.data.acceptContact))
+        // yield put(setUserFetching());
+        yield call(client.mutate, options);
+        // yield put(acceptRequest(friends.data.acceptContact))
     } catch (error) {
         yield console.log({ error: "add Friend Error", severity: "error" }
         );
