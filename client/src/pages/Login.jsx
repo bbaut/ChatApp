@@ -50,7 +50,9 @@ const Login = () => {
       dispatch(get_data(data))
       dispatch({
         type: "setUser",
-        payload: data
+        payload: {
+          "email" : data.loginUser.email
+        }
       })
       // setAuth(data)
       navigate("/dashboard")

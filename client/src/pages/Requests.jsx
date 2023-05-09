@@ -20,8 +20,8 @@ export default function AlignItemsList() {
     useSubscription(CONTACT_REQUEST, {
         onData: (data) => {
             dispatch({
-            type: "addNewRequest",
-            payload: data.data.data.addContactRequest[1],
+                type: "addNewRequest",
+                payload: data.data.data.addContactRequest[1],
             })
         },
         onError: (error) => {
@@ -29,9 +29,20 @@ export default function AlignItemsList() {
         }
     })
 
-    let requestsArray 
+    // const handleDelete = (index) => {
+    //     dispatch({
+    //         type: "deleteRequest",
+    //         payload: index
+    //     })
+    // }
+
+    let requestsArray = [];
+
     if (requests.length !== 0) {
-        requestsArray = requests
+        for (let i = 0; i<  requests.length; i++){
+            requestsArray.push(requests[i].from)
+        }
+    
     return (
         <>
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>

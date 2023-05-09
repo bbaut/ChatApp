@@ -21,7 +21,7 @@ const UserSchema = new Schema({
     },
     requests: {
         type: Array,
-        default: [] //It will save ids
+        default: [Object] //It will save ids
     }
 })
 

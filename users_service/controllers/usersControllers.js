@@ -72,9 +72,14 @@ const addContact = async (req,res) => {
             return res.status(400).json({msg: error.message});
         }
 
+        const requestObj = { 
+            from: user.username, 
+            to: contact.username 
+        };
+
         const contactUpdated = await Users.findOneAndUpdate(
-            {email: contact.email},
-            { $push: { requests: userId } },
+            { email: contact.email},
+            { $push: { requests: requestObj } },
             { new: true }
         )
 

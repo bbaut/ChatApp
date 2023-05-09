@@ -5,14 +5,19 @@ type User {
     email: String
     password: String
     token: String
-}
+}  
+
+type Request {
+    from: String!
+    to: String!
+  }
 
 type UserData {
     _id: ID!
     username: String
     email: String
     contacts: [String]
-    requests: [String]
+    requests: [Request]
 }
 
 type Email{

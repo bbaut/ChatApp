@@ -28,14 +28,16 @@ const userSlice = createSlice({
       const userEmail = state.value.email;
       const contactEmail = action.payload.email;
 
-      console.log(userEmail === contactEmail)
-
       if (userEmail === contactEmail){
         console.log("i'm here")
         state.value.requests = [...state.value.requests, action.payload.email];
         console.log(state.value.requests)
       }
     },
+    deleteRequest: (state=null, action) => {
+      state.isFetching = false;
+      state.value = action.payload;
+    }
   },
 });
 
@@ -43,7 +45,8 @@ export const {
   setUser,
   setUserFetching,
   addContact,
-  addRequest
+  addRequest,
+  deleteRequest
 } = userSlice.actions;
 
 export default userSlice.reducer;
