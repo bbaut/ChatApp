@@ -50,6 +50,19 @@ class UsersAPI extends RESTDataSource {
             }
         )
     }
+
+    async deleteReq(deleteReqObj){
+        const user = deleteReqObj[0];
+        const contact = deleteReqObj[1];
+        return this.post(
+            '/api/users/deleterequest', {
+                body: {
+                    user,
+                    contact
+                }
+            }
+        )
+    }
 }
 
 export default UsersAPI

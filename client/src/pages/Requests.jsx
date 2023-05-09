@@ -1,19 +1,15 @@
 import * as React from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import { Button, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import CONTACT_REQUEST from '../gql/contactRequest'
 import { useSubscription } from '@apollo/client';
+import RequestLayer from '../components/RequestLayer';
 
 export default function AlignItemsList() {
     const dispatch = useDispatch();
 
-    const { username, requests } = useSelector(
+    const { requests } = useSelector(
         (state) => state.user.value
     );
 
@@ -29,40 +25,18 @@ export default function AlignItemsList() {
         }
     })
 
-    // const handleDelete = (index) => {
-    //     dispatch({
-    //         type: "deleteRequest",
-    //         payload: index
-    //     })
-    // }
-
     let requestsArray = [];
 
     if (requests.length !== 0) {
         for (let i = 0; i<  requests.length; i++){
             requestsArray.push(requests[i].from)
         }
-    
+
     return (
         <>
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {requestsArray.map((request, index) => (
-                <ListItem alignItems='flex-start' key={index}>
-                    <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                    </ListItemAvatar>
-                    <ListItemText 
-                    >
-                        {request}
-                        <br/>
-                        <Button>
-                            Accept contact
-                        </Button>
-                        <Button>
-                            Delete request
-                        </Button>
-                    </ListItemText>
-                </ListItem>
+            {requestsArray.map((request) => (
+                <RequestLayer item={request} key={request}/>
             ))}
         </List>
         </>
@@ -76,7 +50,7 @@ export default function AlignItemsList() {
         flex={5}
         p={2}
       >
-          <h2>{username}, you don't have requests yet</h2>
+          <h2> You don't have requests yet</h2>
       </Box>
     )
     }

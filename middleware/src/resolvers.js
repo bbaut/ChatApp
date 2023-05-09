@@ -97,13 +97,11 @@ const resolvers = {
         // USERS
 
         async addContact(_,{addInput},{dataSources, req, res}){
-            console.log(addInput)
-            console.log("from resolversa add contact")
             const user = addInput[0];
             const contact = addInput[1];
 
             try {
-                const contactUpdated = await dataSources.usersAPI.add(addInput)
+                const contactUpdated = await dataSources.usersAPI.add(addInput);
                 
                 const body = addInput
                 console.log(body)
@@ -114,6 +112,16 @@ const resolvers = {
                 return contactUpdated;
             }
             catch (error){
+                console.log(error);
+            }
+        },
+
+        async deleteRequest(_,{deleteReqInput}, {dataSources, req, res}){
+            try {
+                const contactUpdated = await dataSources.usersAPI.deleteReq(deleteReqInput);
+                return contactUpdated;
+            }
+            catch(error){
                 console.log(error);
             }
         }

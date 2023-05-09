@@ -26,7 +26,6 @@ function* setUserAuthenticated(action) {
     try {
         yield put(setUserFetching());
         const userData = yield call(client.query, options)
-        console.log(userData)
         yield put(setUser(userData.data.profileUserData));
     }
     catch (error) {

@@ -18,7 +18,6 @@ function* addFriend(action) {
       fetchPolicy: "no-cache",
     };
     try {
-      console.log("from saga")
       yield call(client.mutate, options);
       yield console.log({ error: "request Sent", severity: "success" });
     } catch (error) {

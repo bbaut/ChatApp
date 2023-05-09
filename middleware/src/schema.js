@@ -52,6 +52,10 @@ input AddInput {
     email: String
 }
 
+input DeleteReqInput {
+    username: String
+}
+
 type Query {
     profileUser(profileInput: ProfileInput): UserData
     existanceContact(existanceInput: ExistanceInput): User
@@ -63,6 +67,8 @@ type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
     addContact(addInput: [AddInput]): User
+    deleteRequest(deleteReqInput: [DeleteReqInput]): UserData
+
 }
 
 type Subscription {

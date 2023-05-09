@@ -130,10 +130,47 @@ const deleteContact = async (req,res) => {
 
 }
 
+const deleteRequest = async (req, res) => {
+    const userOne = req.body.user;
+    const userTwo = req.body.contact;
+
+    try {
+        const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
+        const contact = await Users.findOne({username: userTwo.username});
+        
+        if (!user || !contact) {
+            const error = new Error('User not found');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const requestObj = { 
+            from: user.username,
+            to: contact.username 
+        };
+
+        console.log(requestObj)
+
+        const contactUpdated = await Users.findOneAndUpdate(
+            {username: contact.username},
+            {$pull: { requests: requestObj } },
+            { new: true }
+        )
+
+        console.log(contactUpdated)
+
+        return res.status(200).json(contactUpdated);
+
+    }
+    catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+}
+
 export {
     searchContact,
     userProfile,
     addContact,
+    deleteRequest,
     requestsContact,
     acceptContact,
     deleteContact,

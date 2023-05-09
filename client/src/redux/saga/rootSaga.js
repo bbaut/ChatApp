@@ -5,6 +5,7 @@ import register from "./registerSaga";
 import addFriend from "./addContactSaga";
 import addNewRequest from "./addRequestSaga";
 import setUser from "./setUserSaga";
+import removeRequest from "./deleteRequestSaga";
 
 export function* watchGetUser(){
     yield takeLatest(GET_USER, handlerGetUser)
@@ -26,6 +27,10 @@ export function* watchAddNewRequest(){
     yield takeEvery("addNewRequest", addNewRequest)
 }
 
+export function* watchRemoveRequest(){
+    yield takeEvery("removeRequest", removeRequest)
+}
+
 export default function* rootSaga() {
     yield all([
         watchGetUser(),
@@ -33,5 +38,6 @@ export default function* rootSaga() {
         watchSetUser(),
         watchAddContact(),
         watchAddNewRequest(),
+        watchRemoveRequest(),
     ]);
 }
