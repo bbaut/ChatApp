@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv';
 import dbConnection from "./db/config.js";
-import chatRoutes from "./routes/chatRoutes.js";
+import chatRoutes from "./routes/chatsRoutes.js";
 
 //configure the use of environment variables
 dotenv.config();

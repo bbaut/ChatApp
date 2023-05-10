@@ -8,6 +8,7 @@ import { useServer } from 'graphql-ws/lib/use/ws';
 import express from "express";
 import AuthAPI from "./data-source/authAPI.js";
 import UsersAPI from "./data-source/usersAPI.js";
+import ChatAPI from "./data-source/chatAPI.js";
 import bodyParser from "body-parser"
 import typeDefs from "./schema.js";
 import resolvers from "./resolvers.js";
@@ -40,6 +41,7 @@ const Server = async () => {
             const dataSources = {
                 authAPI: new AuthAPI({ cache }),
                 usersAPI: new UsersAPI({ cache }),
+                chatAPI: new ChatAPI({ cache }),
             };
             return {
                 dataSources
@@ -74,6 +76,7 @@ const Server = async () => {
                 const dataSources = {
                     authAPI: new AuthAPI({ cache }),
                     usersAPI: new UsersAPI({ cache }),
+                    chatAPI: new ChatAPI({ cache }),
                 };
                 return {
                     req,

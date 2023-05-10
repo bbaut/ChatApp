@@ -1,0 +1,19 @@
+{
+  "name": "chat_service",
+  "version": "1.0.0",
+  "description": "chat service of chat app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "Brandon Bautista",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "moongose": "^1.0.0"
+  }
+}

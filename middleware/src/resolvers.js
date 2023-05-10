@@ -142,7 +142,22 @@ const resolvers = {
             catch(error){
                 console.log(error);
             }
+        },
+        // CHAT
+
+        async createChatRoom (_, {createChatRoomInput}, {dataSources, req, res}){
+            
+        },
+
+        async createMessage(_, {createMessageInput}, {dataSources, req, res}){
+            try {
+
+            }
+            catch (error) {
+
+            }
         }
+
     },
     Subscription: subscriptionsResolvers,
 }
