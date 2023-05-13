@@ -1,7 +1,7 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 
 class ChatAPI extends RESTDataSource {
-    baseURL = 'http://localhost:4002/';
+    baseURL = 'http://localhost:4003/';
 
     constructor(options) {
         super(options);
@@ -9,6 +9,7 @@ class ChatAPI extends RESTDataSource {
     }
 
     async createChatRoom (roomObject) {
+        console.log(roomObject)
         return this.post(
             '/api/chat/createchatroom', {
                 body: roomObject
@@ -17,11 +18,12 @@ class ChatAPI extends RESTDataSource {
     }
 
     async createMessage (messageObject) {
-        return this.post(
-            '/api/chat/createmessage', {
-                body: messageObject
-            }
-        )
+        console.log(messageObject);
+        // return this.post(
+        //     '/api/chat/createmessage', {
+        //         body: messageObject
+        //     }
+        // )
     };
 
 }

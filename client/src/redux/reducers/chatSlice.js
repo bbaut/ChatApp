@@ -3,28 +3,35 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     isFetching: false,
     error: null,
-    currentConversation: null,
+    currentRoom: '',
+    chatMember: '',
     value: [],
 };
 
-const conversationSlice = createSlice({
-    name: 'messages',
+const chatSlice = createSlice({
+    name: 'chat',
     initialState,
     reducers: {
         addMessage: (state = null, action) => {
             state.isFetching = false;
             state.value = [...state.value, action.payload]
         },
-        currentConversation: (state = null, action) => {
-            state.currentConversation = action.payload;
+        currentRoom: (state = null, action) => {
+            console.log(action.payload.chatId)
+            console.log(action.payload.chatMember)
+            state.currentRoom = action.payload.chatId;
+            state.chatMember = action.payload.chatMember
         },
         getRoomMessages: (state = null, action) => {
             state.value = action.payload;
         },
+        isFetching: (state=null, action) => {
+            state.isFetching = true;
+        }
     },
 });
 
-export const { addMessage, currentConversation, getRoomMessages } = conversationSlice.actions;
+export const { addMessage, currentRoom, getRoomMessages, isFetching } = chatSlice.actions;
 
-export default conversationSlice.reducer;
+export default chatSlice.reducer;
 

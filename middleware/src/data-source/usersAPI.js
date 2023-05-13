@@ -78,6 +78,19 @@ class UsersAPI extends RESTDataSource {
             }
         )
     }
+    
+    async addChatContact(chatContactObj){
+        const user = chatContactObj[0];
+        const contact = chatContactObj[1];
+        return this.post(
+            '/api/users/addchatcontact', {
+                body: {
+                    user,
+                    contact
+                }
+            }
+        )
+    }
 }
 
 export default UsersAPI

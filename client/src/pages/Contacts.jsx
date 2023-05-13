@@ -27,10 +27,7 @@ const Contacts = () => {
       }
     })
 
-
     let contactsArray = [];
-
-    console.log(contacts)
 
     if (contacts.length !== 0) {
         for (let i = 0; i<  contacts.length; i++){

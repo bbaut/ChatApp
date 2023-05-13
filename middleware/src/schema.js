@@ -76,14 +76,12 @@ input RoomInputMember {
 
 type Room {
     _id: String
-    name: String
-    members: [UserData]
+    member: String
   }
 
   input RoomInput {
-    _id: String
-    name: String
-    members: [RoomInputMember]
+    createdBy: String
+    member: String
   }
 
 type Query {

@@ -3,6 +3,9 @@ import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { useSubscription } from '@apollo/client';
+import ACCEPT_CONTACT_REQUEST from "../gql/acceptContact"
 import ChatContainer from '../components/ChatContainer';
 import ChatContacts from '../components/ChatContacts';
 
@@ -18,21 +21,47 @@ const BoxContainer = styled(Box)(() => ({
   }));
 
 const Chat = () => {
-    const [ contacts, setContacts] = useState([]);
-    const [ currentChat, setCurrentChat] = useState("first"); ////////////
+    const [ currentChat, setCurrentChat] = useState(''); ////////////
 
     const { chatId } = useParams();
+    const { chatMember } = useSelector(
+        (state) => state.chat
+    );
 
-    useEffect(()=>{},[])
+    const dispatch = useDispatch();
+
+    const { contacts } = useSelector(
+      (state) => state.user.value
+    );
+
+
+    useSubscription(ACCEPT_CONTACT_REQUEST, {
+      onData: (data) => {
+        dispatch({
+          type: "acceptRequest",
+          payload: data.data.data.acceptContactRequest,
+      })
+      },
+      onError: (error) => {
+          console.log(error)
+      }
+    })
+
+    let contactsArray = [];
+    if (contacts.length !== 0) {
+        for (let i = 0; i<  contacts.length; i++){
+            contactsArray.push(contacts[i])
+        }
+    }
 
     return (
         <BoxContainer>
             <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
-                <ChatContacts/>
+                <ChatContacts contactsArray={contactsArray} currentChat={"chatMember"}/>
                 {chatId === "0" ? 
                     <Box sx={{color: "white"}}>Please select a chat to start messaging</Box> 
                     :
-                    <ChatContainer currentChat={currentChat}/>
+                    <ChatContainer currentChat={chatMember}/>
                 }
             </Box>
         </BoxContainer>

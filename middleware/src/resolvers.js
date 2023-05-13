@@ -184,15 +184,12 @@ const resolvers = {
         },
 
         createChatRoom: async (_, { createRoomInput }, { dataSources }) => {
+             console.log(createRoomInput)
             try {
               const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
         
-              const { _id, members } = createdRoom;
-        
-              const updatedUsers = members.map(
-                async ({ username }) =>
-                  await dataSources.userAPI.updateInfo(username, { rooms: { _id } })
-              );
+              //userAPI.roomlist(chatId)
+              const { _id } = createdRoom;
         
               return createdRoom;
             } catch (err) {

@@ -5,6 +5,7 @@ import findContactReducer from "./findContactReducer.js";
 import requestsContactReducer from "./requestsContactReducer.js";
 import registerReducer from "./registerSlice.js";
 import userReducer from "./userSlice.js"
+import chatReducer from "./chatSlice.js";
 
 export default combineReducers({
     register: registerReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
     findContactFunc: findContactReducer,
     requestContactFunc: requestsContactReducer,
     user: userReducer,
+    chat: chatReducer,
 })
