@@ -1,5 +1,16 @@
-import Chats from "../models/Chats.js";
-import Chat from "../models/Chats.js"
+import Message from "../models/Chats.js"
+import Chats from "../models/Chats.js"
+
+const createMessage = async (req, res) => {
+    try {
+        const { body } = req;
+        const message = await Message.create(body);
+
+        return res.status(201).send({ message });
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
+}
 
 const createChatRoom = async (req, res) => {
     const group = { ...req.body };
@@ -14,10 +25,10 @@ const createChatRoom = async (req, res) => {
     }
 }
 
-const createMessage = async (req, res) => {
+const getAllMessages = async (req, res) => {
     try {
         const { body } = req;
-        const message = await Chat.create(body);
+        const message = await Message.create(body);
 
         return res.status(201).send({ message });
     } catch (err) {
@@ -26,6 +37,6 @@ const createMessage = async (req, res) => {
 }
 
 export {
-    createChatRoom,
-    createMessage
+    createMessage,
+    getAllMessages
 }

@@ -5,7 +5,8 @@ import { addContact,
         searchContact, 
         requestsContact, 
         userProfile, 
-        deleteRequest
+        deleteRequest,
+        addChatContact
     } from "../controllers/usersControllers.js";
 
 const router = Router();
@@ -17,5 +18,6 @@ router.post('/addcontact', addContact);
 router.post('/deleterequest', deleteRequest);
 router.get('/requests', requestsContact);
 router.patch('/acceptcontact', acceptContact);
+router.patch('/addchatcontact', addChatContact); 
 
 export default router

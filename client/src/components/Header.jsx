@@ -187,6 +187,14 @@ function Header() {
                       contacts
                 </Link>
               </Button>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              > 
+                <Link to={"/dashboard/chat/0"}>
+                      chat
+                </Link>
+              </Button>
               <IconButton aria-label="cart">
                 <StyledBadge badgeContent={requests.length} color="secondary">
                   <Link to={"/dashboard/requests"}>

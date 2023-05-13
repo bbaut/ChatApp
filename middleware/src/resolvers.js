@@ -26,6 +26,10 @@ const resolvers = {
             const {email} = requestsInput;
             return await dataSources.usersAPI.requests({email});
         },
+
+        async getMessages (_, {getMessageInput}, {dataSources, req, res}) {
+
+        }
     },
     Mutation: {
         async registerUser(_, {registerInput}, {dataSources, req, res}) {
@@ -145,18 +149,57 @@ const resolvers = {
         },
         // CHAT
 
-        async createChatRoom (_, {createChatRoomInput}, {dataSources, req, res}){
-            
-        },
-
         async createMessage(_, {createMessageInput}, {dataSources, req, res}){
             try {
+                const { members } = await dataSources.chatAPI.getChatRoom(
+                  messageInput.chatId
+                );
+          
+                const inRoom = members.find(
+                  (user) => user.username === authUser.username
+                );
+          
+                if (authUser.username !== messageInput.sendBy || !inRoom) {
+                  throw new GraphQLError("Internal Error", {
+                    extensions: {
+                      code: "BAD_USER_INPUT",
+                      http: { status: 400 },
+                    },
+                  });
+                }
+          
+                const createdMessage = await dataSources.chatAPI.createMessage(
+                  messageInput
+                );
+          
+                pubSub.publish("MESSAGE_CREATED", {
+                  newMessage: messageInput,
+                });
+          
+                return createdMessage.message;
+              } catch (err) {
+                const message = err.extensions.response.body.error;
+                throw new GraphQLError(message);
+              }
+        },
 
+        createChatRoom: async (_, { createRoomInput }, { dataSources }) => {
+            try {
+              const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
+        
+              const { _id, members } = createdRoom;
+        
+              const updatedUsers = members.map(
+                async ({ username }) =>
+                  await dataSources.userAPI.updateInfo(username, { rooms: { _id } })
+              );
+        
+              return createdRoom;
+            } catch (err) {
+              const message = err.extensions.response.body.error;
+              throw new GraphQLError(message);
             }
-            catch (error) {
-
-            }
-        }
+          },
 
     },
     Subscription: subscriptionsResolvers,

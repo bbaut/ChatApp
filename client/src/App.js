@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
+import { ThemeProvider, createTheme } from "@mui/material";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register";
 import ProtectedRoute from "./layouts/ProtectedRoute";
@@ -10,10 +11,24 @@ import AddContact from "./pages/AddContact";
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Requests from "./pages/Requests";
+import Chat from "./pages/Chat";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#131324",
+    },
+    secondary: {
+      main: "#00000076",
+    },
+    mode: "light",
+  },
+});
 
 function App() {
 
   return (
+    <ThemeProvider theme={theme}>
     <Provider  store={store}>
     <BrowserRouter>
       <AuthProvider>
@@ -27,11 +42,13 @@ function App() {
             <Route path="contacts" element={<Contacts/>}/>
             <Route path="addcontact" element={<AddContact/>}/>
             <Route path="requests" element={<Requests/>}/>
+            <Route path="chat/:chatId" element={<Chat/>}/>
           </Route>
         </Routes>
       </AuthProvider>
     </BrowserRouter>
     </Provider>
+    </ThemeProvider>
   );
 }
 

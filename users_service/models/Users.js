@@ -17,11 +17,15 @@ const UserSchema = new Schema({
     },
     contacts: {
         type: Array,
-        default: [] //It will save ids
+        default: [] //It will save usernames
     },
     requests: {
         type: Array,
-        default: [Object] //It will save ids
+        default: [Object] //It will save usernames
+    },
+    chatContacts: {
+        type: Array,
+        default: []
     }
 })
 

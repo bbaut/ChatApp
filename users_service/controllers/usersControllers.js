@@ -172,6 +172,42 @@ const deleteRequest = async (req, res) => {
     }
 }
 
+const addChatContact = async (req,res) => {
+    const userOne = req.body.user;
+    const userTwo = req.body.contact;
+    // const [userOne, userTwo] = req.body;
+
+    try {
+        const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
+        const contact = await Users.findOne({username: userTwo.username});
+
+        if(!user || !contact){
+            const error = new Error('User not found');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const userUsername = user.username;
+        const contactUsername = contact.username; 
+
+        const userUpdated = await Users.findOneAndUpdate(
+            {username: user.username},
+            { $push: { chatContacts: contactUsername }},
+            { new: true }
+        )
+
+        const contactUpdated = await Users.findOneAndUpdate(
+            {username: contact.username},
+            {$push: { chatContacts: userUsername }},
+            { new: true }
+        )
+
+        return res.status(200).json({userUpdated, contactUpdated});
+    }
+    catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+}
+
 export {
     searchContact,
     userProfile,
@@ -179,5 +215,6 @@ export {
     deleteRequest,
     requestsContact,
     acceptContact,
-    createUser
+    createUser,
+    addChatContact
 }
