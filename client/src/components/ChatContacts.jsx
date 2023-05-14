@@ -1,26 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import Avatar from "../assets/avatar.png"
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-const ChatContacts = ({contactsArray, currentChat}) => {
+const ChatContacts = ({contactsArray, currentMember, changeChat}) => {
 
-  const [currentUsername, setCurrentUsername] = useState("hello");
+  // const [currentUsername, setCurrentUsername] = useState("hello");
   const [currentSelected, setCurrentSelected] = useState(undefined);
 
-  console.log(currentUsername)
-  console.log(currentChat)
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if(currentChat){
-      setCurrentUsername(currentChat)
+  const { currentRoom } = useSelector(
+    (state) => state.chat
+);
+  // useEffect(() => {
+  //   if(currentMember){
+  //     setCurrentUsername(currentMember)
+  //   }
+  // }, [currentMember])
+
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact)
+  }
+
+  useEffect(()=>{
+    if (currentRoom){
+        navigate(`/dashboard/chat/${currentRoom}`)
     }
-  }, [currentChat])
+},[currentRoom])
 
-  const changeCurrentChat = (index, contact) => {}
-  
   return (
-    <> {
-      currentUsername && (
+    <> 
+
         <Box 
           sx={{
             display: "grid",
@@ -61,6 +74,14 @@ const ChatContacts = ({contactsArray, currentChat}) => {
               alignItems: "center",
               overflow: "auto",
               gap: "0.8rem",
+              "&::-webkit-scrollbar": {
+                width: "0.2rem",
+                "&-thumb": {
+                  backgroundColor: "#ffffff39",
+                  width: "0.1rem",
+                  borderRadius: "1rem",
+                }
+              }
             }}
           >
             {contactsArray.map((contact, index) => {
@@ -80,6 +101,7 @@ const ChatContacts = ({contactsArray, currentChat}) => {
                       transition: "0.5s ease-in-out"
                     }}
                     key={index}
+                    onClick={()=>changeCurrentChat(index, contact)}
                   >
                     <Box
                       // avatar
@@ -122,12 +144,10 @@ const ChatContacts = ({contactsArray, currentChat}) => {
                 style={{
                   color: "white"
                 }}
-              >{currentChat}</h2>
+              >{currentMember}</h2>
             </Box>
           </Box>
         </Box>
-      )
-    }
     </>
   )
 }

@@ -21,7 +21,7 @@ const BoxContainer = styled(Box)(() => ({
   }));
 
 const Chat = () => {
-    const [ currentChat, setCurrentChat] = useState(''); ////////////
+    const [ currentChat, setCurrentChat] = useState(undefined); 
 
     const { chatId } = useParams();
     const { chatMember } = useSelector(
@@ -30,7 +30,7 @@ const Chat = () => {
 
     const dispatch = useDispatch();
 
-    const { contacts } = useSelector(
+    const { contacts, username } = useSelector(
       (state) => state.user.value
     );
 
@@ -54,14 +54,32 @@ const Chat = () => {
         }
     }
 
+    const handleChatChange = (chat) => {
+        setCurrentChat(chat);
+        // e.preventDefault()
+        // console.log("chat")
+        // console.log(username)
+        // console.log(friend)
+        dispatch({
+            type: "createNewRoom",
+            payload: {
+                newRoom:{
+                    createdBy: username,
+                    member: chat,
+                }
+            }
+        })
+    }
+
+
     return (
         <BoxContainer>
             <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
-                <ChatContacts contactsArray={contactsArray} currentChat={"chatMember"}/>
-                {chatId === "0" ? 
+                <ChatContacts contactsArray={contactsArray} currentMember={username} changeChat={handleChatChange}/>
+                {currentChat === undefined ? 
                     <Box sx={{color: "white"}}>Please select a chat to start messaging</Box> 
                     :
-                    <ChatContainer currentChat={chatMember}/>
+                    <ChatContainer currentChat={currentChat}/>
                 }
             </Box>
         </BoxContainer>

@@ -61,7 +61,8 @@ const ChatInput = ({handleSendMsg}) => {
                     width: "50px",
                     height: "50px",
                     flexGrow: 0,
-                    backgroundColor: "#ffffff34"
+                    backgroundColor: "#ffffff34",
+                    marginLeft: "20px"
                 }}
                 onClick={handleEmojiPicker}
             >

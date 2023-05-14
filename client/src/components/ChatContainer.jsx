@@ -15,10 +15,14 @@ const ChatContainer = ({currentChat}) => {
     }
 
     return (
-        <Box sx={{paddingTop:"1rem"}}>
+        <Box 
+            sx={{
+                paddingTop:"1rem"
+            }}
+        >
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
                 <Box sx={{display:"flex", alignItems:"center", gap:"1rem"}}>
-                    <Typography color="white">
+                    <Typography variant='h4' color="white">
                         {currentChat}
                     </Typography>
                 </Box>
