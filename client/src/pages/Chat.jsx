@@ -79,7 +79,7 @@ const Chat = () => {
                 {currentChat === undefined ? 
                     <Box sx={{color: "white"}}>Please select a chat to start messaging</Box> 
                     :
-                    <ChatContainer currentChat={currentChat}/>
+                    <ChatContainer currentChat={currentChat} currentMember={username}/>
                 }
             </Box>
         </BoxContainer>

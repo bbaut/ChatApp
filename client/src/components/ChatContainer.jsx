@@ -6,12 +6,12 @@ import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import { useDispatch } from 'react-redux';
 
-const ChatContainer = ({currentChat}) => {
+const ChatContainer = ({currentChat, currentMember}) => {
     const dispatch = useDispatch();
 
     const handleSendMsg = async (msg) => {
         console.log(msg);
-        dispatch()
+        // dispatch()
     }
 
     return (

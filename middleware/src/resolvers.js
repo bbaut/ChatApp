@@ -151,32 +151,30 @@ const resolvers = {
 
         async createMessage(_, {createMessageInput}, {dataSources, req, res}){
             try {
-                const { members } = await dataSources.chatAPI.getChatRoom(
-                  messageInput.chatId
-                );
+                // const { members } = await dataSources.chatAPI.getChatRoom(
+                //   messageInput.chatId
+                // );
           
-                const inRoom = members.find(
-                  (user) => user.username === authUser.username
-                );
+                // const inRoom = members.find(
+                //   (user) => user.username === authUser.username
+                // );
           
-                if (authUser.username !== messageInput.sendBy || !inRoom) {
-                  throw new GraphQLError("Internal Error", {
-                    extensions: {
-                      code: "BAD_USER_INPUT",
-                      http: { status: 400 },
-                    },
-                  });
-                }
+                // if (authUser.username !== messageInput.sendBy || !inRoom) {
+                //   throw new GraphQLError("Internal Error", {
+                //     extensions: {
+                //       code: "BAD_USER_INPUT",
+                //       http: { status: 400 },
+                //     },
+                //   });
+                // }
+                // console.log(createMessageInput);
+                const createdMessage = await dataSources.chatAPI.createMessage(createMessageInput);
           
-                const createdMessage = await dataSources.chatAPI.createMessage(
-                  messageInput
-                );
-          
-                pubSub.publish("MESSAGE_CREATED", {
-                  newMessage: messageInput,
-                });
-          
-                return createdMessage.message;
+                // pubSub.publish("MESSAGE_CREATED", {
+                //   newMessage: messageInput,
+                // });
+                console.log(createdMessage)
+                return createdMessage;
               } catch (err) {
                 const message = err.extensions.response.body.error;
                 throw new GraphQLError(message);

@@ -17,8 +17,6 @@ const chatSlice = createSlice({
             state.value = [...state.value, action.payload]
         },
         currentRoom: (state = null, action) => {
-            console.log(action.payload.chatId)
-            console.log(action.payload.chatMember)
             state.currentRoom = action.payload.chatId;
             state.chatMember = action.payload.chatMember
         },

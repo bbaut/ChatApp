@@ -24,17 +24,6 @@ type Email{
     email: String
 }
 
-type Message {
-    _id: ID
-    content: String
-    chatId: ID
-
-  }
-input MessageInput {
-    content: String
-    chatId: ID
-}
-
 input RegisterInput {
     username: String
     email: String
@@ -83,6 +72,26 @@ type Room {
     createdBy: String
     member: String
   }
+
+type Content {
+    text: String
+}
+
+type Message {
+    message: Content
+    sender: String
+    chatId: String
+
+}
+input MessageInput {
+    message: inputContent
+    sender: String
+    chatId: String
+}
+
+input inputContent {
+    text: String
+}
 
 type Query {
     profileUser(profileInput: ProfileInput): UserData

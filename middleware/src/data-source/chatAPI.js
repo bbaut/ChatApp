@@ -9,7 +9,6 @@ class ChatAPI extends RESTDataSource {
     }
 
     async createChatRoom (roomObject) {
-        console.log(roomObject)
         return this.post(
             '/api/chat/createchatroom', {
                 body: roomObject
@@ -19,11 +18,11 @@ class ChatAPI extends RESTDataSource {
 
     async createMessage (messageObject) {
         console.log(messageObject);
-        // return this.post(
-        //     '/api/chat/createmessage', {
-        //         body: messageObject
-        //     }
-        // )
+        return this.post(
+            '/api/chat/createmessage', {
+                body: messageObject
+            }
+        )
     };
 
 }

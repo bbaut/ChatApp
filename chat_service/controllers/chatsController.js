@@ -3,17 +3,16 @@ import Rooms from "../models/Rooms.js"
 
 const createMessage = async (req, res) => {
     try {
-        const { body } = req;
-        const message = await Message.create(body);
-
-        return res.status(201).send({ message });
+        const message = await Message(req.body);
+        const messageSaved = await message.save();
+        res.json(messageSaved)
+        // return res.status(201).send({ message });
     } catch (err) {
         return res.status(500).send(err.message);
     }
 }
 
 const createChatRoom = async (req, res) => {
-    console.log(req.body)
     // const {user, contact} = req.body;
 
     try {
