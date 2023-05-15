@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 
 const ChatContainer = ({currentChat, currentMember}) => {
     const dispatch = useDispatch();

@@ -10,6 +10,7 @@ import acceptFriend from "./acceptContactSaga";
 import acceptRequest from "./acceptRequestSaga";
 import newRoom from "./newRoomSaga";
 import newMessage from "./newMessageSaga";
+import queryMessages from "./getMessagesSaga";
 
 export function* watchGetUser(){
     yield takeLatest(GET_USER, handlerGetUser)
@@ -50,6 +51,10 @@ export function* watchCreateNewMessage(){
     yield takeLatest("createNewMessage", newMessage)
 }
 
+export function* watchGetMessages(){
+    yield takeEvery("queryMessages", queryMessages)
+}
+
 export default function* rootSaga() {
     yield all([
         watchGetUser(),
@@ -62,5 +67,6 @@ export default function* rootSaga() {
         watchRemoveRequest(),
         watchCreateNewRoom(),
         watchCreateNewMessage(),
+        watchGetMessages(),
     ]);
 }

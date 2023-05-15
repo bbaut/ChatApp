@@ -65,6 +65,17 @@ const Chat = () => {
                 }
             }
         })
+
+        dispatch({
+            type:"queryMessages",
+            payload: 
+            {
+                queryInput: {
+                    chatId: "64622f86f6285c885cbd0025",
+                    from: "thor"
+                }
+            }
+          })
     }
 
 
