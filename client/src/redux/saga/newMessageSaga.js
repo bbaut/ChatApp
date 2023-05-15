@@ -5,16 +5,18 @@ import client from "../../apolloClient";
 function* newMessage(action) {
   const options = {
     mutation: gql`
-        mutation Mutation($createMessageInput: MessageInput) {
-            createMessage(createMessageInput: $createMessageInput) {
-                _id
-                chatId
-                content
-            }
+      mutation CreateMessage($createMessageInput: MessageInput) {
+        createMessage(createMessageInput: $createMessageInput) {
+          chatId
+          message {
+            text
+          }
+          sender
         }
+      }
     `,
     variables: {
-      createMessageInput: action.payload,
+      createMessageInput: action.payload.newMessage,
     },
     fetchPolicy: "no-cache",
   };

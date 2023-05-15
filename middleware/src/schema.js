@@ -93,6 +93,11 @@ input inputContent {
     text: String
 }
 
+input GetMessageInput {
+    chatId: String
+    from: String
+}
+
 type Query {
     profileUser(profileInput: ProfileInput): UserData
     existanceContact(existanceInput: ExistanceInput): User
@@ -100,7 +105,7 @@ type Query {
     requestsContact(requestsInput: RequestsInput): UserData
 
     #CHAT
-    getMessages(getMessageInput: UserDataInput): Message
+    getMessages(getMessageInput: GetMessageInput): [Content]
 }
 
 type Mutation {

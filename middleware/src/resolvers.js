@@ -11,13 +11,11 @@ const resolvers = {
         },
 
         async existanceContact (_,{existanceInput}, {dataSources, req, res}) {
-            console.log(req)
             const {email} = existanceInput;
             return await dataSources.usersAPI.existance({email});
         }, 
 
         async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
-            console.log(req)
             const {email} = userDataInput;
             return await dataSources.usersAPI.userData({email});
         }, 
@@ -28,7 +26,7 @@ const resolvers = {
         },
 
         async getMessages (_, {getMessageInput}, {dataSources, req, res}) {
-
+            return await dataSources.chatAPI.getAllMessages(getMessageInput);
         }
     },
     Mutation: {
@@ -173,7 +171,6 @@ const resolvers = {
                 // pubSub.publish("MESSAGE_CREATED", {
                 //   newMessage: messageInput,
                 // });
-                console.log(createdMessage)
                 return createdMessage;
               } catch (err) {
                 const message = err.extensions.response.body.error;

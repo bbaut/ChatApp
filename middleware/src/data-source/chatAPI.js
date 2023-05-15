@@ -17,13 +17,18 @@ class ChatAPI extends RESTDataSource {
     }
 
     async createMessage (messageObject) {
-        console.log(messageObject);
         return this.post(
             '/api/chat/createmessage', {
                 body: messageObject
             }
         )
     };
+
+    async getAllMessages (params) {
+        return this.get(
+            '/api/chat/getmessages', {params}
+        )
+    }
 
 }
 

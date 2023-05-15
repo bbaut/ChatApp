@@ -31,11 +31,23 @@ const createChatRoom = async (req, res) => {
 }
 
 const getAllMessages = async (req, res) => {
+    const { chatId, from } = req.query;
     try {
-        const { body } = req;
-        const message = await Message.create(body);
+        const messages = await Message.find({
+            chatId: {
+                $all: chatId
+            }
+        })
+        .sort({updatedAt: 1});
 
-        return res.status(201).send({ message });
+        
+        const shownMessages = messages.map((msg) => {
+            if(from === msg.sender.toString()){
+                return {text : msg.message.text}
+            }
+        })
+
+        res.json(shownMessages);
     } catch (err) {
         return res.status(500).send(err.message);
     }

@@ -56,10 +56,6 @@ const Chat = () => {
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
-        // e.preventDefault()
-        // console.log("chat")
-        // console.log(username)
-        // console.log(friend)
         dispatch({
             type: "createNewRoom",
             payload: {

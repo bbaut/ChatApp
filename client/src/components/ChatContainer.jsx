@@ -1,17 +1,28 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import { useDispatch } from 'react-redux';
 
 const ChatContainer = ({currentChat, currentMember}) => {
     const dispatch = useDispatch();
+    const { chatId } = useParams();
 
     const handleSendMsg = async (msg) => {
-        console.log(msg);
-        // dispatch()
+        dispatch({
+            type: "createNewMessage",
+            payload: {
+                newMessage: {
+                    chatId: chatId,
+                    message: {
+                      text: msg
+                    },
+                    sender: currentMember
+                  }
+            }
+        })
     }
 
     return (

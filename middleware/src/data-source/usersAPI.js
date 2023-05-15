@@ -14,13 +14,11 @@ class UsersAPI extends RESTDataSource {
         )
     };
     async userData(params) {
-        console.log(params)
         return this.get(
             `/api/users/userprofile`, {params}
         )
     };
     async requests(params) {
-        console.log(params)
         return this.get(
             `/api/users/requests`, {params}
         )
