@@ -14,6 +14,12 @@ const ChatContacts = ({contactsArray, currentMember, changeChat}) => {
   const { currentRoom } = useSelector(
     (state) => state.chat
 );
+
+useEffect(()=>{
+    if (currentRoom){
+        navigate(`/dashboard/chat/${currentRoom}`)
+    }
+},[currentRoom])
   // useEffect(() => {
   //   if(currentMember){
   //     setCurrentUsername(currentMember)
@@ -25,11 +31,6 @@ const ChatContacts = ({contactsArray, currentMember, changeChat}) => {
     changeChat(contact)
   }
 
-  useEffect(()=>{
-    if (currentRoom){
-        navigate(`/dashboard/chat/${currentRoom}`)
-    }
-},[currentRoom])
 
   return (
     <> 

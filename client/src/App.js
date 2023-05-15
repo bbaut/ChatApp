@@ -42,7 +42,7 @@ function App() {
             <Route path="contacts" element={<Contacts/>}/>
             <Route path="addcontact" element={<AddContact/>}/>
             <Route path="requests" element={<Requests/>}/>
-            <Route path="chat/:chatId" element={<Chat/>}/>
+            <Route path="chat/:chatId" element={<Chat/>} />
           </Route>
         </Routes>
       </AuthProvider>

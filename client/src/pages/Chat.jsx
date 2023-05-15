@@ -8,6 +8,7 @@ import { useSubscription } from '@apollo/client';
 import ACCEPT_CONTACT_REQUEST from "../gql/acceptContact"
 import ChatContainer from '../components/ChatContainer';
 import ChatContacts from '../components/ChatContacts';
+import { useNavigate } from 'react-router-dom';
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -22,6 +23,8 @@ const BoxContainer = styled(Box)(() => ({
 
 const Chat = () => {
     const [ currentChat, setCurrentChat] = useState(undefined); 
+
+    const navigate = useNavigate();
 
     const { chatId } = useParams();
     const { currentRoom, chatMember } = useSelector(
@@ -54,8 +57,11 @@ const Chat = () => {
         }
     }
 
+    let id;
+
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
+
 
         dispatch({
             type: "createNewRoom",
@@ -66,7 +72,9 @@ const Chat = () => {
                 }
             }
         })
+    }
 
+    useEffect(() => {
         dispatch({
             type:"queryMessages",
             payload: 
@@ -77,7 +85,7 @@ const Chat = () => {
                 }
             }
         })
-    }
+    }, [chatId])
 
     return (
         <BoxContainer>

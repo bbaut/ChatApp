@@ -51,7 +51,7 @@ const createChatRoom = async (req, res) => {
 
 const getAllMessages = async (req, res) => {
     const { chatId, from } = req.query;
-
+    
     try {
         const messages = await Message.find({
             chatId: {
@@ -76,6 +76,7 @@ const getAllMessages = async (req, res) => {
                 }
             }
         })
+
 
         res.json(shownMessages);
     } catch (err) {

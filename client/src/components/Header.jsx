@@ -134,21 +134,6 @@ function Header() {
                     </Link>
                   </Typography>
                 </MenuItem>
-
-              {/* {pages.map((page, index) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                  { index === 0 ?  
-                <Link to={"/dashboard"}>
-                      {page}
-                </Link> :
-                <Link to={`${page}`}>
-                      {page}
-                </Link> 
-              }
-                  </Typography>
-                </MenuItem>
-              ))} */}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -246,75 +231,3 @@ function Header() {
 }
 
 export default Header
-
-{/* <Typography variant="body1" component="div">
-                        <Link to="/" style={{textDecoration:"none", color:"white"}}>LOooGO</Link>
-                    </Typography>
-                    <Box alignItems="center" sx={{flexGrow:1, textAlign: "center"} }>
-                        <Link to="/login" style={{textDecoration:"none", color:"white", marginRight:"10px"}}>Profile</Link>
-                        <Link to="/register" style={{textDecoration:"none", color:"white"}}>Chats</Link>
-                        <List>
-                            <ListItem dissablePadding>
-                                <ListItemButton component="a" href="#home">
-                                    <ListItemIcon>
-                                        <Home/>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Homepage"/>
-                                </ListItemButton>
-                            </ListItem>
-                            <ListItem dissablePadding>
-                                <ListItemButton component="a" href="#home">
-                                    <ListItemIcon>
-                                        <Home/>
-                                    </ListItemIcon>
-                                    <ListItemText primary="Homepage"/>
-                                </ListItemButton>
-                            </ListItem>
-                        </List>
-                    </Box> */}
-
-{/* <Stack direction="row" spacing={3} justifyContent="space-between" alignItems="center" divider={<Divider orientation="vertical" flexItem />}>
-                            <List>
-                                <ListItem dissablePadding>
-                                    <ListItemButton component="a" href="#home">
-                                        <ListItemIcon>
-                                            <Chat/>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Chats"/>
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-
-                            <List>
-                                <ListItem dissablePadding>
-                                    <ListItemButton component="a" href="#home">
-                                        <ListItemIcon>
-                                            <PeopleOutline/>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Contacts"/>
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-
-                            <List>
-                                <ListItem dissablePadding>
-                                    <ListItemButton component="a" href="#home">
-                                        <ListItemIcon>
-                                            <AccountBox/>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Profile"/>
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-
-                            <List>
-                                <ListItem dissablePadding>
-                                    <ListItemButton component="a" href="#home">
-                                        <ListItemIcon>
-                                            <Settings/>
-                                        </ListItemIcon>
-                                        <ListItemText primary="Settings"/>
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-                    </Stack> */}

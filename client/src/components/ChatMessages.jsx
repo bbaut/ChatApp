@@ -56,7 +56,7 @@ const ChatMessages = ({currentMember}) => {
       }}
     >
       {
-        messages.map((message) => {
+        messages.map((message, index) => {
           return (
             <Box>
               {
@@ -68,6 +68,7 @@ const ChatMessages = ({currentMember}) => {
                   alignItems: "center",
                   justifyContent: "flex-end"
                 }}
+                key={index}
               >
                 <Box
                   // content
