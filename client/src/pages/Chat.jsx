@@ -24,7 +24,7 @@ const Chat = () => {
     const [ currentChat, setCurrentChat] = useState(undefined); 
 
     const { chatId } = useParams();
-    const { chatMember } = useSelector(
+    const { currentRoom, chatMember } = useSelector(
         (state) => state.chat
     );
 
@@ -56,6 +56,7 @@ const Chat = () => {
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
+
         dispatch({
             type: "createNewRoom",
             payload: {
@@ -71,13 +72,12 @@ const Chat = () => {
             payload: 
             {
                 queryInput: {
-                    chatId: "64622f86f6285c885cbd0025",
-                    from: "thor"
+                    chatId: chatId,
+                    from: username
                 }
             }
-          })
+        })
     }
-
 
     return (
         <BoxContainer>

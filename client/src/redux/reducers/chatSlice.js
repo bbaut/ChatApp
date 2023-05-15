@@ -22,6 +22,7 @@ const chatSlice = createSlice({
         },
         getRoomMessages: (state = null, action) => {
             state.value = action.payload;
+            state.isFetching = false;
         },
         isFetching: (state=null, action) => {
             state.isFetching = true;

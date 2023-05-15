@@ -75,6 +75,7 @@ type Room {
 
 type Content {
     text: String
+    sender: String
 }
 
 type Message {
@@ -124,6 +125,7 @@ type Mutation {
 type Subscription {
     addContactRequest: UserData
     acceptContactRequest: [UserData]
+    sendMessage: Message
 }
 `
 export default typeDefs;

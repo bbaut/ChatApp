@@ -15,16 +15,35 @@ const createMessage = async (req, res) => {
 const createChatRoom = async (req, res) => {
     // const {user, contact} = req.body;
 
+    const roomCreatedOne = await Rooms.find({
+        createdBy: req.body.createdBy,
+        member: req.body.member
+    })
+
+    const roomCreatedTwo = await Rooms.find({
+        createdBy: req.body.member,
+        member: req.body.createdBy
+    })
+
     try {
         // const room = new Room({
         //     createdBy: user,
         //     member: contact
         // });
-        const room = new Rooms(req.body);
-        const roomSaved = await room.save();
-        res.json(roomSaved);
-  
-        // return res.status(200).send(roomSaved);
+
+        if (roomCreatedOne.length === 0 ) {
+            if(roomCreatedTwo.length === 0 ) {
+                const room = new Rooms(req.body);
+                const roomSaved = await room.save();
+                res.json(roomSaved);
+            }
+            else {
+                res.json(roomCreatedTwo[0]) 
+            }
+        }
+        else {
+            res.json(roomCreatedOne[0]) 
+        }
     } catch (err) {
       return res.status(500).send({ error: err.message });
     }
@@ -32,6 +51,7 @@ const createChatRoom = async (req, res) => {
 
 const getAllMessages = async (req, res) => {
     const { chatId, from } = req.query;
+
     try {
         const messages = await Message.find({
             chatId: {
@@ -43,7 +63,17 @@ const getAllMessages = async (req, res) => {
         
         const shownMessages = messages.map((msg) => {
             if(from === msg.sender.toString()){
-                return {text : msg.message.text}
+                return {
+                    text : msg.message.text,
+                    sender: "sended"
+                }
+            }
+            else {
+                return {
+                    text : msg.message.text,
+                    sender: "received"
+                    //sender: msg.sender
+                }
             }
         })
 

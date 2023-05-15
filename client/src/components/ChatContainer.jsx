@@ -7,7 +7,7 @@ import ChatMessages from './ChatMessages';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-const ChatContainer = ({currentChat, currentMember}) => {
+const ChatContainer = ({currentChat, currentMember, messages}) => {
     const dispatch = useDispatch();
     const { chatId } = useParams();
 
@@ -39,7 +39,7 @@ const ChatContainer = ({currentChat, currentMember}) => {
                     </Typography>
                 </Box>
             </Box>
-            <ChatMessages/>
+            <ChatMessages currentMember={currentMember}/>
             <ChatInput handleSendMsg={handleSendMsg}/>
         </Box>
     )

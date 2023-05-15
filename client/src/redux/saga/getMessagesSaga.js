@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { call, put } from "redux-saga/effects";
 import client from "../../apolloClient";
-import { getRoomMessages } from "../reducers/chatSlice";
+import { getRoomMessages, isFetching } from "../reducers/chatSlice";
 
 function* queryMessages(action) {
   const options = {
@@ -9,6 +9,7 @@ function* queryMessages(action) {
         query Query($getMessageInput: GetMessageInput) {
           getMessages(getMessageInput: $getMessageInput) {
             text
+            sender
           }
         }
     `,
@@ -19,6 +20,7 @@ function* queryMessages(action) {
   };
 
   try {
+    yield put(isFetching());
     const res = yield call(client.query, options);
     const messages = res;
     yield put(getRoomMessages(messages.data.getMessages));
