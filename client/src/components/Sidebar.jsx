@@ -4,9 +4,6 @@ import {AccountBox, Home, Person, Settings} from "@mui/icons-material";
 
 const Sidebar = ({users}) => {
   return (
-    // <>
-    //     <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam temporibus dignissimos impedit alias debitis veritatis eius perspiciatis? Illum voluptas deserunt nobis aliquam maiores, ipsam itaque est dolore soluta dolorem nemo.</h1>
-    // </>
     <Box
         flex={1}
         p={2}

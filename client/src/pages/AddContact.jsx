@@ -3,15 +3,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-// const ADD_CONTACT = gql `
-//     mutation AddContact($addInput: [AddInput]) {
-//         addContact(addInput: $addInput) {
-//             username
-//             email
-//     }
-// }
-// `
-
 const AddContact = () => {
 
     const navigate = useNavigate()

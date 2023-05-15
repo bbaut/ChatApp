@@ -13,10 +13,6 @@ const ChatMessages = ({currentMember}) => {
     (state) => state.chat
   );
 
-  // useEffect(() =>{
-  //   console.log(value)
-  // }, [value])
-
   let messages = value
   let sendedby
   const dispatch = useDispatch();

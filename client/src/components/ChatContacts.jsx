@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 
 const ChatContacts = ({contactsArray, currentMember, changeChat}) => {
 
-  // const [currentUsername, setCurrentUsername] = useState("hello");
   const [currentSelected, setCurrentSelected] = useState(undefined);
 
   const navigate = useNavigate();
@@ -20,11 +19,6 @@ useEffect(()=>{
         navigate(`/dashboard/chat/${currentRoom}`)
     }
 },[currentRoom])
-  // useEffect(() => {
-  //   if(currentMember){
-  //     setCurrentUsername(currentMember)
-  //   }
-  // }, [currentMember])
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
@@ -53,10 +47,11 @@ useEffect(()=>{
           >
             <Typography
               sx={{
-                height: "2rem"
+                height: "2rem",
+                color: "white"
               }}
             >
-              Hello
+              
             </Typography>
             <Typography
               sx={{
@@ -64,7 +59,7 @@ useEffect(()=>{
                 textTransform:"uppercase"
               }}
             >
-              You
+              chats
             </Typography>
           </Box>
           <Box 

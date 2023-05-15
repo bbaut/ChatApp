@@ -1,11 +1,9 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
 
 const ChatContainer = ({currentChat, currentMember, messages}) => {
     const dispatch = useDispatch();

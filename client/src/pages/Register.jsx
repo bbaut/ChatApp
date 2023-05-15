@@ -1,17 +1,9 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Container, Stack, TextField, Button, Typography} from "@mui/material"
-// import { gql, useMutation} from '@apollo/client';
 import { useNavigate } from "react-router-dom";
 import {useDispatch} from "react-redux";
 
-// const REGISTER_USER = gql `
-//     mutation Mutation($registerInput: RegisterInput) {
-//         registerUser(registerInput: $registerInput) {
-//             username
-//         }
-//     }
-// `
 
 const Register = () => {
     let navigate = useNavigate();
@@ -24,22 +16,6 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [alert, setAlert] = useState('');
 
-    // const[registerUser] = useMutation(REGISTER_USER,{
-    //     variables: {registerInput: {
-    //         username,
-    //         email,
-    //         password,
-    //         confirmPassword
-            
-    //     }},
-    //     onError(graphQLErrors){
-    //         console.log(graphQLErrors);
-    //     },
-    //     onCompleted(){
-    //         console.log("yey")
-    //     }
-    // })
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -47,17 +23,6 @@ const Register = () => {
             setAlert("All fields required");
             return;
         }
-
-        // if(password !== confirmPassword) {
-        //     setAlert("Passwords are not the same");
-        //     return;
-        // }
-
-        // if(password.length < 6) {
-        //     setAlert("Password must have 6 characters length min");
-        //     return;
-        // }
-        // registerUser();
 
         dispatch({
             type:"register",
@@ -126,12 +91,6 @@ const Register = () => {
                             onChange={e => setConfirmPassword(e.target.value)}
                             type="password"
                         />
-                        {/* <Input
-                            laber="Avatar"
-                            name="avatar"
-                            onChange={e => setImage(e.target.files[0])}
-                            type="File"
-                        ></Input> */}
                     </Stack>
                     <Button variant="contained" type="submit">Sign up</Button>
                 </form>
