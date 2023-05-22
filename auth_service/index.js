@@ -16,6 +16,10 @@ dbConnection();
 
 app.use(usersRoutePath, userRoutes);
 
-app.listen(port, () => {
+app.get('/api/auth', (req,res) => {
+    res.send("hello world")
+})
+
+app.listen(port, (req,res) => {
     console.log(`🚀 Rest server listening on ${port}`)
 })
