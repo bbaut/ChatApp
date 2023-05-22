@@ -1,19 +1,16 @@
 import mongoose from "mongoose";
 
-const dbConnection = async () => {
+const dbConnection = () => {
     const MONGO_HOST = "localhost"
     const MONGO_DB = "db_auth"
-    // const MONGO_DB = "users_credentials"
 
     const URI = `mongodb://${MONGO_HOST}/${MONGO_DB}`;
     
     try {
-        await mongoose.connect(URI, {
+        mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-
-        console.log('🌿 Data base successfully connected');
     }
     catch (error) {
         console.log(error);

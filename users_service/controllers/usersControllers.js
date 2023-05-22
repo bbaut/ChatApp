@@ -41,8 +41,6 @@ const requestsContact = async (req,res) => {
         const error = new Error('User not found');
         return res.status(404).json({msg: error.message});
     }
-
-    console.log("ye")
     
     res.json(contact);
 }
@@ -50,7 +48,6 @@ const requestsContact = async (req,res) => {
 const addContact = async (req,res) => {
     const userOne = req.body.user;
     const userTwo = req.body.contact;
-    // const [userOne, userTwo] = req.body;
 
     try {
         const user = await Users.findOne({email: userOne.email}); //The one who sends the contact request
@@ -94,7 +91,6 @@ const addContact = async (req,res) => {
 const acceptContact = async (req,res) => {
     const userOne = req.body.user;
     const userTwo = req.body.contact;
-    // const [userOne, userTwo] = req.body;
 
     try {
         const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
