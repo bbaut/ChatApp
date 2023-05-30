@@ -18,6 +18,10 @@ const resolvers = {
         async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
             const {email} = userDataInput;
             return await dataSources.usersAPI.userData({email});
+        },
+
+        async idToUsrnm (_,{idInput}, {dataSources, req, res}) {
+            return await dataSources.usersAPI.idToUsername(idInput);
         }, 
 
         async requestsContact (_,{requestsInput}, {dataSources, req, res}) {
@@ -48,7 +52,6 @@ const resolvers = {
             }
 
             try {
-                console.log(registerInput)
                 const userUsers = await dataSources.usersAPI.create(username, email);
                 const user = await dataSources.authAPI.register(registerInput);
 

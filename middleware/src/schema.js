@@ -10,7 +10,18 @@ type User {
 type Request {
     from: String!
     to: String!
-  }
+}
+
+type Member {
+    _id: ID!
+    username: String
+}
+
+type Group {
+    chatId: String!
+    members: [Member]
+}
+
 
 type UserData {
     _id: ID!
@@ -18,6 +29,7 @@ type UserData {
     email: String
     contacts: [String]
     requests: [Request]
+    groups: [Group]
 }
 
 type Email{
@@ -99,10 +111,19 @@ input GetMessageInput {
     from: String
 }
 
+input IdInput {
+    ids: [ID]
+}
+
+type Usernames {
+    usernames: [String]
+}
+
 type Query {
     profileUser(profileInput: ProfileInput): UserData
     existanceContact(existanceInput: ExistanceInput): User
     profileUserData(userDataInput: UserDataInput): UserData
+    idToUsrnm(idInput: IdInput): Usernames
     requestsContact(requestsInput: RequestsInput): UserData
 
     #CHAT

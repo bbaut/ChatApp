@@ -15,6 +15,7 @@ export default function AlignItemsList() {
 
     useSubscription(CONTACT_REQUEST, {
         onData: (data) => {
+            console.log(data.data.data.addContactRequest)
             dispatch({
                 type: "addNewRequest",
                 payload: data.data.data.addContactRequest,
@@ -25,12 +26,26 @@ export default function AlignItemsList() {
         }
     })
 
+    // React.useEffect(() => {
+    //     dispatch({
+    //         type: "usernameRequest",
+    //         payload: requestsUsername
+    //     })
+    // })
+
+    // dispatch({
+    //     type: "usernameRequest",
+    //     payload: requestsUsername
+    // })
+
     let requestsArray = [];
 
     if (requests.length !== 0) {
         for (let i = 0; i<  requests.length; i++){
             requestsArray.push(requests[i].from)
-        }
+    }
+
+    console.log(requests)
 
     return (
         <>

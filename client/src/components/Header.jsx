@@ -180,6 +180,14 @@ function Header() {
                       chat
                 </Link>
               </Button>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              > 
+                <Link to={"/dashboard/groups/0"}>
+                      Groups
+                </Link>
+              </Button>
               <IconButton aria-label="cart">
                 <StyledBadge badgeContent={requests.length} color="secondary">
                   <Link to={"/dashboard/requests"}>

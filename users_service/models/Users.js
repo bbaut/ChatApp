@@ -26,6 +26,10 @@ const UserSchema = new Schema({
     chatContacts: {
         type: Array,
         default: []
+    },
+    groups: {
+        type: Array,
+        default: [Object]
     }
 })
 

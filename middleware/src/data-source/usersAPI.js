@@ -18,6 +18,13 @@ class UsersAPI extends RESTDataSource {
             `/api/users/userprofile`, {params}
         )
     };
+
+    async idToUsername(params) {
+        return this.get(
+            `api/users/idtousername`, {params}
+        )
+    }
+    
     async requests(params) {
         return this.get(
             `/api/users/requests`, {params}

@@ -9,7 +9,7 @@ import { transports, format } from "winston";
 dotenv.config();
 
 const app = express ();
-// app.use(express.json());
+app.use(express.json());
 
 const port = process.env.PORT;
 const usersRoutePath = '/api/auth';
@@ -29,12 +29,6 @@ app.use(expressWinston.logger({
     )
 }))
 
-app.get('/api/auth', (req,res) => {
-    res.send("hello world")
-    res.sendStatus(200)
+app.listen(port, (req,res) => {
+    console.log(`🚀 Rest server listening on ${port}`)
 })
-
-// app.listen(port, (req,res) => {
-//     console.log(`🚀 Rest server listening on ${port}`)
-// })
-app.listen(port)
