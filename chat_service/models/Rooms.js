@@ -11,6 +11,9 @@ const RoomsSchema = new Schema({
     member: {
       type: String,
       required: true,
+    },
+    groupName: {
+      type: String
     }
   })
 

@@ -12,16 +12,15 @@ type Request {
     to: String!
 }
 
-type Member {
-    _id: ID!
-    username: String
-}
+# type Member {
+#     _id: String
+#     username: String
+# }
 
 type Group {
     chatId: String!
-    members: [Member]
+    chatName: String!
 }
-
 
 type UserData {
     _id: ID!
@@ -78,11 +77,17 @@ input RoomInputMember {
 type Room {
     _id: String
     member: String
+    groupName: String
   }
 
   input RoomInput {
     createdBy: String
     member: String
+    groupName: String
+  }
+
+  input getRoomInput {
+    id: String
   }
 
 type Content {
@@ -128,6 +133,7 @@ type Query {
 
     #CHAT
     getMessages(getMessageInput: GetMessageInput): [Content]
+    getRoom(getRoomInput: getRoomInput): Room
 }
 
 type Mutation {

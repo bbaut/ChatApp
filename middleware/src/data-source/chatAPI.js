@@ -30,6 +30,12 @@ class ChatAPI extends RESTDataSource {
         )
     }
 
+    async getRoom (params) {
+        return this.get(
+            '/api/chat/getroom', {params}
+        )
+    }
+
 }
 
 export default ChatAPI;

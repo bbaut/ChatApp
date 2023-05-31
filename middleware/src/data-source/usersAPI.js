@@ -59,8 +59,6 @@ class UsersAPI extends RESTDataSource {
     async acceptContact(acceptObj){
         const user = acceptObj[0];
         const contact = acceptObj[1];
-        console.log(user)
-        console.log(contact)
         return this.patch(
             '/api/users/acceptcontact', {
                 body: {
@@ -92,6 +90,20 @@ class UsersAPI extends RESTDataSource {
                 body: {
                     user,
                     contact
+                }
+            }
+        )
+    }
+
+    async addGroup(createdRoom){
+        const {createdBy, member, groupName, _id} = createdRoom
+        return this.post(
+            '/api/users/addgroup', {
+                body: {
+                    createdBy,
+                    member,
+                    groupName,
+                    _id
                 }
             }
         )

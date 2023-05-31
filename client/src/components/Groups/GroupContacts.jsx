@@ -12,6 +12,7 @@ import Avatar from "../../assets/avatar.png"
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 
 const GroupContacts = ({groupsArray, currentMember, changeChat}) => {
@@ -19,12 +20,20 @@ const GroupContacts = ({groupsArray, currentMember, changeChat}) => {
   const [currentSelected, setCurrentSelected] = useState(undefined);
   const [open, setOpen] = React.useState(false);
   const [groupName, setGroupName] = React.useState("");
+  const [memberName, setMemberName] = React.useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { currentRoom } = useSelector(
     (state) => state.chat
 );
+
+const { contacts, username } = useSelector(
+    (state) => state.user.value
+  );
+
+  console.log(currentRoom)
 
 useEffect(()=>{
     if (currentRoom){
@@ -42,22 +51,33 @@ useEffect(()=>{
   }
 
   const handleCreate = () => {
-    if (groupName === ""){
+    if (groupName === "" || memberName === ""){
         alert("Please fill the name of the group")
+        return
     }
 
-    // dispatch({
-    //     type: "createNewRoom",
-    //     payload: {
-    //         newRoom:{
-    //             createdBy: username,
-    //             member: chat,
-    //         }
-    //     }
-    // })
+    const member = contacts.find(element => 
+            element === memberName
+    ) 
 
-    console.log(groupName)
+    if(member === undefined){
+        alert("User not found")
+        return
+    }
+
+    dispatch({
+        type: "createNewRoom",
+        payload: {
+            newRoom:{
+                createdBy: username,
+                member: memberName,
+                groupName: groupName
+            }
+        }
+    })
+
     setGroupName("");
+    setMemberName("");
     setOpen(false);
   }
 
@@ -91,7 +111,7 @@ useEffect(()=>{
               }}
               onClick={handleCreateGroup}
             >
-             Create group
+             <GroupAddIcon/>
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Subscribe</DialogTitle>
@@ -102,12 +122,22 @@ useEffect(()=>{
                 <TextField
                     autoFocus
                     margin="dense"
-                    id="name"
-                    label="Name"
+                    id="groupName"
+                    label="Group name"
                     type="name"
                     fullWidth
                     variant="standard"
                     onChange={e => setGroupName(e.target.value)}
+                />
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="member"
+                    label="Username"
+                    type="name"
+                    fullWidth
+                    variant="standard"
+                    onChange={e => setMemberName(e.target.value)}
                 />
                 </DialogContent>
                 <DialogActions>

@@ -69,6 +69,7 @@ const Chat = () => {
                 newRoom:{
                     createdBy: username,
                     member: chat,
+                    groupName: ""
                 }
             }
         })

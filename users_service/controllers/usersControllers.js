@@ -258,7 +258,6 @@ const addChatContact = async (req,res) => {
     const userOne = req.body.user;
     const userTwo = req.body.contact;
     // const [userOne, userTwo] = req.body;
-    console.log(req.body)
 
     try {
         const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
@@ -291,6 +290,57 @@ const addChatContact = async (req,res) => {
     }
 }
 
+const addGroup = async (req, res) => {
+
+    const createdBy = req.body.createdBy;
+    const member = req.body.member;
+    const groupId = req.body._id;
+    const groupName = req.body.groupName
+
+    try {
+        const user = await Users.findOne({username: createdBy}); //The one who receives the contact request
+        const contact = await Users.findOne({username: member});
+
+        if(!user || !contact){
+            const error = new Error('User not found');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const userUsername = user.username;
+        const contactUsername = contact.username; 
+
+        const userGroupObject = {
+            chatId : groupId,
+            chatName: groupName
+        }
+        const contactGroupObject = {
+            chatId : groupId,
+            chatName: groupName
+        }
+
+        const userUpdated = await Users.findOneAndUpdate(
+            {username: user.username},
+            { $push: { groups: userGroupObject }},
+            { new: true }
+        )
+
+        const contactUpdated = await Users.findOneAndUpdate(
+            {username: contact.username},
+            {$push: { groups: contactGroupObject }},
+            { new: true }
+        )
+
+        console.log(userUpdated)
+        console.log(contactUpdated)
+
+        return res.status(200).json({userUpdated, contactUpdated});
+    }
+    catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+}
+
+
 export {
     searchContact,
     userProfile,
@@ -300,5 +350,6 @@ export {
     requestsContact,
     acceptContact,
     createUser,
-    addChatContact
+    addChatContact,
+    addGroup
 }

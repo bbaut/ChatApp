@@ -5,6 +5,7 @@ const initialState = {
     error: null,
     currentRoom: '',
     chatMember: '',
+    groupName: '',
     value: [],
 };
 
@@ -19,6 +20,7 @@ const chatSlice = createSlice({
         currentRoom: (state = null, action) => {
             state.currentRoom = action.payload.chatId;
             state.chatMember = action.payload.chatMember
+            state.groupName = action.payload.groupName
         },
         getRoomMessages: (state = null, action) => {
             state.value = action.payload;

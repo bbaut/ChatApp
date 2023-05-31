@@ -13,6 +13,7 @@ import newMessage from "./newMessageSaga";
 import queryMessages from "./getMessagesSaga";
 import addNewMessage from "./MessageSaga";
 import queryUsernames from "./idtousernames";
+import queryRoom from "./getRoomSaga";
 
 export function* watchGetUser(){
     yield takeLatest(GET_USER, handlerGetUser)
@@ -64,6 +65,9 @@ export function* watchAddNewMessage(){
 export function* watchGetMessages(){
     yield takeEvery("queryMessages", queryMessages)
 }
+export function* watchGetRoom(){
+    yield takeEvery("queryRoom", queryRoom)
+}
 
 export default function* rootSaga() {
     yield all([
@@ -80,5 +84,6 @@ export default function* rootSaga() {
         watchCreateNewMessage(),
         watchAddNewMessage(),
         watchGetMessages(),
+        watchGetRoom()
     ]);
 }

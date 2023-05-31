@@ -25,6 +25,10 @@ const createChatRoom = async (req, res) => {
         member: req.body.createdBy
     })
 
+    // if (req.body.groupName === undefined){
+    //     console.log("Yeah")
+    // }
+
     try {
         // const room = new Room({
         //     createdBy: user,
@@ -35,14 +39,31 @@ const createChatRoom = async (req, res) => {
             if(roomCreatedTwo.length === 0 ) {
                 const room = new Rooms(req.body);
                 const roomSaved = await room.save();
+                console.log(roomSaved)
                 res.json(roomSaved);
             }
             else {
-                res.json(roomCreatedTwo[0]) 
+                if(req.body.groupName === ""){
+                    res.json(roomCreatedTwo[0]) 
+                }
+                else {
+                    const room = new Rooms(req.body);
+                    const roomSaved = await room.save();
+                    console.log(roomSaved)
+                    res.json(roomSaved);
+                }
             }
         }
         else {
-            res.json(roomCreatedOne[0]) 
+            if(req.body.groupName === ""){
+                res.json(roomCreatedOne[0])
+            }
+            else {
+                const room = new Rooms(req.body);
+                const roomSaved = await room.save();
+                console.log(roomSaved)
+                res.json(roomSaved);
+            }
         }
     } catch (err) {
       return res.status(500).send({ error: err.message });
@@ -84,8 +105,45 @@ const getAllMessages = async (req, res) => {
     }
 }
 
+const getRoom = async (req, res) => {
+    console.log( req.body)
+    // const { chatId, from } = req.query;
+    
+    // try {
+    //     const messages = await Message.find({
+    //         chatId: {
+    //             $all: chatId
+    //         }
+    //     })
+    //     .sort({updatedAt: 1});
+
+        
+    //     const shownMessages = messages.map((msg) => {
+    //         if(from === msg.sender.toString()){
+    //             return {
+    //                 text : msg.message.text,
+    //                 sender: "sended"
+    //             }
+    //         }
+    //         else {
+    //             return {
+    //                 text : msg.message.text,
+    //                 sender: "received"
+    //                 //sender: msg.sender
+    //             }
+    //         }
+    //     })
+
+
+    //     res.json(shownMessages);
+    // } catch (err) {
+    //     return res.status(500).send(err.message);
+    // }
+}
+
 export {
     createMessage,
     createChatRoom,
-    getAllMessages
+    getAllMessages,
+    getRoom
 }

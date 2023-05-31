@@ -17,7 +17,10 @@ const resolvers = {
 
         async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
             const {email} = userDataInput;
-            return await dataSources.usersAPI.userData({email});
+           
+            const data = await dataSources.usersAPI.userData({email});
+            console.log(data.groups)
+            return  data
         },
 
         async idToUsrnm (_,{idInput}, {dataSources, req, res}) {
@@ -31,6 +34,10 @@ const resolvers = {
 
         async getMessages (_, {getMessageInput}, {dataSources, req, res}) {
             return await dataSources.chatAPI.getAllMessages(getMessageInput);
+        },
+
+        async getRoom (_, {getRoomInput}, {dataSources, req, res}) {
+            return await dataSources.chatAPI.getRoom(getRoomInput);
         }
     },
     Mutation: {
@@ -186,12 +193,13 @@ const resolvers = {
         },
 
         createChatRoom: async (_, { createRoomInput }, { dataSources }) => {
-             console.log(createRoomInput)
             try {
               const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
         
+              const createdGroup = await dataSources.usersAPI.addGroup(createdRoom)
               //userAPI.roomlist(chatId)
-              const { _id } = createdRoom;
+            //   const { _id } = createdRoom;
+              console.log(createdGroup)
         
               return createdRoom;
             } catch (err) {

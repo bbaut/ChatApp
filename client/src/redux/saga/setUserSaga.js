@@ -10,12 +10,9 @@ function* setUserAuthenticated(action) {
                 profileUserData(userDataInput: $userDataInput) {
                     contacts
                     email
-                    groups {
-                    chatId
-                    members {
-                        _id
-                        username
-                    }
+                    groups{
+                        chatId
+                        chatName
                     }
                     requests {
                         from
@@ -32,7 +29,9 @@ function* setUserAuthenticated(action) {
     };
     try {
         yield put(setUserFetching());
+        console.log("from ")
         const userData = yield call(client.query, options)
+        console.log(userData)
         yield put(setUser(userData.data.profileUserData));
     }
     catch (error) {
