@@ -1,6 +1,6 @@
 import User from "../models/User.js"
-import createId from "../helpers/createId.js"
-import createJWT from "../helpers/createJWT.js"
+import createJWT from "../utils/createJWT.js"
+import createId from "../utils/createId.js"
 
 const registerUser = async (req, res) => {
 

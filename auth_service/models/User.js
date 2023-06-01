@@ -41,10 +41,4 @@ UserSchema.methods.checkPassword = async function (passwordForm){
 
 const User = mongoose.model("User", UserSchema);
 
-// UserSchema.methods.toJSON = function(){
-//     const {__v, password, _id, ...user} = this.toObject();
-//     user.user_id = _id;
-//     return user;
-// }
-
 export default User;
