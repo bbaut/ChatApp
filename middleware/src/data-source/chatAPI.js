@@ -16,6 +16,14 @@ class ChatAPI extends RESTDataSource {
         )
     }
 
+    async createGroupRoom (roomObject) {
+        return this.post(
+            '/api/chat/creategrouproom', {
+                body: roomObject
+            }
+        )
+    }
+
     async createMessage (messageObject) {
         return this.post(
             '/api/chat/createmessage', {
@@ -33,6 +41,20 @@ class ChatAPI extends RESTDataSource {
     async getRoom (params) {
         return this.get(
             '/api/chat/getroom', {params}
+        )
+    }
+    async getGroup (params) {
+        return this.get(
+            '/api/chat/getgroup', {params}
+        )
+    }
+    async addMember (object) {
+        return this.post(
+            '/api/chat/addmember', {
+                body: {
+                    object
+                }
+            }
         )
     }
 

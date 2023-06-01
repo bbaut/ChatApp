@@ -14,6 +14,9 @@ import queryMessages from "./getMessagesSaga";
 import addNewMessage from "./MessageSaga";
 import queryUsernames from "./idtousernames";
 import queryRoom from "./getRoomSaga";
+import newGroup from "./newGroupSaga";
+import queryGroup from "./getGroupSaga";
+import addMemberGroup from "./addMemberSaga";
 
 export function* watchGetUser(){
     yield takeLatest(GET_USER, handlerGetUser)
@@ -53,6 +56,9 @@ export function* watchRemoveRequest(){
 export function* watchCreateNewRoom(){
     yield takeLatest("createNewRoom", newRoom)
 }
+export function* watchCreateNewGroup(){
+    yield takeLatest("createNewGroup", newGroup)
+}
 
 export function* watchCreateNewMessage(){
     yield takeLatest("createNewMessage", newMessage)
@@ -68,6 +74,15 @@ export function* watchGetMessages(){
 export function* watchGetRoom(){
     yield takeEvery("queryRoom", queryRoom)
 }
+export function* watchGetGroup(){
+    yield takeEvery("queryGroup", queryGroup)
+}
+
+export function* watchAddMemberGroup(){
+    yield takeEvery("addMember", addMemberGroup)
+}
+
+
 
 export default function* rootSaga() {
     yield all([
@@ -81,9 +96,12 @@ export default function* rootSaga() {
         watchAcceptFriend(),
         watchRemoveRequest(),
         watchCreateNewRoom(),
+        watchCreateNewGroup(),
         watchCreateNewMessage(),
         watchAddNewMessage(),
         watchGetMessages(),
-        watchGetRoom()
+        watchGetRoom(),
+        watchGetGroup(),
+        watchAddMemberGroup(),
     ]);
 }

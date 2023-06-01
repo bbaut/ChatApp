@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useSubscription } from '@apollo/client';
-// import SEND_MESSAGE from '../gql/sendMessage';
-import { useDispatch } from 'react-redux';
+import SEND_MESSAGE from '../../gql/sendMessage';
 
 const GroupMessagesChat = ({currentMember}) => {
 
@@ -17,27 +16,29 @@ const GroupMessagesChat = ({currentMember}) => {
   let sendedby
   const dispatch = useDispatch();
 
-//   useSubscription(SEND_MESSAGE, {
-//     onData: (data) => {
-//         if(data.data.data.sendMessage.sender === currentMember){
-//           sendedby = "sended"
+  console.log(messages)
 
-//         }
-//         else {
-//           sendedby = "received"
-//         }
-//         dispatch({
-//             type: "addNewMessage",
-//             payload: {
-//               text: data.data.data.sendMessage.message.text,
-//               sender: sendedby
-//             },
-//         })
-//     },
-//     onError: (error) => {
-//         console.log(error)
-//     }
-//   })
+  useSubscription(SEND_MESSAGE, {
+    onData: (data) => {
+        if(data.data.data.sendMessage.sender === currentMember){
+          sendedby = "sended"
+
+        }
+        else {
+          sendedby = "received"
+        }
+        dispatch({
+            type: "addNewMessage",
+            payload: {
+              text: data.data.data.sendMessage.message.text,
+              sender: sendedby
+            },
+        })
+    },
+    onError: (error) => {
+        console.log(error)
+    }
+  })
 
   return (
     <Box

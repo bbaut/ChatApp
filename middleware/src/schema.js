@@ -17,7 +17,7 @@ type Request {
 #     username: String
 # }
 
-type Group {
+type Groupdata {
     chatId: String!
     chatName: String!
 }
@@ -28,7 +28,7 @@ type UserData {
     email: String
     contacts: [String]
     requests: [Request]
-    groups: [Group]
+    groups: [Groupdata]
 }
 
 type Email{
@@ -77,16 +77,28 @@ input RoomInputMember {
 type Room {
     _id: String
     member: String
+}
+
+type Group {
+    _id: String
+    members: [String]
     groupName: String
   }
 
   input RoomInput {
     createdBy: String
     member: String
+  }
+
+  input GroupInput {
+    createdBy: String
     groupName: String
   }
 
   input getRoomInput {
+    id: String
+  }
+  input getGroupInput {
     id: String
   }
 
@@ -124,6 +136,13 @@ type Usernames {
     usernames: [String]
 }
 
+input AddMemberInput {
+    username: String
+    id: ID
+    member: String
+    chatName: String
+}
+
 type Query {
     profileUser(profileInput: ProfileInput): UserData
     existanceContact(existanceInput: ExistanceInput): User
@@ -134,6 +153,7 @@ type Query {
     #CHAT
     getMessages(getMessageInput: GetMessageInput): [Content]
     getRoom(getRoomInput: getRoomInput): Room
+    getGroup(getGroupInput: getGroupInput): Group
 }
 
 type Mutation {
@@ -146,6 +166,8 @@ type Mutation {
     #CHAT
     createMessage(createMessageInput: MessageInput): Message
     createChatRoom(createRoomInput: RoomInput): Room
+    createGroupRoom(createGroupInput: GroupInput): Group!
+    addMemberGroup(addMemberInput: AddMemberInput): UserData
 
 }
 

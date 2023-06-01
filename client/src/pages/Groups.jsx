@@ -35,8 +35,6 @@ const Groups = () => {
     const { chatMember } = useSelector(
       (state) => state.chat
     );
-
-    console.log(chatMember)
   
     let groupsArray = [];
     if (groups.length !== 0) {
@@ -46,42 +44,18 @@ const Groups = () => {
     }
 
     const handleChatChange = (chat) => {
-        console.log(chat)
+
+        var result = groups.find(item => item.chatName === chat);
         setCurrentChat(chat);
 
-        //Tratemos de pasar el id junto con el chatname, 
-        // con ello obtenemos el id en group contacts
-        //de esta manera lo regresamos al dispatch e handle chatchange
-        //así hacemos la query con el id 
-        //se actualiza el chat state
-        //y se usa como params en el url 
+        console.log(chat)
 
-
-
-
-        // dispatch({
-        //     // buscar por group name y id 
-
-        //     // en lugar de id 
-        //     //con ello me regresa la información del chat 
-        //     type: "queryRoom",
-        //     payload: {
-        //         getRoomInput:{
-        //             id: id
-        //         }
-        //     }
-        // })
-
-
-        // dispatch({
-        //     type: "createNewRoom",
-        //     payload: {
-        //         newRoom:{
-        //             createdBy: username,
-        //             member: chat,
-        //         }
-        //     }
-        // })
+        dispatch({
+            type: "queryGroup",
+            payload: {
+                id: result.chatId
+            }
+        })
     }
 
     return (

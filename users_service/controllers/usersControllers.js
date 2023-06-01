@@ -292,28 +292,21 @@ const addChatContact = async (req,res) => {
 
 const addGroup = async (req, res) => {
 
+    console.log(req.body)
+
     const createdBy = req.body.createdBy;
-    const member = req.body.member;
     const groupId = req.body._id;
     const groupName = req.body.groupName
 
     try {
-        const user = await Users.findOne({username: createdBy}); //The one who receives the contact request
-        const contact = await Users.findOne({username: member});
+        const user = await Users.findOne({username: createdBy});
 
-        if(!user || !contact){
+        if(!user){
             const error = new Error('User not found');
             return res.status(404).json({msg: error.message});
         }
 
-        const userUsername = user.username;
-        const contactUsername = contact.username; 
-
         const userGroupObject = {
-            chatId : groupId,
-            chatName: groupName
-        }
-        const contactGroupObject = {
             chatId : groupId,
             chatName: groupName
         }
@@ -324,16 +317,39 @@ const addGroup = async (req, res) => {
             { new: true }
         )
 
-        const contactUpdated = await Users.findOneAndUpdate(
-            {username: contact.username},
-            {$push: { groups: contactGroupObject }},
+        console.log(userUpdated)
+
+        return res.status(200).json({userUpdated});
+    }
+    catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+}
+
+const addMemberGroup = async (req,res) => {
+    console.log(req.body)
+    const memberToAdd = req.body.object.member
+    try {
+        const user = await Users.findOne({username: memberToAdd});
+        console.log(user)
+        
+        if(!user){
+            const error = new Error('User not found');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const userGroupObject = {
+            chatId: req.body.object.id,
+            chatName: req.body.object.chatName
+        }
+
+        const userUpdated = await Users.findOneAndUpdate(
+            {username: user.username},
+            { $push: { groups: userGroupObject }},
             { new: true }
         )
 
-        console.log(userUpdated)
-        console.log(contactUpdated)
-
-        return res.status(200).json({userUpdated, contactUpdated});
+        return res.status(200).json({userUpdated});
     }
     catch (error) {
         return res.status(500).send({ error: error.message });
@@ -351,5 +367,6 @@ export {
     acceptContact,
     createUser,
     addChatContact,
-    addGroup
+    addGroup,
+    addMemberGroup
 }

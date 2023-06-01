@@ -20,7 +20,6 @@ const GroupContacts = ({groupsArray, currentMember, changeChat}) => {
   const [currentSelected, setCurrentSelected] = useState(undefined);
   const [open, setOpen] = React.useState(false);
   const [groupName, setGroupName] = React.useState("");
-  const [memberName, setMemberName] = React.useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,8 +31,6 @@ const GroupContacts = ({groupsArray, currentMember, changeChat}) => {
 const { contacts, username } = useSelector(
     (state) => state.user.value
   );
-
-  console.log(currentRoom)
 
 useEffect(()=>{
     if (currentRoom){
@@ -51,33 +48,30 @@ useEffect(()=>{
   }
 
   const handleCreate = () => {
-    if (groupName === "" || memberName === ""){
+    if (groupName === ""){
         alert("Please fill the name of the group")
         return
     }
 
-    const member = contacts.find(element => 
-            element === memberName
-    ) 
+    // const member = contacts.find(element => 
+    //         element === memberName
+    // ) 
 
-    if(member === undefined){
-        alert("User not found")
-        return
-    }
+    // if(member === undefined){
+    //     alert("User not found")
+    //     return
+    // }
 
     dispatch({
-        type: "createNewRoom",
+        type: "createNewGroup",
         payload: {
-            newRoom:{
-                createdBy: username,
-                member: memberName,
-                groupName: groupName
-            }
+          createdBy: username,
+          groupName: groupName
         }
     })
 
     setGroupName("");
-    setMemberName("");
+    // setMemberName("");
     setOpen(false);
   }
 
@@ -128,16 +122,6 @@ useEffect(()=>{
                     fullWidth
                     variant="standard"
                     onChange={e => setGroupName(e.target.value)}
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="member"
-                    label="Username"
-                    type="name"
-                    fullWidth
-                    variant="standard"
-                    onChange={e => setMemberName(e.target.value)}
                 />
                 </DialogContent>
                 <DialogActions>

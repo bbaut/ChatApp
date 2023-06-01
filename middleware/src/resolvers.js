@@ -19,7 +19,6 @@ const resolvers = {
             const {email} = userDataInput;
            
             const data = await dataSources.usersAPI.userData({email});
-            console.log(data.groups)
             return  data
         },
 
@@ -38,6 +37,10 @@ const resolvers = {
 
         async getRoom (_, {getRoomInput}, {dataSources, req, res}) {
             return await dataSources.chatAPI.getRoom(getRoomInput);
+        },
+
+        async getGroup (_, {getGroupInput}, {dataSources, req, res}) {
+            return await dataSources.chatAPI.getGroup(getGroupInput);
         }
     },
     Mutation: {
@@ -196,7 +199,7 @@ const resolvers = {
             try {
               const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
         
-              const createdGroup = await dataSources.usersAPI.addGroup(createdRoom)
+            //   const createdGroup = await dataSources.usersAPI.addGroup(createdRoom)
               //userAPI.roomlist(chatId)
             //   const { _id } = createdRoom;
               console.log(createdGroup)
@@ -206,7 +209,33 @@ const resolvers = {
               const message = err.extensions.response.body.error;
               throw new GraphQLError(message);
             }
-          },
+        },
+
+        createGroupRoom: async (_, { createGroupInput }, { dataSources }) => {
+            try {
+              const createdRoom = await dataSources.chatAPI.createGroupRoom(createGroupInput);
+        
+              await dataSources.usersAPI.addGroup(createdRoom);
+
+              console.log(createdRoom);
+        
+              return createdRoom;
+            } catch (err) {
+              const message = err.extensions.response.body.error;
+              throw new GraphQLError(message);
+            }
+        },
+        addMemberGroup: async (_, { addMemberInput }, { dataSources }) => {
+            try {
+                const userUpdated = await dataSources.usersAPI.addMember(addMemberInput);
+                const chatUpdated = await dataSources.chatAPI.addMember(addMemberInput);
+
+                return userUpdated;
+            } catch (err) {
+                const message = err.extensions.response.body.error;
+                throw new GraphQLError(message);
+            }
+        },
 
     },
     Subscription: subscriptionsResolvers,

@@ -18,8 +18,10 @@ const chatSlice = createSlice({
             state.value = [...state.value, action.payload]
         },
         currentRoom: (state = null, action) => {
-            state.currentRoom = action.payload.chatId;
-            state.chatMember = action.payload.chatMember
+            state.isFetching = false;
+            console.log(action.payload)
+            state.currentRoom = action.payload._id;
+            state.chatMember = action.payload.members;
             state.groupName = action.payload.groupName
         },
         getRoomMessages: (state = null, action) => {

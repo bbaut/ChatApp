@@ -3,18 +3,19 @@ import { call, put } from "redux-saga/effects";
 import client from "../../apolloClient";
 import { currentRoom, isFetching } from "../reducers/chatSlice";
 
-function* queryRoom(action) {
+function* queryGroup(action) {
   const options = {
     query: gql`
-        query Query($getRoomInput: getRoomInput) {
-            getRoom(getRoomInput: $getRoomInput) {
+        query GetGroup($getGroupInput: getGroupInput) {
+            getGroup(getGroupInput: $getGroupInput) {
                 _id
-                member
+                groupName
+                members
             }
         }
     `,
     variables: {
-      getRoomInput: action.payload
+        getGroupInput: action.payload
     },
     fetchPolicy: "no-cache",
   };
@@ -23,9 +24,9 @@ function* queryRoom(action) {
     yield put(isFetching());
     console.log("hey")
     const res = yield call(client.query, options);
-    console.log(res.data.getRoom)
-    const room = res.data.getRoom;
-    yield put(currentRoom(room));
+    console.log(res)
+    const group = res.data.getGroup;
+    yield put(currentRoom(group));
   } catch (err) {
     yield put(
         console.log({ error: "errorQueryMessages", severity: "warning" })
@@ -33,4 +34,4 @@ function* queryRoom(action) {
   }
 }
 
-export default queryRoom;
+export default queryGroup;

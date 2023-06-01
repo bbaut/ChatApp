@@ -1,5 +1,6 @@
 import Message from "../models/Chats.js"
 import Rooms from "../models/Rooms.js"
+import Groups from "../models/Groups.js";
 
 const createMessage = async (req, res) => {
     try {
@@ -25,46 +26,35 @@ const createChatRoom = async (req, res) => {
         member: req.body.createdBy
     })
 
-    // if (req.body.groupName === undefined){
-    //     console.log("Yeah")
-    // }
+    // console.log(roomCreatedOne)
+    // console.log(roomCreatedTwo)
 
     try {
-        // const room = new Room({
-        //     createdBy: user,
-        //     member: contact
-        // });
-
         if (roomCreatedOne.length === 0 ) {
             if(roomCreatedTwo.length === 0 ) {
                 const room = new Rooms(req.body);
                 const roomSaved = await room.save();
-                console.log(roomSaved)
                 res.json(roomSaved);
             }
             else {
-                if(req.body.groupName === ""){
-                    res.json(roomCreatedTwo[0]) 
-                }
-                else {
-                    const room = new Rooms(req.body);
-                    const roomSaved = await room.save();
-                    console.log(roomSaved)
-                    res.json(roomSaved);
-                }
+                res.json(roomCreatedTwo[0])
             }
         }
         else {
-            if(req.body.groupName === ""){
                 res.json(roomCreatedOne[0])
-            }
-            else {
-                const room = new Rooms(req.body);
-                const roomSaved = await room.save();
-                console.log(roomSaved)
-                res.json(roomSaved);
-            }
         }
+    } catch (err) {
+      return res.status(500).send({ error: err.message });
+    }
+}
+
+const createGroupRoom = async (req, res) => {
+
+    try {
+        const group = new Groups(req.body);
+        const groupSaved = await group.save();
+        res.json(groupSaved);
+    
     } catch (err) {
       return res.status(500).send({ error: err.message });
     }
@@ -106,44 +96,51 @@ const getAllMessages = async (req, res) => {
 }
 
 const getRoom = async (req, res) => {
-    console.log( req.body)
-    // const { chatId, from } = req.query;
-    
-    // try {
-    //     const messages = await Message.find({
-    //         chatId: {
-    //             $all: chatId
-    //         }
-    //     })
-    //     .sort({updatedAt: 1});
 
-        
-    //     const shownMessages = messages.map((msg) => {
-    //         if(from === msg.sender.toString()){
-    //             return {
-    //                 text : msg.message.text,
-    //                 sender: "sended"
-    //             }
-    //         }
-    //         else {
-    //             return {
-    //                 text : msg.message.text,
-    //                 sender: "received"
-    //                 //sender: msg.sender
-    //             }
-    //         }
-    //     })
+    const id = req.query.id
 
 
-    //     res.json(shownMessages);
-    // } catch (err) {
-    //     return res.status(500).send(err.message);
-    // }
+    try {
+        const room = await Rooms.findById(id)
+        res.json(room)
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
+}
+
+const getGroup = async (req, res) => {
+    const id = req.query.id
+
+
+    try {
+        const group = await Groups.findById(id)
+        res.json(group)
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
+}
+const addMemberGroup = async (req, res) => {
+    const chatObject = req.body.object 
+    try {
+        const chat = await Groups.findById(chatObject.id)
+
+        chatUpdated = await Groups.findOneAndUpdate(
+                {_id: chatObject.id},
+                { $push: { members: chatObject.member }},
+                { new: true }
+        )
+        res.json(chatUpdated)
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
 }
 
 export {
     createMessage,
     createChatRoom,
+    createGroupRoom,
     getAllMessages,
-    getRoom
+    getRoom,
+    getGroup,
+    addMemberGroup
 }

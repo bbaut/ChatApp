@@ -96,14 +96,23 @@ class UsersAPI extends RESTDataSource {
     }
 
     async addGroup(createdRoom){
-        const {createdBy, member, groupName, _id} = createdRoom
+        const {createdBy, members, groupName, _id} = createdRoom
         return this.post(
             '/api/users/addgroup', {
                 body: {
                     createdBy,
-                    member,
+                    members,
                     groupName,
                     _id
+                }
+            }
+        )
+    }
+    async addMember(object){
+        return this.post(
+            '/api/users/addmember', {
+                body: {
+                    object
                 }
             }
         )
