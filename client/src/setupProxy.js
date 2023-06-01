@@ -11,7 +11,7 @@ module.exports = function (app) {
 
     app.use(
         createProxyMiddleware("/graphql", {
-            target: "ws://localhost:400/graphql",
+            target: "ws://localhost:4000/graphql",
             changeOrigin: true,
             ws: true,
             pathRewrite: (path) => path.replace(/^\/graphql/, ""),

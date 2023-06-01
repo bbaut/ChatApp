@@ -1,20 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Container, Stack, TextField, Button, Typography } from "@mui/material"
 import { Link, useNavigate } from "react-router-dom"
 import { gql, useMutation} from '@apollo/client';
-import useAuth from "../hooks/useAuth";
 import { useDispatch } from "react-redux";
-import { get_data } from "../redux/reducers/authReducer";
 
-
-// const LOGIN_USER = gql `
-//     mutation LoginUser ($input: loginUser!) {
-//         loginUser (input: $input) @rest(type: "User", method: "POST", path: "api/auth/login" ){
-//             user
-//             token
-//         }
-//     }
-// `
 const LOGIN_USER = gql `
     mutation Mutation($loginInput: LoginInput) {
       loginUser(loginInput: $loginInput) {
@@ -35,7 +24,6 @@ const Login = () => {
   const [alert, setAlert] = useState('');
 
   const dispatch = useDispatch()
-  // const {auth, setAuth} = useAuth();
 
   const[loginUser, {loading,error,data}] = useMutation(LOGIN_USER,{
     variables: {loginInput: {
@@ -47,8 +35,6 @@ const Login = () => {
     },
     onCompleted(data) {
       localStorage.setItem('token', data.loginUser.token);
-      // dispatch(get_data(data))
-      console.log(data)
       
       dispatch({
         type: "setUserAuth",
@@ -62,7 +48,6 @@ const Login = () => {
           "email" : data.loginUser.email
         }
       })
-      // setAuth(data)
       navigate("/dashboard")
     },
   })

@@ -23,19 +23,12 @@ const userSlice = createSlice({
     },
     addRequest: (state = null, action) => {
       state.isFetching = false;
-      
-      // const userEmail = state.value.email;
-      // const contactEmail = action.payload.email;
 
       const user = action.payload
 
       if (state.value.username === user.username) {
         state.value.requests = user.requests
       }
-
-      // if (userEmail === contactEmail){
-      //   state.value.requests = [...state.value.requests, action.payload.email];
-      // }
     },
     addUsernameRequests: (state=null, action) => {
       state.isFetching = false;

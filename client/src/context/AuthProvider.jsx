@@ -1,7 +1,6 @@
-import { useEffect, createContext } from 'react';
+import { useEffect } from 'react';
 import { gql, useLazyQuery } from '@apollo/client';
 import { useDispatch } from 'react-redux';
-// import { get_loading} from '../redux/reducers/loadingReducer';
 
 const ME_USER = gql `
     query Query ($profileInput: ProfileInput){
@@ -12,11 +11,9 @@ const ME_USER = gql `
     }
 `
 
-// const AuthContext = createContext();
-
 const AuthProvider = ({children}) => {
 
-    const dispatch = useDispatch(); //HERE
+    const dispatch = useDispatch();
 
 
     const [profileUser, {loading,error,data}] = useLazyQuery(ME_USER,{
@@ -52,7 +49,6 @@ const AuthProvider = ({children}) => {
                     loading: false
                 }
             })
-            // dispatch(get_loading(false))
         },
     })
 
@@ -68,7 +64,6 @@ const AuthProvider = ({children}) => {
                         loading: false
                     }
                 })
-                // dispatch(get_loading(false))
                 return
             }
             profileUser()
@@ -77,13 +72,7 @@ const AuthProvider = ({children}) => {
     }, []);
 
     return (
-        <div
-            // value={{
-            //     // auth,
-            //     // setAuth,
-            //     // loadingUser
-            // }}
-        >
+        <div>
             {children}
         </div>
     )

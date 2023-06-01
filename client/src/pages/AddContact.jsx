@@ -9,10 +9,21 @@ const AddContact = () => {
     const dispatch = useDispatch()
 
     const contact = useSelector((state) => state.findContactFunc.contact);
-    const user = useSelector((state) => state.authFunc.auth);
+    const dataAuth = useSelector(
+        (state) => state.auth
+    );
+    const user = dataAuth.auth
 
     let emailUser;
-    const emailContact = contact.existanceContact.email;
+    let emailContact
+
+    if (Object.keys(contact).length === 0){
+        emailContact = "";
+    }else {
+        emailContact = contact.existanceContact.email;
+    }
+    
+    
 
     if (user.hasOwnProperty('profileUser')){
         emailUser = user.profileUser.email
@@ -23,9 +34,6 @@ const AddContact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        console.log(emailUser)
-        console.log(emailContact)
 
         dispatch({
             type: "addFriend",

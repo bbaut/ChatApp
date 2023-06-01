@@ -18,9 +18,7 @@ function* addFriend(action) {
       fetchPolicy: "no-cache",
     };
     try {
-      const res = yield call(client.mutate, options);
-      console.log("from add contact saga")
-      console.log(res)
+      yield call(client.mutate, options);
       yield console.log({ error: "request Sent", severity: "success" });
     } catch (error) {
       if (error.message === "Request already sent") {
