@@ -2,10 +2,12 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
+import { useSubscription } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import GroupContacts from '../components/Groups/GroupContacts'
 import GroupContainer from '../components/Groups/GroupContainerChat'
+import CREATED_GROUP from '../gql/createdGroup';
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -40,6 +42,20 @@ const Groups = () => {
         }
     }
 
+    useSubscription(CREATED_GROUP, {
+        onData: (data) => {
+            dispatch({
+                type: "setNewGroup",
+                payload: {
+                    groups: data.data.data.createdGroup.groups
+                }
+            })
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+      })
+
     const handleChatChange = (chat) => {
 
         var result = groups.find(item => item.chatName === chat);
@@ -65,10 +81,6 @@ const Groups = () => {
             }
         })
     }, [chatId])
-
-    useEffect(() => {
-        console.log("hey")
-    }, [groups])
 
     return (
         <BoxContainer>

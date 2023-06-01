@@ -17,6 +17,7 @@ import queryGroup from "./getGroupSaga";
 import addMemberGroup from "./addMemberSaga";
 import addNewMessageParticipants from "./addNewMessageParticipants";
 import setLoading from "./loadingSaga";
+import setNewGroup from "./groupCreatedSaga";
 
 export function* watchRegister(){
     yield takeLatest("register", register);
@@ -85,6 +86,9 @@ export function* watchAddMemberGroup(){
     yield takeEvery("addMember", addMemberGroup)
 }
 
+export function* watchSetNewGroup(){
+    yield takeEvery("setNewGroup", setNewGroup)
+}
 
 
 export default function* rootSaga() {
@@ -107,5 +111,6 @@ export default function* rootSaga() {
         watchGetRoom(),
         watchGetGroup(),
         watchAddMemberGroup(),
+        watchSetNewGroup()
     ]);
 }

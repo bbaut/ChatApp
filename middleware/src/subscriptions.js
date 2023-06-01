@@ -13,7 +13,12 @@ const subscriptions = {
         sendMessage: {
             subscribe:
                 () => pubsub.asyncIterator("SEND_MESSAGE")
-        }
+        },
+        createdGroup: {
+            subscribe:
+                () => pubsub.asyncIterator("CREATED_GROUP")
+        },
+
 }
 
 export default subscriptions;

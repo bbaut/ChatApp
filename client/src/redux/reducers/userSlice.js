@@ -52,6 +52,9 @@ const userSlice = createSlice({
     deleteRequest: (state=null, action) => {
       state.isFetching = false;
       state.value = action.payload;
+    },
+    addGroup: (state=null, action) => {
+      state.value.groups = action.payload
     }
   },
 });
@@ -63,7 +66,8 @@ export const {
   addUsernameRequests,
   addRequest,
   acceptNewRequest,
-  deleteRequest
+  deleteRequest,
+  addGroup
 } = userSlice.actions;
 
 export default userSlice.reducer;

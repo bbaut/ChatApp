@@ -180,14 +180,18 @@ const resolvers = {
 
         createGroupRoom: async (_, { createGroupInput }, { dataSources }) => {
             try {
-              const createdRoom = await dataSources.chatAPI.createGroupRoom(createGroupInput);
+                const createdRoom = await dataSources.chatAPI.createGroupRoom(createGroupInput);
+            
+                const userUpdated = await dataSources.usersAPI.addGroup(createdRoom);
+          
+                pubsub.publish("CREATED_GROUP", {
+                    createdGroup: userUpdated.userUpdated
+                })
         
-              await dataSources.usersAPI.addGroup(createdRoom);
-        
-              return createdRoom;
+                return createdRoom;
             } catch (err) {
-              const message = err.extensions.response.body.error;
-              throw new GraphQLError(message);
+                const message = err.extensions.response.body.error;
+                throw new GraphQLError(message);
             }
         },
         addMemberGroup: async (_, { addMemberInput }, { dataSources }) => {

@@ -4,6 +4,7 @@ type Subscription {
     addContactRequest: UserData
     acceptContactRequest: [UserData]
     sendMessage: Message
+    createdGroup: UserData
 }
 
 type UserData {
