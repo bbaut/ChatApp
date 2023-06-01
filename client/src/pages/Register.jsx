@@ -24,6 +24,11 @@ const Register = () => {
             return;
         }
 
+        if(password !== confirmPassword) {
+            setAlert("Passwords do not coincide");
+            return
+        }
+
         dispatch({
             type:"register",
             payload: {
