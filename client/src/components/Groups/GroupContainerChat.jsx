@@ -48,7 +48,16 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     const handleOnClickAdd = async () => {
         console.log(member)
         if (member === ""){
-            alert("Please fill the name of the group")
+            alert("Please write a user")
+            return
+        }
+
+        const contact = contacts.find(element => {
+            return element === member
+        })
+
+        if (!contact) {
+            alert("The user you are looking for is not on your contacts list")
             return
         }
 
@@ -61,6 +70,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                 chatName: currentChat
             }
         })
+        
         setMember("");
         setOpen(false);
     }
