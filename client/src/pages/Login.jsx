@@ -76,8 +76,8 @@ const Login = () => {
                 <h2>Welcome</h2>
 
                 {alert && 
-                <Stack spacing={2} paddingBottom={2} color="red">
-                    <Typography variant="h5">
+                <Stack spacing={2} paddingBottom={2} sx={{color:"#990f02"}}>
+                    <Typography variant="h6">
                         {alert}
                     </Typography>
                 </Stack>

@@ -3,10 +3,11 @@ import { Link } from "react-router-dom"
 import { Container, Stack, TextField, Button, Typography} from "@mui/material"
 import { useNavigate } from "react-router-dom";
 import {useDispatch} from "react-redux";
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ErrorIcon from '@mui/icons-material/Error';
 
 
 const Register = () => {
-    let navigate = useNavigate();
     let dispatch = useDispatch();
 
 
@@ -14,7 +15,8 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [alert, setAlert] = useState('');
+    const [alert, setAlert] = useState("");
+    const [success, setSuccess] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,9 +27,11 @@ const Register = () => {
         }
 
         if(password !== confirmPassword) {
-            setAlert("Passwords do not coincide");
+            setAlert("Passwords do not match. Try again");
             return
         }
+
+        setAlert('');
 
         dispatch({
             type:"register",
@@ -42,12 +46,12 @@ const Register = () => {
             }
         })
 
-        setAlert('');
+
+        setSuccess("User created successfully. Go to login page")
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        navigate('/');
     }
 
   return (
@@ -57,9 +61,19 @@ const Register = () => {
                 <p>and become part of the community</p>
 
                 {alert && 
-                <Stack spacing={2} paddingBottom={2} color="red">
-                    <Typography variant="h5">
+                <Stack spacing={2} paddingBottom={2} sx={{color:"#990f02"}}>
+                    <ErrorIcon/>
+                    <Typography variant="h6">
                         {alert}
+                    </Typography>
+                </Stack>
+                }
+
+                {success && 
+                <Stack spacing={2} paddingBottom={2} sx={{color: "#000080"}}>
+                    <ThumbUpOffAltIcon/>
+                    <Typography variant="h6">
+                        {success}
                     </Typography>
                 </Stack>
                 }

@@ -91,20 +91,22 @@ const resolvers = {
 
             try {
                 const auth = await dataSources.authAPI.login(loginInput);
-                const {token} = auth;
-
-                // const options = {
-                //     maxAge: 1e9,
-                //     httpOnly: true,
-                //     secure: true,
-                //     sameSite: "none",
-                //   };
-            
-                // res.cookie("JWT", token, options);
                 return auth;
+                // if(auth.msg){
+                //     return res.status(403).json({msg: auth.msg})
+                // }
+                // else {
+                //     return auth;
+                // }
             }
             catch(error){
-                console.log(error);
+                if (error.extensions.response.status === 403){
+                    return res.status(403).json(error.extensions.response.body)
+                }
+
+                if(error.extensions.response.status === 404){
+                    return res.status(404).json(error.extensions.response.body)
+                }
             }
         },
 
