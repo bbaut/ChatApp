@@ -10,6 +10,7 @@ function* queryMessages(action) {
           getMessages(getMessageInput: $getMessageInput) {
             text
             sender
+            sendedBy
           }
         }
     `,
@@ -23,6 +24,7 @@ function* queryMessages(action) {
     yield put(isFetching());
     const res = yield call(client.query, options);
     const messages = res;
+    console.log(messages)
     yield put(getRoomMessages(messages.data.getMessages));
   } catch (err) {
     yield put(

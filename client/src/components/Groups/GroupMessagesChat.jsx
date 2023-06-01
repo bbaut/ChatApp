@@ -8,13 +8,16 @@ import SEND_MESSAGE from '../../gql/sendMessage';
 const GroupMessagesChat = ({currentMember}) => {
 
 
-  const { value, isFetching } = useSelector(
+  const { value, valueGroup, isFetching } = useSelector(
     (state) => state.chat
   );
 
-  let messages = value
+  let messages = valueGroup
   let sendedby
   const dispatch = useDispatch();
+
+  console.log(value)
+  console.log(valueGroup)
 
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
@@ -29,9 +32,11 @@ const GroupMessagesChat = ({currentMember}) => {
             type: "addNewMessage",
             payload: {
               text: data.data.data.sendMessage.message.text,
-              sender: sendedby
+              sender: sendedby,
+              sendedBy: data.data.data.sendMessage.sender
             },
         })
+
     },
     onError: (error) => {
         console.log(error)
@@ -103,6 +108,13 @@ const GroupMessagesChat = ({currentMember}) => {
                 backgroundColor: "#9900ff20",
               }}
             >
+
+              <Typography 
+                  variant='subtitle2'
+                  color="white"
+              >
+                  {message.sendedBy}
+            </Typography>
               <Typography 
                 variant='p'
               >

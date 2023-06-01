@@ -31,19 +31,15 @@ const createChatRoom = async (req, res) => {
     try {
         if (roomCreatedOne.length === 0 ) {
             if(roomCreatedTwo.length === 0 ) {
-                console.log("1")
                 const room = new Rooms(req.body);
                 const roomSaved = await room.save();
                 return res.json(roomSaved);
             }
             else {
-                console.log("2")
                 return res.json(roomCreatedTwo[0])
             }
         }
         else {
-            console.log("3")
-            console.log(roomCreatedOne[0])
             res.json( roomCreatedOne[0])
         }
     } catch (err) {
@@ -79,18 +75,21 @@ const getAllMessages = async (req, res) => {
             if(from === msg.sender.toString()){
                 return {
                     text : msg.message.text,
-                    sender: "sended"
+                    sender: "sended",
+                    sendedBy: from
                 }
             }
             else {
                 return {
                     text : msg.message.text,
-                    sender: "received"
+                    sender: "received",
+                    sendedBy: msg.sender.toString()
                     //sender: msg.sender
                 }
             }
         })
 
+        console.log(shownMessages)
 
         res.json(shownMessages);
     } catch (err) {

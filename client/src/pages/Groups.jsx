@@ -74,7 +74,7 @@ const Groups = () => {
                 <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
                     <GroupContacts groupsArray={groupsArray} currentMember={username} changeChat={handleChatChange}/>
                     {currentChat === undefined ? 
-                        <Box sx={{color: "white"}}>Please create a group to start chating <Box sx={{textAlign:"right"}}><PersonAddIcon/></Box></Box> 
+                        <Box sx={{color: "white"}}>Please create a group to start chating</Box> 
                         :
                         <GroupContainer currentChat={currentChat} currentMember={username}/>
                     }

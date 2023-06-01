@@ -105,6 +105,7 @@ type Group {
 type Content {
     text: String
     sender: String
+    sendedBy: String
 }
 
 type Message {
