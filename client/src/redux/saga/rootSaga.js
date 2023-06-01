@@ -13,7 +13,6 @@ import newRoom from "./newRoomSaga";
 import newMessage from "./newMessageSaga";
 import queryMessages from "./getMessagesSaga";
 import addNewMessage from "./MessageSaga";
-import queryUsernames from "./idtousernames";
 import queryRoom from "./getRoomSaga";
 import newGroup from "./newGroupSaga";
 import queryGroup from "./getGroupSaga";
@@ -43,10 +42,6 @@ export function* watchSetLoading(){
 
 export function* watchAddContact(){
     yield takeLatest("addFriend", addFriend)
-}
-
-export function* watchUsernameRequest(){
-    yield takeLatest("usernameRequest", queryUsernames)
 }
 
 export function* watchAddNewRequest(){
@@ -107,7 +102,6 @@ export default function* rootSaga() {
         watchSetLoading(),
         watchAddContact(),
         watchAddNewRequest(),
-        watchUsernameRequest(),
         watchAcceptRequest(),
         watchAcceptFriend(),
         watchRemoveRequest(),
