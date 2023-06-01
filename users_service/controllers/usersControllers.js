@@ -76,12 +76,12 @@ const requestsContact = async (req,res) => {
 }
 
 const addContact = async (req,res) => {
-    const userOne = req.body.user;
-    const userTwo = req.body.contact;
+    const userSend = req.body.user;
+    const userReceive = req.body.contact;
 
     try {
-        const user = await Users.findOne({email: userOne.email}); //The one who sends the contact request
-        const contact = await Users.findOne({email: userTwo.email});
+        const user = await Users.findOne({email: userSend.email}); //The one who sends the contact request
+        const contact = await Users.findOne({email: userReceive.email});
 
         if(!user || !contact){
             const error = new Error('User not found');
@@ -116,7 +116,6 @@ const addContact = async (req,res) => {
         const requestsArray = contactUpdated.requests
 
         for(let i = 0; i < requestsArray.length; i++) {
-            // idsArray.push(requestsArray[i].from)
             const user = await Users.findById(requestsArray[i].from);
             const contact = await Users.findById(requestsArray[i].to);
 
@@ -155,12 +154,12 @@ const passIDtoUsername = async (req,res) => {
 }
 
 const acceptContact = async (req,res) => {
-    const userOne = req.body.user;
-    const userTwo = req.body.contact;
+    const userSend = req.body.user;
+    const userReceive = req.body.contact;
 
     try {
-        const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
-        const contact = await Users.findOne({username: userTwo.username});
+        const user = await Users.findOne({username: userSend.username}); //The one who receives the contact request
+        const contact = await Users.findOne({username: userReceive.username});
 
         if(!user || !contact){
             const error = new Error('User not found');
@@ -221,12 +220,12 @@ const acceptContact = async (req,res) => {
 }
 
 const deleteRequest = async (req, res) => {
-    const userOne = req.body.user;
-    const userTwo = req.body.contact;
+    const userSend = req.body.user;
+    const userReceive = req.body.contact;
 
     try {
-        const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
-        const contact = await Users.findOne({username: userTwo.username});
+        const user = await Users.findOne({username: userSend.username}); //The one who receives the contact request
+        const contact = await Users.findOne({username: userReceive.username});
         
         if (!user || !contact) {
             const error = new Error('User not found');
@@ -244,8 +243,6 @@ const deleteRequest = async (req, res) => {
             { new: true }
         )
 
-        console.log(contactUpdated)
-
         return res.status(200).json(contactUpdated);
 
     }
@@ -255,13 +252,12 @@ const deleteRequest = async (req, res) => {
 }
 
 const addChatContact = async (req,res) => {
-    const userOne = req.body.user;
-    const userTwo = req.body.contact;
-    // const [userOne, userTwo] = req.body;
+    const userSend = req.body.user;
+    const userReceive = req.body.contact;
 
     try {
-        const user = await Users.findOne({username: userOne.username}); //The one who receives the contact request
-        const contact = await Users.findOne({username: userTwo.username});
+        const user = await Users.findOne({username: userSend.username}); 
+        const contact = await Users.findOne({username: userReceive.username});
 
         if(!user || !contact){
             const error = new Error('User not found');
@@ -291,9 +287,6 @@ const addChatContact = async (req,res) => {
 }
 
 const addGroup = async (req, res) => {
-
-    console.log(req.body)
-
     const createdBy = req.body.createdBy;
     const groupId = req.body._id;
     const groupName = req.body.groupName
@@ -317,8 +310,6 @@ const addGroup = async (req, res) => {
             { new: true }
         )
 
-        console.log(userUpdated)
-
         return res.status(200).json({userUpdated});
     }
     catch (error) {
@@ -327,11 +318,9 @@ const addGroup = async (req, res) => {
 }
 
 const addMemberGroup = async (req,res) => {
-    console.log(req.body)
     const memberToAdd = req.body.object.member
     try {
         const user = await Users.findOne({username: memberToAdd});
-        console.log(user)
         
         if(!user){
             const error = new Error('User not found');
