@@ -21,6 +21,9 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     const { contacts, username } = useSelector(
         (state) => state.user.value
       );
+    const { chatMember } = useSelector(
+        (state) => state.chat
+      );
 
     const [open, setOpen] = React.useState(false);
 
@@ -70,7 +73,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                 chatName: currentChat
             }
         })
-        
+
         setMember("");
         setOpen(false);
     }
@@ -90,7 +93,8 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                     <Typography variant='h4' color="white">
                         {currentChat}
                     </Typography>
-                    <Button sx={{textAlign:"right", color:"white", cursor:"pointer"}} onClick={handleAddMember}><PersonAddIcon/></Button>
+                </Box>
+                <Button sx={{textAlign:"right", color:"white", cursor:"pointer"}} onClick={handleAddMember}><PersonAddIcon/></Button>
                     <Dialog open={open} onClose={handleClose}>
                         <DialogTitle>Add member</DialogTitle>
                         <DialogContent>
@@ -113,7 +117,18 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                         <Button onClick={handleClose}>Cancel</Button>
                         </DialogActions>
                     </Dialog>
-                </Box>
+            </Box>
+            <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
+            {/* {chatMember.map((member, index) => {
+                return (
+                    <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
+                        {member}
+                    </Typography>
+                )
+            })} */}
+                <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
+                    {chatMember.length} participants
+                </Typography>
             </Box>
             <GroupMessagesChat currentMember={currentMember}/>
             <GroupInputChat handleSendMsg={handleSendMsg}/>

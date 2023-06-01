@@ -15,7 +15,6 @@ const createMessage = async (req, res) => {
 
 const createChatRoom = async (req, res) => {
     // const {user, contact} = req.body;
-
     const roomCreatedOne = await Rooms.find({
         createdBy: req.body.createdBy,
         member: req.body.member
@@ -32,16 +31,20 @@ const createChatRoom = async (req, res) => {
     try {
         if (roomCreatedOne.length === 0 ) {
             if(roomCreatedTwo.length === 0 ) {
+                console.log("1")
                 const room = new Rooms(req.body);
                 const roomSaved = await room.save();
-                res.json(roomSaved);
+                return res.json(roomSaved);
             }
             else {
-                res.json(roomCreatedTwo[0])
+                console.log("2")
+                return res.json(roomCreatedTwo[0])
             }
         }
         else {
-                res.json(roomCreatedOne[0])
+            console.log("3")
+            console.log(roomCreatedOne[0])
+            res.json( roomCreatedOne[0])
         }
     } catch (err) {
       return res.status(500).send({ error: err.message });

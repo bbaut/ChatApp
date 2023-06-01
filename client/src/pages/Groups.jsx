@@ -48,8 +48,6 @@ const Groups = () => {
         var result = groups.find(item => item.chatName === chat);
         setCurrentChat(chat);
 
-        console.log(chat)
-
         dispatch({
             type: "queryGroup",
             payload: {
@@ -57,6 +55,19 @@ const Groups = () => {
             }
         })
     }
+
+    useEffect(() => {
+        dispatch({
+            type:"queryMessages",
+            payload: 
+            {
+                queryInput: {
+                    chatId: chatId,
+                    from: username
+                }
+            }
+        })
+    }, [chatId])
 
     return (
         <BoxContainer>

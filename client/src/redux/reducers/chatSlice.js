@@ -17,12 +17,16 @@ const chatSlice = createSlice({
             state.isFetching = false;
             state.value = [...state.value, action.payload]
         },
-        currentRoom: (state = null, action) => {
+        currentGroup: (state = null, action) => {
             state.isFetching = false;
-            console.log(action.payload)
             state.currentRoom = action.payload._id;
             state.chatMember = action.payload.members;
             state.groupName = action.payload.groupName
+        },
+        currentRoom: (state = null, action) => {
+            state.isFetching = false;
+            state.currentRoom = action.payload.chatId;
+            state.chatMember = action.payload.chatMember;
         },
         getRoomMessages: (state = null, action) => {
             state.value = action.payload;
@@ -34,7 +38,7 @@ const chatSlice = createSlice({
     },
 });
 
-export const { addMessage, currentRoom, getRoomMessages, isFetching } = chatSlice.actions;
+export const { addMessage, currentRoom, currentGroup, getRoomMessages, isFetching } = chatSlice.actions;
 
 export default chatSlice.reducer;
 

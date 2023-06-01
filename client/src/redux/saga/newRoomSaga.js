@@ -10,7 +10,6 @@ function* newRoom(action) {
             createChatRoom(createRoomInput: $createRoomInput) {
                 _id
                 member
-                groupName
             }
         }
     `,
@@ -23,8 +22,7 @@ function* newRoom(action) {
     const data = yield call(client.mutate, options);
     const chatId = data.data.createChatRoom._id;
     const chatMember = data.data.createChatRoom.member;
-    const groupName = data.data.createChatRoom.groupName;
-    const chatObj = {chatId, chatMember, groupName}
+    const chatObj = {chatId, chatMember}
     yield put(currentRoom(chatObj));
   } catch (err) {
     yield console.log({ error: "errorSendMessage", severity: "warning" });

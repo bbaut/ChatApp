@@ -61,20 +61,18 @@ const Chat = () => {
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
-
-
         dispatch({
             type: "createNewRoom",
             payload: {
                 newRoom:{
                     createdBy: username,
-                    member: chat,
-                    groupName: ""
+                    member: chat
                 }
             }
         })
     }
 
+    
     useEffect(() => {
         dispatch({
             type:"queryMessages",

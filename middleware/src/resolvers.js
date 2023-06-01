@@ -197,12 +197,9 @@ const resolvers = {
 
         createChatRoom: async (_, { createRoomInput }, { dataSources }) => {
             try {
+                console.log("1")
               const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
-        
-            //   const createdGroup = await dataSources.usersAPI.addGroup(createdRoom)
-              //userAPI.roomlist(chatId)
-            //   const { _id } = createdRoom;
-              console.log(createdGroup)
+              console.log(createdRoom)
         
               return createdRoom;
             } catch (err) {

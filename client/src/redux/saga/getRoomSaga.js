@@ -21,9 +21,7 @@ function* queryRoom(action) {
 
   try {
     yield put(isFetching());
-    console.log("hey")
     const res = yield call(client.query, options);
-    console.log(res.data.getRoom)
     const room = res.data.getRoom;
     yield put(currentRoom(room));
   } catch (err) {

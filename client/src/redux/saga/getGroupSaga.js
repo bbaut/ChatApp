@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { call, put } from "redux-saga/effects";
 import client from "../../apolloClient";
-import { currentRoom, isFetching } from "../reducers/chatSlice";
+import { currentGroup, isFetching } from "../reducers/chatSlice";
 
 function* queryGroup(action) {
   const options = {
@@ -22,11 +22,9 @@ function* queryGroup(action) {
 
   try {
     yield put(isFetching());
-    console.log("hey")
     const res = yield call(client.query, options);
-    console.log(res)
     const group = res.data.getGroup;
-    yield put(currentRoom(group));
+    yield put(currentGroup(group));
   } catch (err) {
     yield put(
         console.log({ error: "errorQueryMessages", severity: "warning" })
