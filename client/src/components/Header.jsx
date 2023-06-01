@@ -17,11 +17,9 @@ import { styled } from '@mui/material/styles';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Link } from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
-import { get_data } from '../redux/reducers/authReducer';
 import CONTACT_REQUEST from '../gql/contactRequest'
 import { useSubscription } from '@apollo/client';
 
-const pages = ['dashboard', 'contacts', 'chats'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
