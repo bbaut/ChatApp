@@ -10,7 +10,10 @@ import AuthAPI from "./data-source/authAPI.js";
 import UsersAPI from "./data-source/usersAPI.js";
 import ChatAPI from "./data-source/chatAPI.js";
 import bodyParser from "body-parser"
-import typeDefs from "./schema.js";
+// import typeDefs from "./schema.js";
+import { typeDef as Chat } from './Schemas/chat.js';
+import { typeDef as User } from './Schemas/user.js';
+import { typeDef as Subscription } from './Schemas/subscriptions.js';
 import resolvers from "./resolvers.js";
 import dotenv from "dotenv";
 import cors from "cors"
@@ -26,7 +29,10 @@ const Server = async () => {
 
     const httpServer = createServer(app);
 
-    const schema = makeExecutableSchema({ typeDefs, resolvers });
+    const schema = makeExecutableSchema({ 
+        typeDefs: [Chat, User, Subscription], 
+        resolvers 
+    });
 
     const wsServer = new WebSocketServer({
         server: httpServer,

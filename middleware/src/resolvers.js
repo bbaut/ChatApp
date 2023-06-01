@@ -22,10 +22,6 @@ const resolvers = {
             return  data
         },
 
-        async idToUsrnm (_,{idInput}, {dataSources, req, res}) {
-            return await dataSources.usersAPI.idToUsername(idInput);
-        }, 
-
         async requestsContact (_,{requestsInput}, {dataSources, req, res}) {
             const {email} = requestsInput;
             return await dataSources.usersAPI.requests({email});
@@ -92,12 +88,6 @@ const resolvers = {
             try {
                 const auth = await dataSources.authAPI.login(loginInput);
                 return auth;
-                // if(auth.msg){
-                //     return res.status(403).json({msg: auth.msg})
-                // }
-                // else {
-                //     return auth;
-                // }
             }
             catch(error){
                 if (error.extensions.response.status === 403){
@@ -164,28 +154,8 @@ const resolvers = {
 
         async createMessage(_, {createMessageInput}, {dataSources, req, res}){
             try {
-                // const { members } = await dataSources.chatAPI.getChatRoom(
-                //   messageInput.chatId
-                // );
-          
-                // const inRoom = members.find(
-                //   (user) => user.username === authUser.username
-                // );
-          
-                // if (authUser.username !== messageInput.sendBy || !inRoom) {
-                //   throw new GraphQLError("Internal Error", {
-                //     extensions: {
-                //       code: "BAD_USER_INPUT",
-                //       http: { status: 400 },
-                //     },
-                //   });
-                // }
-                // console.log(createMessageInput);
                 const createdMessage = await dataSources.chatAPI.createMessage(createMessageInput);
           
-                // pubSub.publish("MESSAGE_CREATED", {
-                //   newMessage: messageInput,
-                // });
                 pubsub.publish("SEND_MESSAGE", {
                     sendMessage: createdMessage
                 })
@@ -199,10 +169,8 @@ const resolvers = {
 
         createChatRoom: async (_, { createRoomInput }, { dataSources }) => {
             try {
-                console.log("1")
               const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
-              console.log(createdRoom)
-        
+
               return createdRoom;
             } catch (err) {
               const message = err.extensions.response.body.error;
@@ -215,8 +183,6 @@ const resolvers = {
               const createdRoom = await dataSources.chatAPI.createGroupRoom(createGroupInput);
         
               await dataSources.usersAPI.addGroup(createdRoom);
-
-              console.log(createdRoom);
         
               return createdRoom;
             } catch (err) {
