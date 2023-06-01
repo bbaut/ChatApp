@@ -1,4 +1,4 @@
-import Message from "../models/Chats.js"
+import Message from "../models/Messages.js"
 import Rooms from "../models/Rooms.js"
 import Groups from "../models/Groups.js";
 
@@ -7,14 +7,12 @@ const createMessage = async (req, res) => {
         const message = await Message(req.body);
         const messageSaved = await message.save();
         res.json(messageSaved)
-        // return res.status(201).send({ message });
     } catch (err) {
         return res.status(500).send(err.message);
     }
 }
 
 const createChatRoom = async (req, res) => {
-    // const {user, contact} = req.body;
     const roomCreatedOne = await Rooms.find({
         createdBy: req.body.createdBy,
         member: req.body.member
@@ -24,9 +22,6 @@ const createChatRoom = async (req, res) => {
         createdBy: req.body.member,
         member: req.body.createdBy
     })
-
-    // console.log(roomCreatedOne)
-    // console.log(roomCreatedTwo)
 
     try {
         if (roomCreatedOne.length === 0 ) {
@@ -84,7 +79,6 @@ const getAllMessages = async (req, res) => {
                     text : msg.message.text,
                     sender: "received",
                     sendedBy: msg.sender.toString()
-                    //sender: msg.sender
                 }
             }
         })
