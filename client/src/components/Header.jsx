@@ -57,7 +57,13 @@ function Header() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(get_data({}));
+    // dispatch(get_data({}));
+    dispatch({
+      type: "setUserAuth",
+      payload: {
+        data:{}
+      }
+    })
     localStorage.removeItem('token');
   }
 

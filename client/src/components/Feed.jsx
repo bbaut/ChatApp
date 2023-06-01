@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 
 const Feed = () => {
 
-  const auth = useSelector((state) => state.authFunc.auth);
+  const { auth } = useSelector(
+    (state) => state.auth
+  );
 
   if (auth.hasOwnProperty('profileUser')){
     return (

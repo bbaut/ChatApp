@@ -5,6 +5,7 @@ import register from "./registerSaga";
 import addFriend from "./addContactSaga";
 import addNewRequest from "./addRequestSaga";
 import setUser from "./setUserSaga";
+import setUserAuthenticate from "./setAuthUserSaga";
 import removeRequest from "./deleteRequestSaga";
 import acceptFriend from "./acceptContactSaga";
 import acceptRequest from "./acceptRequestSaga";
@@ -18,6 +19,7 @@ import newGroup from "./newGroupSaga";
 import queryGroup from "./getGroupSaga";
 import addMemberGroup from "./addMemberSaga";
 import addNewMessageParticipants from "./addNewMessageParticipants";
+import setLoading from "./loadingSaga";
 
 export function* watchGetUser(){
     yield takeLatest(GET_USER, handlerGetUser)
@@ -29,6 +31,14 @@ export function* watchRegister(){
 
 export function* watchSetUser(){
     yield takeLatest("setUser", setUser)
+}
+
+export function* watchSetAuthUser(){
+    yield takeLatest("setUserAuth", setUserAuthenticate)
+}
+
+export function* watchSetLoading(){
+    yield takeLatest("setLoading", setLoading)
 }
 
 export function* watchAddContact(){
@@ -93,6 +103,8 @@ export default function* rootSaga() {
         watchGetUser(),
         watchRegister(),
         watchSetUser(),
+        watchSetAuthUser(),
+        watchSetLoading(),
         watchAddContact(),
         watchAddNewRequest(),
         watchUsernameRequest(),

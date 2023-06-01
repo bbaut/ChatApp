@@ -9,13 +9,20 @@ import { useSelector } from "react-redux";
 
 const ProtectedRoute = () => {
 
-  const auth = useSelector((state) => state.authFunc.auth);
-  const loadingUser = useSelector((state) => state.loadingFunc.loadingUser)
+  // const auth = useSelector((state) => state.auth.auth);
+  // const loadingUser = useSelector((state) => state.loadingFunc.loadingUser)
   const isFetching = useSelector((state) => state.user.isFetching)
+
+  const { auth, isLoading } = useSelector(
+    (state) => state.auth
+  );
   // const {loadingUser} = useAuth();
   // const {auth, loadingUser} = useAuth();
 
-  if(loadingUser || isFetching) return (
+  console.log(auth)
+  console.log(isLoading)
+
+  if(isLoading || isFetching) return (
     <Box sx={{ display: 'flex' }}>
       <CircularProgress />
     </Box>

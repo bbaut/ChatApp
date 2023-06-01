@@ -47,7 +47,15 @@ const Login = () => {
     },
     onCompleted(data) {
       localStorage.setItem('token', data.loginUser.token);
-      dispatch(get_data(data))
+      // dispatch(get_data(data))
+      console.log(data)
+      
+      dispatch({
+        type: "setUserAuth",
+        payload: {
+          data
+        }
+      })
       dispatch({
         type: "setUser",
         payload: {
