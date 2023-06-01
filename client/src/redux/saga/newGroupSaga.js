@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { call, put } from "redux-saga/effects";
-import { currentRoom, isFetching } from "../reducers/chatSlice";
+import { currentGroup, isFetching } from "../reducers/chatSlice";
 import client from "../../apolloClient";
 
 function* newGroup(action) {
@@ -25,7 +25,7 @@ function* newGroup(action) {
     const chatMembers = data.data.createGroupRoom.members;
     const groupName = data.data.createGroupRoom.groupName;
     const chatObj = {chatId, chatMembers, groupName}
-    yield put(currentRoom(chatObj));
+    yield put(currentGroup(chatObj));
   } catch (err) {
     yield console.log({ error: "errorSendMessage", severity: "warning" });
   }

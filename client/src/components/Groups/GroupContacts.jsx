@@ -53,15 +53,6 @@ useEffect(()=>{
         return
     }
 
-    // const member = contacts.find(element => 
-    //         element === memberName
-    // ) 
-
-    // if(member === undefined){
-    //     alert("User not found")
-    //     return
-    // }
-
     dispatch({
         type: "createNewGroup",
         payload: {
@@ -71,7 +62,6 @@ useEffect(()=>{
     })
 
     setGroupName("");
-    // setMemberName("");
     setOpen(false);
   }
 

@@ -19,9 +19,6 @@ export default function RequestLayer({item}) {
     const handleAccept = (e) => {
         e.preventDefault();
 
-        console.log(from)
-        console.log(username)
-
         dispatch({
             type: "acceptFriend",
             payload: [

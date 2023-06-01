@@ -15,7 +15,6 @@ export default function AlignItemsList() {
 
     useSubscription(CONTACT_REQUEST, {
         onData: (data) => {
-            console.log(data.data.data.addContactRequest)
             dispatch({
                 type: "addNewRequest",
                 payload: data.data.data.addContactRequest,
@@ -25,18 +24,6 @@ export default function AlignItemsList() {
             console.log(error)
         }
     })
-
-    // React.useEffect(() => {
-    //     dispatch({
-    //         type: "usernameRequest",
-    //         payload: requestsUsername
-    //     })
-    // })
-
-    // dispatch({
-    //     type: "usernameRequest",
-    //     payload: requestsUsername
-    // })
 
     let requestsArray = [];
 

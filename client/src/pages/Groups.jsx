@@ -4,11 +4,8 @@ import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { useSubscription } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
 import GroupContacts from '../components/Groups/GroupContacts'
 import GroupContainer from '../components/Groups/GroupContainerChat'
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -68,6 +65,10 @@ const Groups = () => {
             }
         })
     }, [chatId])
+
+    useEffect(() => {
+        console.log("hey")
+    }, [groups])
 
     return (
         <BoxContainer>

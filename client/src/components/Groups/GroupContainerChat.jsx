@@ -119,13 +119,6 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                     </Dialog>
             </Box>
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
-            {/* {chatMember.map((member, index) => {
-                return (
-                    <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
-                        {member}
-                    </Typography>
-                )
-            })} */}
                 <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
                     {chatMember.length} participants
                 </Typography>
