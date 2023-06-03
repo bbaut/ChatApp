@@ -1,11 +1,22 @@
 import { Box } from "@mui/material"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next"
 
 const Feed = () => {
+
+  const {t, i18n} = useTranslation();
 
   const { auth } = useSelector(
     (state) => state.auth
   );
+
+  const {language} = useSelector(
+    (state) => state.user
+  );
+
+  useEffect (() => {
+    i18n.changeLanguage(localStorage.getItem("language"));
+  },[language])
 
   if (auth.hasOwnProperty('profileUser')){
     return (

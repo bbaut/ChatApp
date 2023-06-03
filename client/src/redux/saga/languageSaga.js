@@ -1,0 +1,9 @@
+import { put } from "redux-saga/effects";
+import { setLanguage } from "../reducers/userSlice";
+
+function* setLng(action) {
+    console.log(action.payload.language)
+    yield put(setLanguage(action.payload.language));
+};
+
+export default setLng;

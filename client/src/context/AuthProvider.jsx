@@ -69,6 +69,14 @@ const AuthProvider = ({children}) => {
             profileUser()
         }
         authUser();
+        console.log(localStorage.getItem("language"))
+        dispatch({
+            type: "setLanguage",
+            payload: 
+            {
+                language: localStorage.getItem("language")
+            }
+        })
     }, []);
 
     return (

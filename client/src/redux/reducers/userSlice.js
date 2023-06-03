@@ -4,6 +4,7 @@ const initialState = {
   isFetching: false,
   error: null,
   value: null,
+  language: "en",
 };
 
 const userSlice = createSlice({
@@ -55,7 +56,11 @@ const userSlice = createSlice({
     },
     addGroup: (state=null, action) => {
       state.value.groups = action.payload
-    }
+    },
+    setLanguage: (state=null, action) => {
+      console.log(action.payload)
+      state.language = action.payload
+    },
   },
 });
 
@@ -67,7 +72,8 @@ export const {
   addRequest,
   acceptNewRequest,
   deleteRequest,
-  addGroup
+  addGroup,
+  setLanguage
 } = userSlice.actions;
 
 export default userSlice.reducer;
