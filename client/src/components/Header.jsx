@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
 import CONTACT_REQUEST from '../gql/contactRequest'
 import { useSubscription } from '@apollo/client';
+import { useTranslation } from "react-i18next"
+import {useEffect} from "react"
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
 
@@ -53,6 +55,7 @@ function Header() {
 );
 
   const dispatch = useDispatch();
+  const {t, i18n} = useTranslation();
 
   const handleLogout = () => {
     // dispatch(get_data({}));
@@ -79,6 +82,18 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const {language} = useSelector(
+    (state) => state.user
+  );
+  const onChangeLanguage = (e) => {
+    i18n.changeLanguage(e.target.id);
+    localStorage.setItem("language",e.target.id)
+  }
+
+  useEffect (() => {
+    i18n.changeLanguage(localStorage.getItem("language"));
+  },[language])
 
   return (
     <AppBar position="static">
@@ -164,38 +179,38 @@ function Header() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               > 
-                <Link to={"/dashboard"}>
-                      dashboard
+                <Link to={"/dashboard"} style={{textDecoration: "none", color:"white"}}>
+                      {t("profile")}
                 </Link>
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               > 
-                <Link to={"/dashboard/contacts"}>
-                      contacts
+                <Link to={"/dashboard/contacts"} style={{textDecoration: "none", color:"white"}}>
+                      {t("friends")}
                 </Link>
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               > 
-                <Link to={"/dashboard/chat/0"}>
-                      chat
+                <Link to={"/dashboard/chat/0"} style={{textDecoration: "none", color:"white"}}>
+                      {t("messages")}
                 </Link>
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               > 
-                <Link to={"/dashboard/groups/0"}>
-                      Groups
+                <Link to={"/dashboard/groups/0"} style={{textDecoration: "none", color:"white"}}>
+                      {t("groups")}
                 </Link>
               </Button>
               <IconButton aria-label="cart">
-                <StyledBadge badgeContent={requests.length} color="secondary">
+                <StyledBadge badgeContent={requests.length} color="secondary" style={{color:"white"}}>
                   <Link to={"/dashboard/requests"}>
-                    <PersonAddIcon />
+                    <PersonAddIcon style={{ fill: "white" }} />
                   </Link>
                 </StyledBadge>
               </IconButton>
@@ -203,7 +218,7 @@ function Header() {
                 onClick={handleLogout}
                 sx={{ my: 2, color: 'white', display: 'block', paddingLeft:20 }}
               > 
-                logout
+                {t("logout")}
               </Button>
           </Box>
 

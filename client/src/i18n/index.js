@@ -61,11 +61,11 @@ const resources = {
             username: "Nom d’utilisateur",
             confirmPassword: "Confirmez le mot de passe",
             alreadyAccount: "Déjà inscrit(e)?",
-            logout: "logout",
-            profile:"perfil",
-            friends: "friends",
-            messages: "mENSAJES",
-            groups: "grups"
+            logout: "Se déconnecter",
+            profile:"Profil",
+            friends: "Amis",
+            messages: "Messages",
+            groups: "Groupes"
         }
     },
     br: {
@@ -100,7 +100,12 @@ const resources = {
             welcomeText: "e rimaner in contatto con amici sempre",
             username: "Nome utente",
             confirmPassword: "Conferma password",
-            alreadyAccount:"Hai già un account?"
+            alreadyAccount:"Hai già un account?",
+            logout: "Esci",
+            profile: "Profilo",
+            friends: "Amici",
+            messages: "Mesaggi",
+            groups: "Gruppi"
         }
     },
     dt: {
@@ -115,7 +120,13 @@ const resources = {
             welcomeText: "und jederzeit mit Freunden in Kontakt bleiben",
             username: "Benutzername",
             confirmPassword: "Passwort bestätigen",
-            alreadyAccount:"Bereits Mitglied?"
+            alreadyAccount:"Bereits Mitglied?",
+            logout: "Abmelden",
+            profile: "Profilinformationen",
+            friends: "Freunde",
+            messages: "Mitteilungen",
+            groups: "Gruppen"
+            
         }
     }
 }
