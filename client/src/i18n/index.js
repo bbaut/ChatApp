@@ -22,7 +22,9 @@ const resources = {
             profile: "Profile",
             friends: "Friends",
             messages: "Messages",
-            groups: "Groups"
+            groups: "Groups",
+            deleteFriend: "Delete friend",
+            searchContact: "Search friend"
         }
     },
     es: {
@@ -45,7 +47,9 @@ const resources = {
             profile: "Perfil",
             friends: "Amigos",
             messages: "Mensajes",
-            groups: "Grupos"
+            groups: "Grupos",
+            deleteFriend: "Eliminar amigo",
+            searchContact: "Buscar amigo"
         }
     },
     fr: {
@@ -65,7 +69,10 @@ const resources = {
             profile:"Profil",
             friends: "Amis",
             messages: "Messages",
-            groups: "Groupes"
+            groups: "Groupes",
+            deleteFriend: "Retirer des amis",
+            searchContact: "Rechercher un ami"
+            
         }
     },
     br: {
@@ -85,7 +92,9 @@ const resources = {
             profile: "Perfil",
             friends: "Amigos",
             messages: "Mensagens",
-            groups: "Grupos"
+            groups: "Grupos",
+            deleteFriend: "Desamigar",
+            searchContact: "Pesquisar um amigo"
         }
     },
     it: {
@@ -105,7 +114,9 @@ const resources = {
             profile: "Profilo",
             friends: "Amici",
             messages: "Mesaggi",
-            groups: "Gruppi"
+            groups: "Gruppi",
+            deleteFriend: "Rimuovi dagli amici",
+            searchContact: "Cerca un amico"
         }
     },
     dt: {
@@ -125,7 +136,9 @@ const resources = {
             profile: "Profilinformationen",
             friends: "Freunde",
             messages: "Mitteilungen",
-            groups: "Gruppen"
+            groups: "Gruppen",
+            deleteFriend: "Als Freund/in entfernen",
+            searchContact: "finde einen Freund"
             
         }
     }

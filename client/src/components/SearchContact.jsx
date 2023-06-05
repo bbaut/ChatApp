@@ -4,6 +4,7 @@ import { gql, useLazyQuery } from '@apollo/client';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { find_contact } from "../redux/reducers/findContactReducer";
+import { useTranslation } from "react-i18next"
 
 const EXISTANCE_CONTACT = gql `
     query ExistanceContact($existanceInput: ExistanceInput) {
@@ -15,6 +16,7 @@ const EXISTANCE_CONTACT = gql `
 `
 
 const SearchContact = () => {
+    const {t} = useTranslation();
 
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
@@ -49,14 +51,14 @@ const SearchContact = () => {
         >
             <Stack spacing={2}  paddingBottom={2}>
                 <TextField
-                    label="Email"
+                    label={t("email")}
                     name="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     type="email"
                 />
             </Stack>
-            <Button variant="contained" type="submit">Search contact</Button>
+            <Button variant="contained" type="submit">{t("searchContact")}</Button>
         </form>
     )
 }
