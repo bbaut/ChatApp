@@ -3,10 +3,14 @@ import { Box, Typography } from '@mui/material'
 import Avatar from "../assets/avatar.png"
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from "react-i18next"
 
 const ChatContacts = ({contactsArray, currentMember, changeChat}) => {
 
   const [currentSelected, setCurrentSelected] = useState(undefined);
+
+
+  const {t} = useTranslation();
 
   const navigate = useNavigate();
 
@@ -59,7 +63,7 @@ useEffect(()=>{
                 textTransform:"uppercase"
               }}
             >
-              chats
+              {t("messages")}
             </Typography>
           </Box>
           <Box 

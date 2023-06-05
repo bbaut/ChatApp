@@ -24,7 +24,15 @@ const resources = {
             messages: "Messages",
             groups: "Groups",
             deleteFriend: "Delete friend",
-            searchContact: "Search friend"
+            chats:"Chats",
+            searchContact: "Search friend",
+            selectContact: "Select a friend",
+            createGroup: "Create group",
+            groupName: "Name of the group",
+            writeChatName: "Write the name of the group el",
+            changeGroupName: "Change the name of the group",
+            cancel: "Cancel",
+            save: "Save"
         }
     },
     es: {
@@ -49,7 +57,15 @@ const resources = {
             messages: "Mensajes",
             groups: "Grupos",
             deleteFriend: "Eliminar amigo",
-            searchContact: "Buscar amigo"
+            chat:"Chats",
+            searchContact: "Buscar amigo",
+            selectContact: "Selecciona un amigo",
+            createGroup: "Crear un grupo",
+            groupName: "Nombre del grupo",
+            writeChatName: "Escribir el nombre del grupo",
+            changeGroupName: "Modificar el nombre del grupo",
+            cancel: "Cancelar",
+            save: "Guardar"
         }
     },
     fr: {
@@ -71,8 +87,15 @@ const resources = {
             messages: "Messages",
             groups: "Groupes",
             deleteFriend: "Retirer des amis",
-            searchContact: "Rechercher un ami"
-            
+            chats: "Discussions",
+            searchContact: "Rechercher un ami",
+            selectContact: "Choisir un ami",
+            createGroup: "Créer un groupe",
+            groupName: "Nom de la discussion",
+            writeChatName: "Écrivez le nom de la discussion de groupe",
+            changeGroupName: "Modifier le nom de la discussion",
+            cancel: "Annuler",
+            save: "Enregistrer"
         }
     },
     br: {
@@ -94,7 +117,16 @@ const resources = {
             messages: "Mensagens",
             groups: "Grupos",
             deleteFriend: "Desamigar",
-            searchContact: "Pesquisar um amigo"
+            chats:"Bate-papos",
+            searchContact: "Pesquisar um amigo",
+            selectContact: "Escolha um amigo",
+            createGroup: "Criar grupo",
+            groupName: "Nome do bate-papo",
+            writeChatName: "Escreva o nome do chat em grupo",
+            changeGroupName: "Alterar o nome do bate-papo",
+            cancel: "Cancelar",
+            save: "Salvar"
+            
         }
     },
     it: {
@@ -116,7 +148,15 @@ const resources = {
             messages: "Mesaggi",
             groups: "Gruppi",
             deleteFriend: "Rimuovi dagli amici",
-            searchContact: "Cerca un amico"
+            chats: "Chat",
+            searchContact: "Cerca un amico",
+            selectContact: "Scegli un amico",
+            createGroup: "Crea gruppo",
+            groupName: "Nome della chat",
+            writeChatName: "Scrivi il nome della chat di gruppo",
+            changeGroupName: "Modifica nome della chat",
+            cancel: "Annulla",
+            save: "Salva"
         }
     },
     dt: {
@@ -138,8 +178,15 @@ const resources = {
             messages: "Mitteilungen",
             groups: "Gruppen",
             deleteFriend: "Als Freund/in entfernen",
-            searchContact: "finde einen Freund"
-            
+            chats:"Chats",
+            searchContact: "Finde einen Freund",
+            selectContact: "Wähle einen Freund aus",
+            createGroup: "Gruppe erstellen",
+            groupName: "Chatname",
+            writeChatName: "Geben Sie den Namen des Gruppenchats ein",
+            changeGroupName: "Chatnamen ändern",
+            cancel: "Abbrechen",
+            save: "Speichern"
         }
     }
 }

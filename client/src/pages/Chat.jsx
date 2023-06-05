@@ -9,6 +9,7 @@ import ACCEPT_CONTACT_REQUEST from "../gql/acceptContact"
 import ChatContainer from '../components/ChatContainer';
 import ChatContacts from '../components/ChatContacts';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next"
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -23,6 +24,7 @@ const BoxContainer = styled(Box)(() => ({
 
 const Chat = () => {
     const [ currentChat, setCurrentChat] = useState(undefined); 
+    const {t} = useTranslation();
 
     const navigate = useNavigate();
 
@@ -91,7 +93,7 @@ const Chat = () => {
             <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
                 <ChatContacts contactsArray={contactsArray} currentMember={username} changeChat={handleChatChange}/>
                 {currentChat === undefined ? 
-                    <Box sx={{color: "white"}}>Please select a chat to start messaging</Box> 
+                    <Box sx={{color: "white"}}>{t("selectContact")}</Box> 
                     :
                     <ChatContainer currentChat={currentChat} currentMember={username}/>
                 }
