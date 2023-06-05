@@ -17,7 +17,12 @@ const resources = {
             alreadyAccount: "Have an account?",
             fieldsRequired: "All fields required",
             passwordsDontMatch: "Passwords do not match. Try again",
-            succesfulCreation: "User created successfully. Go to login page"
+            succesfulCreation: "User created successfully. Go to login page",
+            logout: "logout",
+            profile: "Profile",
+            friends: "Friends",
+            messages: "Messages",
+            groups: "Groups"
         }
     },
     es: {
@@ -35,7 +40,12 @@ const resources = {
             alreadyAccount: "¿Ya tienes una cuenta?",
             fieldsRequired: "Todos los campos son requeridos",
             passwordsDontMatch: "Contraseñas no coinciden. Inténtalo de nuevo",
-            succesfulCreation: "Usuario creado exitosamente. Ve a la página de iniciar sesión"
+            succesfulCreation: "Usuario creado exitosamente. Ve a la página de iniciar sesión",
+            logout: "Cerrar Sesión",
+            profile: "Perfil",
+            friends: "Amigos",
+            messages: "Mensajes",
+            groups: "Grupos"
         }
     },
     fr: {
@@ -50,7 +60,12 @@ const resources = {
             welcomeText: "et restez en contact avec ton copains à tout moment",
             username: "Nom d’utilisateur",
             confirmPassword: "Confirmez le mot de passe",
-            alreadyAccount: "Déjà inscrit(e)?"
+            alreadyAccount: "Déjà inscrit(e)?",
+            logout: "logout",
+            profile:"perfil",
+            friends: "friends",
+            messages: "mENSAJES",
+            groups: "grups"
         }
     },
     br: {
@@ -65,7 +80,12 @@ const resources = {
             welcomeText: "e manter contato com amigos, a qualquer hora",
             username: "Nome de utilizador(a)",
             confirmPassword: "Confirmar a senha",
-            alreadyAccount: "Já se cadastrou?"
+            alreadyAccount: "Já se cadastrou?",
+            logout: "Sair",
+            profile: "Perfil",
+            friends: "Amigos",
+            messages: "Mensagens",
+            groups: "Grupos"
         }
     },
     it: {
