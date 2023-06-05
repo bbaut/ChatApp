@@ -2,6 +2,7 @@ import { Box, Container } from "@mui/material"
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next"
 import {useEffect} from "react"
+import robot from "../assets/rebel-robot.gif"
 
 const Feed = () => {
 
@@ -33,6 +34,17 @@ const Feed = () => {
         <h1>
           {t("welcome")}
         </h1>
+        <Box
+        component="img"
+        sx={{
+          height: 233,
+          width: 350,
+          maxHeight: { xs: 233, md: 167 },
+          maxWidth: { xs: 350, md: 250 },
+        }}
+        alt="The house from the offer."
+        src={robot}
+      />
         <h1>
           {auth.profileUser.username}
         </h1>
@@ -79,6 +91,17 @@ const Feed = () => {
         <h1>
           {t("welcome")}
         </h1>
+        <Box
+        component="img"
+        sx={{
+          height: 233,
+          width: 350,
+          maxHeight: { xs: 233, md: 167 },
+          maxWidth: { xs: 350, md: 250 },
+        }}
+        alt="The house from the offer."
+        src={robot}
+      />
         <h1>
           {auth.loginUser.username}
         </h1>
