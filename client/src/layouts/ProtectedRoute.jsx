@@ -22,18 +22,20 @@ const ProtectedRoute = () => {
   else if (auth.hasOwnProperty('profileUser')){
     return (<Box>
     <Header/>
-      <Stack direction="row" spacing={2} justifyContent="space-between">
+    <Outlet/>
+      {/* <Stack direction="row" spacing={2} justifyContent="space-between">
         <Outlet sx={{width:1/2}}/>
-      </Stack>
+      </Stack> */}
   </Box>)
   }
   else if (auth.hasOwnProperty('loginUser')){
     return (<Box>
       <Header/>
-        <Stack direction="row" spacing={2} justifyContent="space-between">
+      <Outlet/>
+        {/* <Stack direction="row" spacing={2} justifyContent="space-between">
           <Outlet
            sx={{width:1/2}} />
-        </Stack>
+        </Stack> */}
     </Box>)
   }
 

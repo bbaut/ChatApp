@@ -131,32 +131,32 @@ const Register = () => {
                 <p> {t("alreadyAccount")}</p> <Link to="/" style={{color:"Black"}}>{t("login")}</Link>
         </Container>
         <Container sx={{display:"flex", margin:"10rem", flexDirection:"row", justifyContent:"space-evenly", marginBottom:"8rem"}}>
-          <Box id="en" sx={{margin:"2rem"}}
+          <Box id="en" sx={{margin:"2rem", cursor:"pointer"}}
             onClick={onChangeLanguage}
           >
             English
           </Box>
-          <Box id="es" sx={{margin:"2rem"}}
+          <Box id="es" sx={{margin:"2rem", cursor:"pointer"}}
             onClick={onChangeLanguage}
           >
             Español
           </Box>
-          <Box id="fr" sx={{margin:"2rem"}}
+          <Box id="fr" sx={{margin:"2rem", cursor:"pointer"}}
             onClick={onChangeLanguage}
           >
             Français (France)
           </Box>
-          <Box id="br" sx={{margin:"2rem"}}
+          <Box id="br" sx={{margin:"2rem", cursor:"pointer"}}
             onClick={onChangeLanguage}
           >
             Português (Brasil)
           </Box>
-          <Box id="it" sx={{margin:"2rem"}}
+          <Box id="it" sx={{margin:"2rem", cursor:"pointer"}}
             onClick={onChangeLanguage}
           >
             Italiano
           </Box>
-          <Box id="dt" sx={{margin:"2rem"}}
+          <Box id="dt" sx={{margin:"2rem", cursor:"pointer"}}
             onClick={onChangeLanguage}
           >
             Deutsch
