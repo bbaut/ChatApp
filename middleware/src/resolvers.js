@@ -206,6 +206,7 @@ const resolvers = {
             }
         },
         removeMemberGroup: async (_, { removeMemberInput }, { dataSources }) => {
+            console.log(removeMemberInput)
             try {
                 const userUpdated = await dataSources.usersAPI.removeMember(removeMemberInput);
                 const chatUpdated = await dataSources.chatAPI.removeMember(removeMemberInput);
