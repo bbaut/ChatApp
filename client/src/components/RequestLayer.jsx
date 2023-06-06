@@ -5,12 +5,14 @@ import Avatar from '@mui/material/Avatar';
 import { Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next"
 
 export default function RequestLayer({item}) {
     const from = item;
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const { username } = useSelector(
         (state) => state.user.value
@@ -58,10 +60,10 @@ export default function RequestLayer({item}) {
                 {from}
                 <br/>
                 <Button onClick={handleAccept}>
-                    Accept contact
+                    {t("acceptContact")}
                 </Button>
                 <Button onClick={handleDelete}>
-                    Delete request
+                    {t("deleteRequest")}
                 </Button>
             </ListItemText>
     </ListItem>

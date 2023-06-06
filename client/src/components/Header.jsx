@@ -21,6 +21,8 @@ import CONTACT_REQUEST from '../gql/contactRequest'
 import { useSubscription } from '@apollo/client';
 import { useTranslation } from "react-i18next"
 import {useEffect} from "react"
+import LanguageIcon from '@mui/icons-material/Language';
+import LanguageMenu from './LanguageMenu';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
 
@@ -221,6 +223,8 @@ function Header() {
                 {t("logout")}
               </Button>
           </Box>
+
+          <LanguageMenu/>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

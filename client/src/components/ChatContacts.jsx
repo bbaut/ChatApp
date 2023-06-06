@@ -63,7 +63,7 @@ useEffect(()=>{
                 textTransform:"uppercase"
               }}
             >
-              {t("messages")}
+              {t("chats")}
             </Typography>
           </Box>
           <Box 
