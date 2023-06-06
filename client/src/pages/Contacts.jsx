@@ -69,9 +69,9 @@ const Contacts = () => {
           flex={5}
           p={2}
         >
-          <h1>Contacts</h1>
-          <h2> You don't have contacts yet</h2>
-          <h3>Start by adding a contact</h3>
+          <h1>{t("friends")}</h1>
+          <h2>{t("noFriends")}</h2>
+          <h3>{t("addingAFriend")}</h3>
           <Search/>
       </Box>
     )

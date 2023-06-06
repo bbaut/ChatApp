@@ -5,10 +5,13 @@ import GroupInputChat from './GroupInputChat';
 import GroupMessagesChat from './GroupMessagesChat';
 import { useDispatch } from 'react-redux';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ErrorIcon from '@mui/icons-material/Error';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { useTranslation } from "react-i18next"
 import { Box, 
     Typography, 
-    Button, 
+    Button,
+    Stack,
     Dialog, 
     DialogTitle, 
     DialogContent, 
@@ -21,12 +24,14 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     const { chatId } = useParams();
     const { contacts, username } = useSelector(
         (state) => state.user.value
-      );
-    const { chatMember } = useSelector(
+    );
+    const { chatMember, createdBy } = useSelector(
         (state) => state.chat
-      );
+    );
 
     const [open, setOpen] = React.useState(false);
+    const [openR, setOpenR] = React.useState(false);
+    const [alert, setAlert] = React.useState("");
 
     const [member, setMember] = React.useState("");
 
@@ -39,10 +44,10 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                 newMessage: {
                     chatId: chatId,
                     message: {
-                      text: msg
+                    text: msg
                     },
                     sender: currentMember
-                  }
+                }
             }
         })
     }
@@ -50,11 +55,14 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     const handleAddMember = () => {
         setOpen(true);
     }
+    const handleRemoveMember = () => {
+        setOpenR(true);
+    }
 
     const handleOnClickAdd = async () => {
-        console.log(member)
+
         if (member === ""){
-            alert(t("usernameRequired"))
+            setAlert(t("usernameRequired"))
             return
         }
 
@@ -77,12 +85,50 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
             }
         })
 
+        setAlert("");
         setMember("");
         setOpen(false);
     }
 
-    const handleClose = () => {
+    const handleOnClickRemove = async () => {
+        if (member === ""){
+            setAlert(t("usernameRequired"))
+            return
+        }
+
+        // if(chatMember.length === 0){
+        //     setAlert("No friends to remove")
+        //     return
+        // }
+        const contact = chatMember.find(element => {
+            return element === member
+        })
+
+        if (!contact) {
+            setAlert(t("userNotFound"))
+            return
+        }
+        dispatch({
+            type: "removeMember",
+            payload: {
+                username: currentMember,
+                id: chatId,
+                member: member,
+                chatName: currentChat
+            }
+        })
+        setAlert("");
+        setMember("");
+        setOpenR(false);
+    }
+
+    const handleAddClose = () => {
         setOpen(false);
+        setAlert("");
+    };
+    const handleRemoveClose = () => {
+        setOpenR(false);
+        setAlert("");
     };
 
     return (
@@ -97,10 +143,19 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                         {currentChat}
                     </Typography>
                 </Box>
-                <Button sx={{textAlign:"right", color:"white", cursor:"pointer"}} onClick={handleAddMember}><PersonAddIcon/></Button>
-                    <Dialog open={open} onClose={handleClose}>
+                <Box>
+                <Button sx={{ color:"white", cursor:"pointer"}} onClick={handleAddMember}><PersonAddIcon/></Button>
+                    <Dialog open={open} onClose={handleAddClose}>
                         <DialogTitle>{t("addFriend")}</DialogTitle>
                         <DialogContent>
+                        {alert && 
+                        <Stack spacing={2} paddingBottom={2} sx={{color:"#990f02"}}>
+                            <ErrorIcon/>
+                            <Typography variant="h6">
+                                {alert}
+                            </Typography>
+                        </Stack>
+                        }
                         <DialogContentText>
                             {t("writeUsername")}
                         </DialogContentText>
@@ -117,9 +172,41 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                         </DialogContent>
                         <DialogActions>
                         <Button onClick={handleOnClickAdd}>{t("addFriend")}</Button>
-                        <Button onClick={handleClose}>{t("cancel")}</Button>
+                        <Button onClick={handleAddClose}>{t("cancel")}</Button>
                         </DialogActions>
                     </Dialog>
+                    <Button sx={{color:"white", cursor:"pointer"}} onClick={handleRemoveMember}><PersonRemoveIcon/></Button>
+                    <Dialog open={openR} onClose={handleRemoveClose}>
+                        <DialogTitle>Remove</DialogTitle>
+                        <DialogContent>
+                        {alert && 
+                        <Stack spacing={2} paddingBottom={2} sx={{color:"#990f02"}}>
+                            <ErrorIcon/>
+                            <Typography variant="h6">
+                                {alert}
+                            </Typography>
+                        </Stack>
+                        }
+                        <DialogContentText>
+                            {t("writeUsername")}
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="member"
+                            label={t("username")}
+                            type="name"
+                            fullWidth
+                            variant="standard"
+                            onChange={e => setMember(e.target.value)}
+                        />
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleOnClickRemove}>{t("deleteFriend")}</Button>
+                        <Button onClick={handleRemoveClose}>{t("cancel")}</Button>
+                        </DialogActions>
+                    </Dialog>
+                </Box>
             </Box>
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
                 <Typography variant='p' color="white" sx={{flexBasis:"100"}}>

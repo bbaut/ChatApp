@@ -11,6 +11,7 @@ function* queryGroup(action) {
                 _id
                 groupName
                 members
+                createdBy
             }
         }
     `,

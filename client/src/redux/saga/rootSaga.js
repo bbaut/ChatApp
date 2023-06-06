@@ -19,6 +19,7 @@ import addNewMessageParticipants from "./addNewMessageParticipants";
 import setLoading from "./loadingSaga";
 import setNewGroup from "./groupCreatedSaga";
 import setLng from "./languageSaga";
+import removeMemberGroup from "./removeMemberSaga";
 
 export function* watchRegister(){
     yield takeLatest("register", register);
@@ -86,6 +87,9 @@ export function* watchGetGroup(){
 export function* watchAddMemberGroup(){
     yield takeEvery("addMember", addMemberGroup)
 }
+export function* watchRemoveMemberGroup(){
+    yield takeEvery("removeMember", removeMemberGroup)
+}
 
 export function* watchSetNewGroup(){
     yield takeEvery("setNewGroup", setNewGroup)
@@ -115,6 +119,7 @@ export default function* rootSaga() {
         watchGetRoom(),
         watchGetGroup(),
         watchAddMemberGroup(),
+        watchRemoveMemberGroup(),
         watchSetNewGroup(),
         watchSetLanguage(),
     ]);

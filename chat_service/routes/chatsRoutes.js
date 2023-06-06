@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createMessage, createChatRoom, getAllMessages, getRoom, createGroupRoom, getGroup, addMemberGroup } from "../controllers/chatsController.js";
+import { createMessage, createChatRoom, getAllMessages, getRoom, createGroupRoom, getGroup, addMemberGroup, removeMemberGroup } from "../controllers/chatsController.js";
 
 const router = Router();
 
@@ -10,5 +10,6 @@ router.get('/getmessages',getAllMessages);
 router.get('/getroom',getRoom);
 router.get('/getgroup',getGroup);
 router.post('/addmember',addMemberGroup);
+router.post('/removemember',removeMemberGroup);
 
 export default router

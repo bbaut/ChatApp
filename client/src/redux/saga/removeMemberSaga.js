@@ -2,11 +2,11 @@ import { call } from "redux-saga/effects";
 import { gql } from "@apollo/client";
 import client from "../../apolloClient";
 
-function* addMemberGroup(action) {
+function* removeMemberGroup(action) {
     const options = {
       mutation: gql`
-        mutation Mutation($addMemberInput: AddMemberInput) {
-            addMemberGroup(addMemberInput: $addMemberInput) {
+        mutation Mutation($removeMemberInput: removeMemberInput) {
+            removeMemberGroup(removeMemberInput: $removeMemberInput) {
                 _id
                 contacts
                 email
@@ -15,15 +15,15 @@ function* addMemberGroup(action) {
                 chatName
                 }
                 requests {
-                from
                 to
+                from
                 }
                 username
-            }
         }
+}
       `,
       variables: {
-        addMemberInput: action.payload
+        removeMemberInput: action.payload
       },
       fetchPolicy: "no-cache",
     };
@@ -34,4 +34,4 @@ function* addMemberGroup(action) {
     }
   }
   
-  export default addMemberGroup;
+  export default removeMemberGroup;

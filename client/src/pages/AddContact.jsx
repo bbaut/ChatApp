@@ -2,11 +2,14 @@ import { Box, Stack, Avatar, Typography, Button } from "@mui/material"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next"
 
 const AddContact = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const {t} = useTranslation();
 
     const contact = useSelector((state) => state.findContactFunc.contact);
     const dataAuth = useSelector(
@@ -55,9 +58,9 @@ const AddContact = () => {
         p={2}
         >
         <form onSubmit={handleSubmit}>
-            <h1>Add contact</h1>
+            <h1>{t("addFriend")}</h1>
             {Object.keys(contact).length === 0 ? 
-            <h2>No contacts shown</h2>
+            <h2>{t("userNotFound")}</h2>
             :
             <Box sx={{width:500}}>
             <Stack spacing={2} direction="row" alignItems="center">
@@ -67,7 +70,7 @@ const AddContact = () => {
                 <Stack sx={{ minWidth: 0 }}>
                     <Typography noWrap>{contact.existanceContact.username}</Typography> 
                 </Stack>
-                <Button type="submit">Add Contact</Button>
+                <Button type="submit">{t("addFriend")}</Button>
                 </Stack>
             </Box> 
             }

@@ -117,6 +117,15 @@ class UsersAPI extends RESTDataSource {
             }
         )
     }
+    async removeMember(object){
+        return this.post(
+            '/api/users/removemember', {
+                body: {
+                    object
+                }
+            }
+        )
+    }
 }
 
 export default UsersAPI

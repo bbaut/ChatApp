@@ -4,8 +4,9 @@ const initialState = {
     isFetching: false,
     error: null,
     currentRoom: '',
-    chatMember: '',
+    chatMember: [],
     groupName: '',
+    createdBy: '',
     value: [],
     valueGroup: []
 };
@@ -27,7 +28,8 @@ const chatSlice = createSlice({
             state.isFetching = false;
             state.currentRoom = action.payload._id;
             state.chatMember = action.payload.members;
-            state.groupName = action.payload.groupName
+            state.groupName = action.payload.groupName;
+            state.createdBy = action.payload.createdBy;
         },
         currentRoom: (state = null, action) => {
             state.isFetching = false;

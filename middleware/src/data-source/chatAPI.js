@@ -57,6 +57,15 @@ class ChatAPI extends RESTDataSource {
             }
         )
     }
+    async removeMember (object) {
+        return this.post(
+            '/api/chat/removemember', {
+                body: {
+                    object
+                }
+            }
+        )
+    }
 
 }
 

@@ -15,6 +15,7 @@ type Group {
     _id: String
     members: [String]
     groupName: String
+    createdBy: String
 }
 
 type Message {
@@ -83,6 +84,13 @@ input AddMemberInput {
     chatName: String
 }
 
+input removeMemberInput {
+    username: String
+    id: ID
+    member: String
+    chatName: String
+}
+
 type Query {
     getMessages(getMessageInput: GetMessageInput): [Content]
     getRoom(getRoomInput: getRoomInput): Room
@@ -94,6 +102,7 @@ type Mutation {
     createChatRoom(createRoomInput: RoomInput): Room
     createGroupRoom(createGroupInput: GroupInput): Group!
     addMemberGroup(addMemberInput: AddMemberInput): UserData
+    removeMemberGroup(removeMemberInput: removeMemberInput): UserData
 }
 
 `

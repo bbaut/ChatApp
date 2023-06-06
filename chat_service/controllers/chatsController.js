@@ -130,6 +130,21 @@ const addMemberGroup = async (req, res) => {
         return res.status(500).send(err.message);
     }
 }
+const removeMemberGroup = async (req, res) => {
+    const chatObject = req.body.object 
+    try {
+        const chat = await Groups.findById(chatObject.id)
+
+        chatUpdated = await Groups.findOneAndUpdate(
+                {_id: chatObject.id},
+                { $pull: { members: chatObject.member }},
+                { new: true }
+        )
+        res.json(chatUpdated)
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
+}
 
 export {
     createMessage,
@@ -138,5 +153,6 @@ export {
     getAllMessages,
     getRoom,
     getGroup,
-    addMemberGroup
+    addMemberGroup,
+    removeMemberGroup
 }

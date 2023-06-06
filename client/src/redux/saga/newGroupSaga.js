@@ -11,6 +11,7 @@ function* newGroup(action) {
                 _id
                 groupName
                 members
+                createdBy
             }
         }
     `,
@@ -22,9 +23,10 @@ function* newGroup(action) {
     yield put(isFetching());
     const data = yield call(client.mutate, options);
     const chatId = data.data.createGroupRoom._id;
-    const chatMembers = data.data.createGroupRoom.members;
+    const members = data.data.createGroupRoom.members;
     const groupName = data.data.createGroupRoom.groupName;
-    const chatObj = {chatId, chatMembers, groupName}
+    const createdBy = data.data.createGroupRoom.createdBy;
+    const chatObj = {chatId, members, groupName, createdBy}
     yield put(currentGroup(chatObj));
   } catch (err) {
     yield console.log({ error: "errorSendMessage", severity: "warning" });

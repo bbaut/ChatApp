@@ -16,9 +16,6 @@ const GroupMessagesChat = ({currentMember}) => {
   let sendedby
   const dispatch = useDispatch();
 
-  console.log(value)
-  console.log(valueGroup)
-
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
         if(data.data.data.sendMessage.sender === currentMember){

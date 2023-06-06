@@ -345,6 +345,34 @@ const addMemberGroup = async (req,res) => {
     }
 }
 
+const removeMemberGroup = async (req,res) => {
+    const memberToAdd = req.body.object.member
+    try {
+        const user = await Users.findOne({username: memberToAdd});
+        
+        if(!user){
+            const error = new Error('User not found');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const userGroupObject = {
+            chatId: req.body.object.id,
+            chatName: req.body.object.chatName
+        }
+
+        const userUpdated = await Users.findOneAndUpdate(
+            {username: user.username},
+            { $pull: { groups: userGroupObject }},
+            { new: true }
+        )
+
+        return res.status(200).json({userUpdated});
+    }
+    catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+}
+
 
 export {
     searchContact,
@@ -357,5 +385,6 @@ export {
     createUser,
     addChatContact,
     addGroup,
-    addMemberGroup
+    addMemberGroup,
+    removeMemberGroup
 }
