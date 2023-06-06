@@ -5,6 +5,7 @@ import Picker from "emoji-picker-react";
 import { Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import { useTranslation } from "react-i18next"
 import "./GroupInputChat.css"
 
 const BoxContainer = styled(Box)(() => ({
@@ -28,6 +29,7 @@ const GroupInputChat = ({handleSendMsg}) => {
 
     const [text, setText] = useState('');
     const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+    const {t} = useTranslation();
 
     const handleEmojiPicker = () => {
         setShowEmojiPicker(!showEmojiPicker) 
@@ -70,7 +72,7 @@ const GroupInputChat = ({handleSendMsg}) => {
             {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick}/>}
             <TextField
                 direction="column"
-                placeholder={("write a Message")}
+                placeholder={t("writeAMessage")}
                 inputProps={{
                     maxLength: 5000,
                 }}

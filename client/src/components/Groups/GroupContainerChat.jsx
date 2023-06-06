@@ -5,6 +5,7 @@ import GroupInputChat from './GroupInputChat';
 import GroupMessagesChat from './GroupMessagesChat';
 import { useDispatch } from 'react-redux';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useTranslation } from "react-i18next"
 import { Box, 
     Typography, 
     Button, 
@@ -29,6 +30,8 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
 
     const [member, setMember] = React.useState("");
 
+    const {t} = useTranslation();
+
     const handleSendMsg = async (msg) => {
         dispatch({
             type: "createNewMessage",
@@ -51,7 +54,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     const handleOnClickAdd = async () => {
         console.log(member)
         if (member === ""){
-            alert("Please write a user")
+            alert(t("usernameRequired"))
             return
         }
 
@@ -60,7 +63,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
         })
 
         if (!contact) {
-            alert("The user you are looking for is not on your contacts list")
+            alert(t("userNotFound"))
             return
         }
 
@@ -96,16 +99,16 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                 </Box>
                 <Button sx={{textAlign:"right", color:"white", cursor:"pointer"}} onClick={handleAddMember}><PersonAddIcon/></Button>
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Add member</DialogTitle>
+                        <DialogTitle>{t("addFriend")}</DialogTitle>
                         <DialogContent>
                         <DialogContentText>
-                            Write the username
+                            {t("writeUsername")}
                         </DialogContentText>
                         <TextField
                             autoFocus
                             margin="dense"
                             id="member"
-                            label="Member"
+                            label={t("username")}
                             type="name"
                             fullWidth
                             variant="standard"
@@ -113,14 +116,14 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                         />
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={handleOnClickAdd}>Add member</Button>
-                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleOnClickAdd}>{t("addFriend")}</Button>
+                        <Button onClick={handleClose}>{t("cancel")}</Button>
                         </DialogActions>
                     </Dialog>
             </Box>
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
                 <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
-                    {chatMember.length} participants
+                    {chatMember.length} {t("friends")}
                 </Typography>
             </Box>
             <GroupMessagesChat currentMember={currentMember}/>

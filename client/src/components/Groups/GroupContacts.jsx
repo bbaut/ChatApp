@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import { useTranslation } from "react-i18next"
 
 
 const GroupContacts = ({groupsArray, currentMember, changeChat}) => {
@@ -21,6 +22,7 @@ const GroupContacts = ({groupsArray, currentMember, changeChat}) => {
   const [open, setOpen] = React.useState(false);
   const [groupName, setGroupName] = React.useState("");
 
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -98,16 +100,16 @@ useEffect(()=>{
              <GroupAddIcon/>
             </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle>{t("createGroup")}</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
-                    Write the name of the group
+                    {t("writeChatName")}
                 </DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
                     id="groupName"
-                    label="Group name"
+                    label={t("groupName")}
                     type="name"
                     fullWidth
                     variant="standard"
@@ -115,8 +117,8 @@ useEffect(()=>{
                 />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={handleCreate}>Create group</Button>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleCreate}>{t("createGroup")}</Button>
+                <Button onClick={handleClose}>{t("cancel")}</Button>
                 </DialogActions>
             </Dialog>
             <Typography
@@ -125,7 +127,7 @@ useEffect(()=>{
                 textTransform:"uppercase"
               }}
             >
-              groups
+              {t("groups")}
             </Typography>
           </Box>
           <Box 

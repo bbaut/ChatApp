@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import GroupContacts from '../components/Groups/GroupContacts'
 import GroupContainer from '../components/Groups/GroupContainerChat'
 import CREATED_GROUP from '../gql/createdGroup';
+import { useTranslation } from "react-i18next"
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -27,6 +28,7 @@ const Groups = () => {
     const { chatId } = useParams();
 
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const { groups, username } = useSelector(
       (state) => state.user.value
@@ -87,7 +89,7 @@ const Groups = () => {
                 <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
                     <GroupContacts groupsArray={groupsArray} currentMember={username} changeChat={handleChatChange}/>
                     {currentChat === undefined ? 
-                        <Box sx={{color: "white"}}>Please create a group to start chating</Box> 
+                        <Box sx={{color: "white"}}>{t("selectGroup")}</Box> 
                         :
                         <GroupContainer currentChat={currentChat} currentMember={username}/>
                     }
