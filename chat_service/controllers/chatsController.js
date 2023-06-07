@@ -71,14 +71,16 @@ const getAllMessages = async (req, res) => {
                 return {
                     text : msg.message.text,
                     sender: "sended",
-                    sendedBy: from
+                    sendedBy: from,
+                    isScribble: msg.message.isScribble
                 }
             }
             else {
                 return {
                     text : msg.message.text,
                     sender: "received",
-                    sendedBy: msg.sender.toString()
+                    sendedBy: msg.sender.toString(),
+                    isScribble: msg.message.isScribble
                 }
             }
         })

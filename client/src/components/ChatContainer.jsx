@@ -9,14 +9,15 @@ const ChatContainer = ({currentChat, currentMember, messages}) => {
     const dispatch = useDispatch();
     const { chatId } = useParams();
 
-    const handleSendMsg = async (msg) => {
+    const handleSendMsg = async (msg, isScribble) => {
         dispatch({
             type: "createNewMessage",
             payload: {
                 newMessage: {
                     chatId: chatId,
                     message: {
-                      text: msg
+                      text: msg,
+                      isScribble: isScribble
                     },
                     sender: currentMember
                   }

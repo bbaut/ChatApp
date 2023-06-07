@@ -15,6 +15,7 @@ const ChatMessages = ({currentMember}) => {
 
   let messages = value
   let sendedby
+  
   const dispatch = useDispatch();
 
   useSubscription(SEND_MESSAGE, {
@@ -77,11 +78,15 @@ const ChatMessages = ({currentMember}) => {
                     backgroundColor: "#4f04ff21",
                   }}
                 >
-                  <Typography 
-                    variant='p'
-                  >
-                    {message.text}
-                  </Typography>
+                  {message.isScribble ? 
+                    <img src={message.text} alt=""/>
+                  :
+                    <Typography 
+                      variant='p'
+                    >
+                      {message.text}
+                    </Typography>
+              }
                 </Box>
               </Box>
             :  
@@ -104,11 +109,16 @@ const ChatMessages = ({currentMember}) => {
                 backgroundColor: "#9900ff20",
               }}
             >
-              <Typography 
-                variant='p'
-              >
-                {message.text}
-              </Typography>
+              {message.isScribble ? 
+                <img src={message.text} alt=""/>
+              :
+                <Typography 
+                  variant='p'
+                >
+                  {message.text}
+                </Typography>
+              
+              }
             </Box>
           </Box>
             }

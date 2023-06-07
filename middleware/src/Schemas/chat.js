@@ -4,6 +4,7 @@ type Content {
     text: String
     sender: String
     sendedBy: String
+    isScribble: Boolean
 }
 
 type Room {
@@ -60,11 +61,12 @@ input getGroupInput {
 input MessageInput {
     message: inputContent
     sender: String
-    chatId: String
+    chatId: String,
 }
 
 input inputContent {
-    text: String
+    text: String,
+    isScribble: Boolean
 }
 
 input RoomInput {

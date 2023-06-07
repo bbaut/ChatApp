@@ -24,6 +24,12 @@ type Message {
     chatId: String
 }
 
+type Content {
+    text: String
+    sender: String
+    sendedBy: String
+    isScribble: Boolean
+}
 
 type Groupdata {
     chatId: String!

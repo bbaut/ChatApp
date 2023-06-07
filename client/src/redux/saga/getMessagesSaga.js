@@ -11,6 +11,7 @@ function* queryMessages(action) {
             text
             sender
             sendedBy
+            isScribble
           }
         }
     `,

@@ -10,6 +10,7 @@ function* newMessage(action) {
           chatId
           message {
             text
+            isScribble
           }
           sender
         }

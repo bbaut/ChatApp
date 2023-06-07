@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {TextField, Button, FormControl, Form, IconButton} from '@mui/material';
+import {TextField, Button, FormControl, Form, IconButton, Modal, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Picker from "emoji-picker-react";
 import { Box } from '@mui/material';
@@ -7,6 +7,8 @@ import SendIcon from '@mui/icons-material/Send';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import { useTranslation } from "react-i18next"
 import "./ChatInput.css"
+import Canvas from './Canvas';
+import GestureIcon from '@mui/icons-material/Gesture';
 
 const BoxContainer = styled(Box)(() => ({
     display:"flex",
@@ -28,7 +30,9 @@ const BoxButtonContainer = styled(Box)(() => ({
 const ChatInput = ({handleSendMsg}) => {
 
     const [text, setText] = useState('');
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState(false);
 
     const {t} = useTranslation();
 
@@ -39,7 +43,7 @@ const ChatInput = ({handleSendMsg}) => {
     const sendChat = (e) => {
         e.preventDefault();
         if(text.length>0){
-            handleSendMsg(text);
+            handleSendMsg(text, false);
             setText('');
         }
     }
@@ -49,6 +53,40 @@ const ChatInput = ({handleSendMsg}) => {
         txt += emoji.emoji;
         setText(txt)
     }
+
+    const handleClick = (event) => {
+        event.preventDefault();
+    
+        setOpen(true);
+    };
+
+    const handleScribble = (event) => {
+        event.preventDefault();
+        const canva = document.querySelector("canvas");
+    
+        const image = canva.toDataURL("image/png").toString();
+    
+        const messageInput = {
+          content: image,
+          isScribble: true,
+        };
+
+        console.log(messageInput)
+        handleSendMsg(image, true);
+    
+        // if (image.length < 92000) {
+        //   dispatch({
+        //     type: "createScribble",
+        //     payload: messageInput,
+        //   });
+        //   setError(false);
+        //   setOpen(false);
+        // } else {
+        //   const ctx = canva.getContext("2d");
+        //   ctx.clearRect(0, 0, 600, 400);
+        //   setError(true);
+        // }
+      };
 
     return (
         
@@ -121,6 +159,71 @@ const ChatInput = ({handleSendMsg}) => {
                 }}>
                 <SendIcon sx={{color: "#f5f5f5"}}/>
             </IconButton>
+            <IconButton
+                variant="contained"
+                color="primary"
+                onClick={handleClick}
+                sx={{
+                    minWidth: "50px",
+                    width: "50px",
+                    height: "50px",
+                    flexGrow: 0,
+                    backgroundColor: "rgb(50, 50, 50)",
+                }}>
+                <GestureIcon sx={{color: "#f5f5f5"}}/>
+            </IconButton>
+
+            <Modal open={open} onSubmit={handleScribble}>
+                <Box 
+                    component="form" 
+                    sx={{
+                        position: "absolute", 
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 700,
+                        height: 450,
+                        bgcolor: "black",
+                        boxShadow: 24,
+                        p: 4,
+                    }}
+                >
+                    <Typography variant="h6" component="h2">
+                        {t("scribble")}
+                    </Typography>
+                    <Typography sx={{ mt: 1 }}>{t("scribbleInstruction")}</Typography>
+                    <Box
+                        sx={{
+                            margin: 1,
+                        }}>
+                        <Canvas width={430} height={280} id="canvas" />
+                            {error ? (
+                            <Typography color="red" sx={{ m: 1, textAlign: "center" }}>
+                                {t("scribbleError")}
+                            </Typography>
+                            ) : null}
+                    </Box>
+
+                    <Box >
+                        <Button type="submit" variant="contained">
+                        {t("send")}
+                        </Button>
+                        <Button
+                        variant="outlined"
+                        sx={{color: "white"}}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setError(false);
+                            return setOpen(false);
+                        }}>
+                        {t("cancel")}
+                        </Button>
+                    </Box>
+                </Box>
+            </Modal>
         </BoxContainer>
     )
 }

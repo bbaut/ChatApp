@@ -7,6 +7,10 @@ const MessageSchema = new Schema({
       text: {
         type: String,
         required: true,
+      },
+      isScribble: {
+        type: Boolean,
+        default: false
       }
     },
     sender: {
