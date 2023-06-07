@@ -54,6 +54,7 @@ const GroupInputChat = ({handleSendMsg}) => {
         <BoxContainer 
             component="form"
             onSubmit={sendChat}
+            sx={{marginTop: "5px"}}
         >
             <IconButton 
                 color='primary' 

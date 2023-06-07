@@ -43,13 +43,22 @@ const GroupMessagesChat = ({currentMember}) => {
   return (
     <Box
       sx={{
-        height: "80%",
+        height: "75%",
         color: "white",
         padding: "1rem 2rem",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
         overflow: "auto",
+        "&::-webkit-scrollbar": {
+          width: "0.2rem",
+          height: "0.2rem",
+          "&-thumb": {
+            backgroundColor: "#ffffff39",
+            width: "0.6rem",
+            borderRadius: "1rem",
+          }
+        }
       }}
     >
       {
