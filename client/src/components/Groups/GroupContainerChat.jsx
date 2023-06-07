@@ -187,7 +187,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                         </Dialog>
                         <Button sx={{color:"white", cursor:"pointer"}} onClick={handleRemoveMember}><PersonRemoveIcon/></Button>
                         <Dialog open={openR} onClose={handleRemoveClose}>
-                            <DialogTitle>Remove</DialogTitle>
+                            <DialogTitle>{t("deleteFriend")}</DialogTitle>
                             <DialogContent>
                             {alert && 
                             <Stack spacing={2} paddingBottom={2} sx={{color:"#990f02"}}>
@@ -212,7 +212,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                             />
                             </DialogContent>
                             <DialogActions>
-                            <Button onClick={handleOnClickRemove}>{t("deleteFriend")}</Button>
+                            <Button onClick={handleOnClickRemove}>{t("removeFriend")}</Button>
                             <Button onClick={handleRemoveClose}>{t("cancel")}</Button>
                             </DialogActions>
                         </Dialog>

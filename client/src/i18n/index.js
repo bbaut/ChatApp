@@ -44,7 +44,8 @@ const resources = {
             writeChatName: "Write the name of the group el",
             changeGroupName: "Change the name of the group",
             cancel: "Cancel",
-            save: "Save"
+            save: "Save",
+            removeFriend: "Remove friend"
         }
     },
     es: {
@@ -89,7 +90,8 @@ const resources = {
             writeChatName: "Escribir el nombre del grupo",
             changeGroupName: "Modificar el nombre del grupo",
             cancel: "Cancelar",
-            save: "Guardar"
+            save: "Guardar",
+            removeFriend: "Eliminar amigo"
         }
     },
     fr: {
@@ -134,7 +136,8 @@ const resources = {
             writeChatName: "Écrivez le nom de la discussion de groupe",
             changeGroupName: "Modifier le nom de la discussion",
             cancel: "Annuler",
-            save: "Enregistrer"
+            save: "Enregistrer",
+            removeFriend: "Supprimer un ami",
         }
     },
     br: {
@@ -179,8 +182,8 @@ const resources = {
             writeChatName: "Escreva o nome do chat em grupo",
             changeGroupName: "Alterar o nome do bate-papo",
             cancel: "Cancelar",
-            save: "Salvar"
-            
+            save: "Salvar",
+            removeFriend: "Remover amigo"
         }
     },
     it: {
@@ -225,7 +228,8 @@ const resources = {
             writeChatName: "Scrivi il nome della chat di gruppo",
             changeGroupName: "Modifica nome della chat",
             cancel: "Annulla",
-            save: "Salva"
+            save: "Salva",
+            removeFriend: "Rimuovi amico",
         }
     },
     dt: {
@@ -270,7 +274,8 @@ const resources = {
             writeChatName: "Geben Sie den Namen des Gruppenchats ein",
             changeGroupName: "Chatnamen ändern",
             cancel: "Abbrechen",
-            save: "Speichern"
+            save: "Speichern",
+            removeFriend: "Freund entfernen"
         }
     }
 }
