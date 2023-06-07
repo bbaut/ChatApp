@@ -318,6 +318,7 @@ const addGroup = async (req, res) => {
 }
 
 const addMemberGroup = async (req,res) => {
+
     const memberToAdd = req.body.object.member
     try {
         const user = await Users.findOne({username: memberToAdd});
@@ -338,7 +339,7 @@ const addMemberGroup = async (req,res) => {
             { new: true }
         )
 
-        return res.status(200).json({userUpdated});
+        return res.status(200).json(userUpdated);
     }
     catch (error) {
         return res.status(500).send({ error: error.message });

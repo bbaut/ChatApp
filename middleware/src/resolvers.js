@@ -187,7 +187,7 @@ const resolvers = {
                 pubsub.publish("CREATED_GROUP", {
                     createdGroup: userUpdated.userUpdated
                 })
-                console.log(createdRoom)
+
                 return createdRoom;
             } catch (err) {
                 const message = err.extensions.response.body.error;
@@ -198,6 +198,10 @@ const resolvers = {
             try {
                 const userUpdated = await dataSources.usersAPI.addMember(addMemberInput);
                 const chatUpdated = await dataSources.chatAPI.addMember(addMemberInput);
+                
+                pubsub.publish("ADDED_MEMBER", {
+                    addedMember: userUpdated
+                })
 
                 return userUpdated;
             } catch (err) {
@@ -206,7 +210,6 @@ const resolvers = {
             }
         },
         removeMemberGroup: async (_, { removeMemberInput }, { dataSources }) => {
-            console.log(removeMemberInput)
             try {
                 const userUpdated = await dataSources.usersAPI.removeMember(removeMemberInput);
                 const chatUpdated = await dataSources.chatAPI.removeMember(removeMemberInput);

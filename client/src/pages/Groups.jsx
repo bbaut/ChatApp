@@ -9,6 +9,7 @@ import GroupContacts from '../components/Groups/GroupContacts'
 import GroupContainer from '../components/Groups/GroupContainerChat'
 import CREATED_GROUP from '../gql/createdGroup';
 import { useTranslation } from "react-i18next"
+import ADDED_MEMBER from '../gql/addedMember';
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -58,6 +59,21 @@ const Groups = () => {
         }
       })
 
+    useSubscription(ADDED_MEMBER, {
+        onData: (data) => {
+            console.log(data.data.data.addedMember)
+            dispatch({
+                type: "setAddedMember",
+                payload: {
+                    member: data.data.data.addedMember
+                }
+            })
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+      })
+
     const handleChatChange = (chat) => {
 
         var result = groups.find(item => item.chatName === chat);
@@ -83,6 +99,8 @@ const Groups = () => {
             }
         })
     }, [chatId])
+
+
 
     return (
         <BoxContainer>

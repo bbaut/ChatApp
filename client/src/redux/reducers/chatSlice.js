@@ -41,13 +41,16 @@ const chatSlice = createSlice({
             state.valueGroup = action.payload;
             state.isFetching = false;
         },
+        setAddedMember: (state = null, action) => {
+            state.chatMember = [...state.chatMember, action.payload]
+        },
         isFetching: (state=null, action) => {
             state.isFetching = true;
         }
     },
 });
 
-export const { addMessage, addMessageParticipants, currentRoom, currentGroup, getRoomMessages, isFetching } = chatSlice.actions;
+export const { addMessage, addMessageParticipants, currentRoom, currentGroup, getRoomMessages, setAddedMember, isFetching } = chatSlice.actions;
 
 export default chatSlice.reducer;
 

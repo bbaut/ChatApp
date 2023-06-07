@@ -5,6 +5,7 @@ type Subscription {
     acceptContactRequest: [UserData]
     sendMessage: Message
     createdGroup: UserData
+    addedMember: UserData
 }
 
 type UserData {
@@ -22,6 +23,11 @@ type Message {
     chatId: String
 }
 
+
+type Groupdata {
+    chatId: String!
+    chatName: String!
+}
 `
 
 // export default typeDef;

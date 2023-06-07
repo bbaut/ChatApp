@@ -18,6 +18,10 @@ const subscriptions = {
             subscribe:
                 () => pubsub.asyncIterator("CREATED_GROUP")
         },
+        addedMember: {
+            subscribe:
+                () => pubsub.asyncIterator("ADDED_MEMBER")
+        },
 
 }
 

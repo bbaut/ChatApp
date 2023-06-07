@@ -55,7 +55,9 @@ const userSlice = createSlice({
       state.value = action.payload;
     },
     addGroup: (state=null, action) => {
-      state.value.groups = action.payload
+      if (state.value.username === action.payload.username){
+        state.value.groups = action.payload.groups
+      }
     },
     setLanguage: (state=null, action) => {
       state.language = action.payload

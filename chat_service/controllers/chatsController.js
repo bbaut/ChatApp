@@ -83,8 +83,6 @@ const getAllMessages = async (req, res) => {
             }
         })
 
-        console.log(shownMessages)
-
         res.json(shownMessages);
     } catch (err) {
         return res.status(500).send(err.message);
@@ -117,14 +115,16 @@ const getGroup = async (req, res) => {
 }
 const addMemberGroup = async (req, res) => {
     const chatObject = req.body.object 
+
     try {
         const chat = await Groups.findById(chatObject.id)
-
-        chatUpdated = await Groups.findOneAndUpdate(
+        
+        const chatUpdated = await Groups.findOneAndUpdate(
                 {_id: chatObject.id},
                 { $push: { members: chatObject.member }},
                 { new: true }
         )
+
         res.json(chatUpdated)
     } catch (err) {
         return res.status(500).send(err.message);
@@ -135,11 +135,12 @@ const removeMemberGroup = async (req, res) => {
     try {
         const chat = await Groups.findById(chatObject.id)
 
-        chatUpdated = await Groups.findOneAndUpdate(
+        const chatUpdated = await Groups.findOneAndUpdate(
                 {_id: chatObject.id},
                 { $pull: { members: chatObject.member }},
                 { new: true }
         )
+
         res.json(chatUpdated)
     } catch (err) {
         return res.status(500).send(err.message);
