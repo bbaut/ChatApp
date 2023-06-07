@@ -38,14 +38,15 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
 
     const {t} = useTranslation();
 
-    const handleSendMsg = async (msg) => {
+    const handleSendMsg = async (msg, isScribble) => {
         dispatch({
             type: "createNewMessage",
             payload: {
                 newMessage: {
                     chatId: chatId,
                     message: {
-                    text: msg
+                        text: msg,
+                        isScribble: isScribble
                     },
                     sender: currentMember
                 }

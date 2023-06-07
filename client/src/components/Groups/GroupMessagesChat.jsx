@@ -30,7 +30,8 @@ const GroupMessagesChat = ({currentMember}) => {
             payload: {
               text: data.data.data.sendMessage.message.text,
               sender: sendedby,
-              sendedBy: data.data.data.sendMessage.sender
+              sendedBy: data.data.data.sendMessage.sender,
+              isScribble: data.data.data.sendMessage.message.isScribble
             },
         })
 
@@ -87,11 +88,20 @@ const GroupMessagesChat = ({currentMember}) => {
                     backgroundColor: "#4f04ff21",
                   }}
                 >
-                  <Typography 
+                  {message.isScribble ?
+                    <img src={message.text} alt=""/>
+                  :
+                    <Typography 
+                      variant='p'
+                    >
+                      {message.text}
+                    </Typography>
+                  }
+                  {/* <Typography 
                     variant='p'
                   >
                     {message.text}
-                  </Typography>
+                  </Typography> */}
                 </Box>
               </Box>
             :  
@@ -114,7 +124,32 @@ const GroupMessagesChat = ({currentMember}) => {
                 backgroundColor: "#9900ff20",
               }}
             >
-
+              {message.isScribble ?
+                <>
+                  <Typography 
+                    variant='subtitle2'
+                    color="white"
+                  >
+                    {message.sendedBy}
+                  </Typography>
+                  <img src={message.text} alt=""/>
+                </> 
+              :
+                <>
+                  <Typography 
+                      variant='subtitle2'
+                      color="white"
+                    >
+                      {message.sendedBy}
+                  </Typography>
+                  <Typography 
+                    variant='p'
+                  >
+                    {message.text}
+                  </Typography>
+                </>
+              }
+{/* 
               <Typography 
                   variant='subtitle2'
                   color="white"
@@ -125,7 +160,7 @@ const GroupMessagesChat = ({currentMember}) => {
                 variant='p'
               >
                 {message.text}
-              </Typography>
+              </Typography> */}
             </Box>
           </Box>
             }
