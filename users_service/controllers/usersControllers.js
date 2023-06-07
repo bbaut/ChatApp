@@ -367,7 +367,7 @@ const removeMemberGroup = async (req,res) => {
             { new: true }
         )
 
-        return res.status(200).json({userUpdated});
+        return res.status(200).json(userUpdated);
     }
     catch (error) {
         return res.status(500).send({ error: error.message });

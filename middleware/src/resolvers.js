@@ -214,6 +214,12 @@ const resolvers = {
                 const userUpdated = await dataSources.usersAPI.removeMember(removeMemberInput);
                 const chatUpdated = await dataSources.chatAPI.removeMember(removeMemberInput);
 
+                pubsub.publish("REMOVED_MEMBER", {
+                    removedMember: userUpdated
+                })
+
+                console.log(userUpdated)
+
                 return userUpdated;
             } catch (err) {
                 const message = err.extensions.response.body.error;

@@ -10,6 +10,7 @@ import GroupContainer from '../components/Groups/GroupContainerChat'
 import CREATED_GROUP from '../gql/createdGroup';
 import { useTranslation } from "react-i18next"
 import ADDED_MEMBER from '../gql/addedMember';
+import REMOVED_MEMBER from '../gql/removedMember';
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -61,11 +62,24 @@ const Groups = () => {
 
     useSubscription(ADDED_MEMBER, {
         onData: (data) => {
-            console.log(data.data.data.addedMember)
             dispatch({
                 type: "setAddedMember",
                 payload: {
                     member: data.data.data.addedMember
+                }
+            })
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+      })
+
+    useSubscription(REMOVED_MEMBER, {
+        onData: (data) => {
+            dispatch({
+                type: "setRemovedMember",
+                payload: {
+                    member: data.data.data.removedMember
                 }
             })
         },

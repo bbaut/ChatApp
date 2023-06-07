@@ -22,6 +22,10 @@ const subscriptions = {
             subscribe:
                 () => pubsub.asyncIterator("ADDED_MEMBER")
         },
+        removedMember: {
+            subscribe:
+                () => pubsub.asyncIterator("REMOVED_MEMBER")
+        },
 
 }
 

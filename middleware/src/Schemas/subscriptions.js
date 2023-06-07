@@ -6,6 +6,7 @@ type Subscription {
     sendMessage: Message
     createdGroup: UserData
     addedMember: UserData
+    removedMember: UserData
 }
 
 type UserData {
