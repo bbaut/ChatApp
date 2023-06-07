@@ -218,8 +218,6 @@ const resolvers = {
                     removedMember: userUpdated
                 })
 
-                console.log(userUpdated)
-
                 return userUpdated;
             } catch (err) {
                 const message = err.extensions.response.body.error;
