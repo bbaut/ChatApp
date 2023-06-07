@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {TextField, Button, FormControl, Form, IconButton, Modal, Typography} from '@mui/material';
+import {TextField, Button, IconButton, Modal, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Picker from "emoji-picker-react";
 import { Box } from '@mui/material';
@@ -71,21 +71,17 @@ const ChatInput = ({handleSendMsg}) => {
           isScribble: true,
         };
 
-        console.log(messageInput)
-        handleSendMsg(image, true);
-    
-        // if (image.length < 92000) {
-        //   dispatch({
-        //     type: "createScribble",
-        //     payload: messageInput,
-        //   });
-        //   setError(false);
-        //   setOpen(false);
-        // } else {
-        //   const ctx = canva.getContext("2d");
-        //   ctx.clearRect(0, 0, 600, 400);
-        //   setError(true);
-        // }
+        
+         if (image.length < 92000) {
+          handleSendMsg(image, true);
+          setError(false);
+          setOpen(false);
+         } 
+         else {
+          const ctx = canva.getContext("2d");
+          ctx.clearRect(0, 0, 600, 400);
+          setError(true);
+         }
       };
 
     return (
@@ -93,6 +89,7 @@ const ChatInput = ({handleSendMsg}) => {
         <BoxContainer 
             component="form"
             onSubmit={sendChat}
+            sx={{marginTop: "5px"}}
         >
             <IconButton 
                 color='primary' 

@@ -31,7 +31,8 @@ const ChatMessages = ({currentMember}) => {
             type: "addNewMessage",
             payload: {
               text: data.data.data.sendMessage.message.text,
-              sender: sendedby
+              sender: sendedby,
+              isScribble: data.data.data.sendMessage.message.isScribble
             },
         })
     },
@@ -50,78 +51,86 @@ const ChatMessages = ({currentMember}) => {
         flexDirection: "column",
         gap: "1rem",
         overflow: "auto",
+        "&::-webkit-scrollbar": {
+          width: "0.2rem",
+          height: "0.2rem",
+          "&-thumb": {
+            backgroundColor: "#ffffff39",
+            width: "0.6rem",
+            borderRadius: "1rem",
+          }
+        }
       }}
     >
       {
         messages.map((message, index) => {
           return (
             <Box>
-              {
-                  message.sender === "sended" ?
-              <Box
-                // message
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end"
-                }}
-                key={index}
-              >
+              {message.sender === "sended" ?
                 <Box
-                  // content
+                  // message
                   sx={{
-                    maxWidth: "40%",
-                    overflowWrap: "break-word",
-                    padding: "1rem",
-                    borderRadius: "1rem",
-                    color: "#d1d1d1",
-                    backgroundColor: "#4f04ff21",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-end"
+                  }}
+                  key={index}
+                >
+                  <Box
+                    // content
+                    sx={{
+                      maxWidth: "40%",
+                      overflowWrap: "break-word",
+                      padding: "1rem",
+                      borderRadius: "1rem",
+                      color: "#d1d1d1",
+                      backgroundColor: "#4f04ff21",
+                    }}
+                  >
+                    {message.isScribble ? 
+                      <img src={message.text} alt=""/>
+                    :
+                      <Typography 
+                        variant='p'
+                      >
+                        {message.text}
+                      </Typography>
+                    }
+                  </Box>
+                </Box>
+              :  
+                <Box
+                // message
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start"
                   }}
                 >
-                  {message.isScribble ? 
-                    <img src={message.text} alt=""/>
-                  :
-                    <Typography 
-                      variant='p'
-                    >
-                      {message.text}
-                    </Typography>
-              }
-                </Box>
-              </Box>
-            :  
-            <Box
-            // message
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start"
-            }}
-          >
-            <Box
-              // content
-              sx={{
-                maxWidth: "40%",
-                overflowWrap: "break-word",
-                padding: "1rem",
-                borderRadius: "1rem",
-                color: "#d1d1d1",
-                backgroundColor: "#9900ff20",
-              }}
-            >
-              {message.isScribble ? 
-                <img src={message.text} alt=""/>
-              :
-                <Typography 
-                  variant='p'
-                >
-                  {message.text}
-                </Typography>
+                  <Box
+                  // content
+                    sx={{
+                      maxWidth: "40%",
+                      overflowWrap: "break-word",
+                      padding: "1rem",
+                      borderRadius: "1rem",
+                      color: "#d1d1d1",
+                      backgroundColor: "#9900ff20",
+                    }}
+                  >
+                    {message.isScribble ? 
+                      <img src={message.text} alt=""/>
+                    :
+                      <Typography 
+                        variant='p'
+                      >
+                        {message.text}
+                      </Typography>
               
+                    }
+                  </Box>
+                </Box>
               }
-            </Box>
-          </Box>
-            }
             </Box>
           )
         })

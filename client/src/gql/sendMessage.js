@@ -5,8 +5,9 @@ const SEND_MESSAGE = gql`
         sendMessage {
             chatId
             message {
-            text
-            sender
+                text
+                sender
+                isScribble
             }
             sender
         }

@@ -156,6 +156,8 @@ const resolvers = {
             try {
                 const createdMessage = await dataSources.chatAPI.createMessage(createMessageInput);
           
+                console.log(createdMessage)
+                
                 pubsub.publish("SEND_MESSAGE", {
                     sendMessage: createdMessage
                 })

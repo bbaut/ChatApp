@@ -28,11 +28,26 @@ const ChatContainer = ({currentChat, currentMember, messages}) => {
     return (
         <Box 
             sx={{
+                gap: "0.1rem",
+                overflow: "hidden",
                 paddingTop:"1rem"
             }}
         >
-            <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
-                <Box sx={{display:"flex", alignItems:"center", gap:"1rem"}}>
+            <Box 
+                sx={{
+                    display:"flex", 
+                    justifyContent:"space-between", 
+                    alignItems:"center", 
+                    padding:"0 2rem"
+                }}
+            >
+                <Box 
+                    sx={{
+                        display:"flex", 
+                        alignItems:"center", 
+                        gap:"1rem"
+                    }}
+                >
                     <Typography variant='h4' color="white">
                         {currentChat}
                     </Typography>
