@@ -21,10 +21,7 @@ import CONTACT_REQUEST from '../gql/contactRequest'
 import { useSubscription } from '@apollo/client';
 import { useTranslation } from "react-i18next"
 import {useEffect} from "react"
-import LanguageIcon from '@mui/icons-material/Language';
 import LanguageMenu from './LanguageMenu';
-
-const settings = ['Profile', 'Account', 'Dashboard', 'Search contact', 'Logout'];
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -60,7 +57,6 @@ function Header() {
   const {t, i18n} = useTranslation();
 
   const handleLogout = () => {
-    // dispatch(get_data({}));
     dispatch({
       type: "setUserAuth",
       payload: {
@@ -227,33 +223,9 @@ function Header() {
           <LanguageMenu/>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Tooltip title="Avatar">
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>
