@@ -21,7 +21,7 @@ class UsersAPI extends RESTDataSource {
 
     async idToUsername(params) {
         return this.get(
-            `api/users/idtousername`, {params}
+            `/api/users/idtousername`, {params}
         )
     }
     
@@ -33,6 +33,7 @@ class UsersAPI extends RESTDataSource {
 
     //Pass username and email only
     async create(username,email){
+        console.log(username,email)
         return this.post(
             '/api/users/createuser', {
                 body: {

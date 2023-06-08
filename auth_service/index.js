@@ -29,6 +29,13 @@ app.use(expressWinston.logger({
     )
 }))
 
+app.get('/', (req,res) => {
+    res.send('Hello world from auth server');
+})
+app.get('/api/auth', (req,res) => {
+    res.send('Hello world from api/auth server');
+})
+
 app.listen(port, (req,res) => {
     console.log(`🚀 Rest server listening on ${port}`)
 })

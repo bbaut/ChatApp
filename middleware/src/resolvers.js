@@ -41,6 +41,7 @@ const resolvers = {
     },
     Mutation: {
         async registerUser(_, {registerInput}, {dataSources, req, res}) {
+
             const {username, email, password, confirmPassword} = registerInput;
 
             const isValidEmail = validate.isEmail(String(email).toLocaleLowerCase());
