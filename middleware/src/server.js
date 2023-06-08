@@ -16,7 +16,7 @@ import { typeDef as User } from './Schemas/user.js';
 import { typeDef as Subscription } from './Schemas/subscriptions.js';
 import resolvers from "./resolvers.js";
 import dotenv from "dotenv";
-import cors from "cors"
+// import cors from "cors"
 
 //configure the use of environment variables
 dotenv.config();

@@ -5,10 +5,12 @@ import { createClient } from 'graphql-ws';
 
 const wsLink = new GraphQLWsLink(createClient({
     url: 'ws://localhost/subscription',
+    // url: 'ws://localhost:4000/graphql',
   }));
 
 const httpLink = new HttpLink({
     uri: "http://localhost/graphql",
+    // uri: "http://localhost:4000/graphql",
 })
 
 const splitLink = split(
