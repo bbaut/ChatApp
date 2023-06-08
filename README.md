@@ -18,6 +18,6 @@ and the client with
 
 In order to run the application with cors, not recommended nevertheless if it is necessary, on apolloClient.js in the src/ folder on the client, you
 can uncomment the lines associated to the wsLink and httpLinks. 
-Also on the middleware, within the src/ folder, on the server.js, there are the lines commented associated to the cors configuration. Just on comment the
+Also on the middleware, within the src/ folder, on the server.js, there are the lines commented associated to the cors configuration. Just uncomment the
 lines and run all services. 
 You should be fine. 
