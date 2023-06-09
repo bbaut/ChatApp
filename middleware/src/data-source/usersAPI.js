@@ -1,7 +1,8 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 
 class UsersAPI extends RESTDataSource {
-    baseURL = 'http://localhost:4002/';
+    // baseURL = 'http://localhost:4002/';
+    baseURL = 'http://users:4002/';
 
     constructor(options) {
         super(options);
@@ -33,7 +34,6 @@ class UsersAPI extends RESTDataSource {
 
     //Pass username and email only
     async create(username,email){
-        console.log(username,email)
         return this.post(
             '/api/users/createuser', {
                 body: {

@@ -1,7 +1,8 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 
 class AuthAPI extends RESTDataSource {
-    baseURL = 'http://localhost:4001/';
+    // baseURL = 'http://localhost:4001/';
+    baseURL = 'http://auth:4001/';
 
     constructor(options) {
         super(options);

@@ -1,7 +1,8 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 
 class ChatAPI extends RESTDataSource {
-    baseURL = 'http://localhost:4003/';
+    // baseURL = 'http://localhost:4003/';
+    baseURL = 'http://chat:4003/';
 
     constructor(options) {
         super(options);

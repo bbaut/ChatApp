@@ -16,6 +16,10 @@ dbConnection();
 
 app.use(chatRoutePath, chatRoutes);
 
+app.get('/', (req,res) => {
+    res.send('Hello world from chat server');
+})
+
 app.listen(port, () => {
     console.log(`🚀 Rest server listening on ${port}`)
 })

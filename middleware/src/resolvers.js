@@ -42,6 +42,9 @@ const resolvers = {
     Mutation: {
         async registerUser(_, {registerInput}, {dataSources, req, res}) {
 
+            console.log("from middleware")
+            console.log(registerInput)
+
             const {username, email, password, confirmPassword} = registerInput;
 
             const isValidEmail = validate.isEmail(String(email).toLocaleLowerCase());
@@ -70,6 +73,10 @@ const resolvers = {
         },
 
         async loginUser(_, {loginInput}, {dataSources, req, res}){
+
+            console.log("from middleware")
+            console.log(loginInput)
+            
             const {email, password} = loginInput;
 
             const isValidEmail = validate.isEmail(String(email).toLocaleLowerCase());
@@ -156,8 +163,6 @@ const resolvers = {
         async createMessage(_, {createMessageInput}, {dataSources, req, res}){
             try {
                 const createdMessage = await dataSources.chatAPI.createMessage(createMessageInput);
-          
-                console.log(createdMessage)
                 
                 pubsub.publish("SEND_MESSAGE", {
                     sendMessage: createdMessage

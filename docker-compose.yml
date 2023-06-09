@@ -29,6 +29,88 @@ services:
     networks:
         - mongo-network
 
+  auth:
+    container_name: auth_service
+    build:
+      dockerfile: Dockerfile.dev
+      context: './auth_service'
+    ports:
+      - 4001:4001
+    links:
+      - mongo
+    networks:
+      - mongo-network
+  
+  users:
+    container_name: users_service
+    build:
+      dockerfile: Dockerfile.dev
+      context: './users_service'
+    ports:
+      - 4002:4002
+    links:
+      - mongo
+    networks:
+      - mongo-network
+
+  chat:
+    container_name: chat_service
+    build:
+      dockerfile: Dockerfile.dev
+      context: './chat_service'
+    ports:
+      - 4003:4003
+    links:
+      - mongo
+    networks:
+      - mongo-network
+
+  nginx:
+    container_name: nginx
+    depends_on:
+      - middleware
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '80:80'
+    links:
+      - middleware
+      - client
+    networks:
+      - mongo-network
+
+  middleware:
+    container_name: middleware
+    build:
+      dockerfile: Dockerfile.dev
+      context: './middleware'
+    ports:
+      - 4000:4000
+    links:
+      - auth
+      - users
+      - chat
+    depends_on:
+      - auth
+      - users
+      - chat
+    networks:
+      - mongo-network
+
+  client:
+    container_name: client
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile.dev
+      context: './client'
+    ports:
+      - 3000:3000
+    networks:
+      - mongo-network
+
 networks:
   mongo-network:
     driver: bridge
