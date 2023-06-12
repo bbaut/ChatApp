@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+  metadata:
+    name: mongodb
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        component: mongodb
+    template:
+      metadata:
+        labels:
+          component: mongodb
+      spec:
+        volumes:
+          - name: mongodb-storage
+            persistentVolumeClaim:
+              claimName: database-persistent-volume-claim
+        containers:
+          - name: mongodb
+            image: mongo
+            ports:
+              - containerPort: 27017
+            volumeMounts:
+              - name: mongo-storage
+                mountPath: /Users/brandonbautista/Documents/ChatApp/data
+                subPath: mongodb
+            env: 
+              - name: MONGO_INITDB_ROOT_USERNAME
+                valueFrom: 
+                  secretKeyRef:
+                    name: mongocreds
+                    key: MONGOCREDS
+              - name: MONGO_INITDB_ROOT_PASSWORD
+                valeFrom:
+                  secretKeyRef:
+                    name: mongopassword
+                    key: MONGOPASSWORD
