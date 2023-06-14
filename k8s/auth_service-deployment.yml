@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth_service-deployment
+  name: auth-service-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: auth_service
+      component: auth-service
   template:
     metadata:
       labels:
-        component: auth_service
+        component: auth-service
     spec:
       containers:
-        - name: auth_service
+        - name: auth-service
           image: bbolv/minikube-auth_service
           ports:
             - containerPort: 4001

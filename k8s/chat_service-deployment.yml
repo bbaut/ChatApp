@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: chat-service
+  template:
+    metadata:
+      labels:
+        component: chat-service
+    spec:
+      containers:
+        - name: chat-service
+          image: bbolv/minikube-chat_service
+          ports:
+            - containerPort: 4003

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: users-service
+  template:
+    metadata:
+      labels:
+        component: users-service
+    spec:
+      containers:
+        - name: users-service
+          image: bbolv/minikube-users_service
+          ports:
+            - containerPort: 4002

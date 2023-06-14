@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
-  metadata:
-    name: mongodb
-  spec:
-    replicas: 1
-    selector:
-      matchLabels:
-        component: mongodb
-    template:
-      metadata:
-        labels:
-          component: mongodb
-      spec:
-        volumes:
-          - name: mongodb-storage
-            persistentVolumeClaim:
-              claimName: database-persistent-volume-claim
-        containers:
-          - name: mongodb
-            image: mongo
-            ports:
-              - containerPort: 27017
-            volumeMounts:
-              - name: mongo-storage
-                mountPath: /Users/brandonbautista/Documents/ChatApp/data
-                subPath: mongodb
-            env: 
-              - name: MONGO_INITDB_ROOT_USERNAME
-                valueFrom: 
-                  secretKeyRef:
-                    name: mongocreds
-                    key: MONGOCREDS
-              - name: MONGO_INITDB_ROOT_PASSWORD
-                valeFrom:
-                  secretKeyRef:
-                    name: mongopassword
-                    key: MONGOPASSWORD
+metadata:
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: mongo
+  template:
+    metadata:
+      labels:
+        component: mongo
+    spec:
+      volumes:
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /Users/brandonbautista/Documents/ChatApp/data
+              subPath: mongo
+          env: 
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom: 
+                secretKeyRef:
+                  name: mongocreds
+                  key: MONGOCREDS
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongopassword
+                  key: MONGOPASSWORD

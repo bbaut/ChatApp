@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: middleware-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: middleware
+  template:
+    metadata:
+      labels:
+        component: middleware
+    spec:
+      containers:
+        - name: middleware
+          image: bbolv/minikube-middleware
+          ports:
+            - containerPort: 4000
