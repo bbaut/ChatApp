@@ -18,5 +18,9 @@ spec:
           ports:
             - containerPort: 4001
           env:
+            - name: PORT
+              value: "4001"
             - name: JWT_SECRET
               value: micontraseñasecreta
+            - name: MONGO_HOST
+              value: mongo-cluster-ip-service

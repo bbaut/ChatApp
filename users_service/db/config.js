@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const dbConnection = () => {
     // const MONGO_HOST = "localhost"
-    const MONGO_HOST = "mongo"
+    const MONGO_HOST = process.env.MONGO_HOST
     const MONGO_DB = "db_users"
 
     const URI = `mongodb://${MONGO_HOST}/${MONGO_DB}`;

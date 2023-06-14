@@ -17,3 +17,8 @@ spec:
           image: bbolv/minikube-users_service
           ports:
             - containerPort: 4002
+          env:
+            - name: PORT
+              value: "4002"
+            - name: MONGO_HOST
+              value: mongo-cluster-ip-service
