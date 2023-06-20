@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: users-service-deployment
+  name: users
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: users-service
+      component: users
   template:
     metadata:
       labels:
-        component: users-service
+        component: users
     spec:
       containers:
-        - name: users-service
+        - name: users
           image: bbolv/minikube-users_service
           ports:
             - containerPort: 4002
@@ -21,4 +21,4 @@ spec:
             - name: PORT
               value: "4002"
             - name: MONGO_HOST
-              value: mongo-cluster-ip-service
+              value: mongo-service:27017

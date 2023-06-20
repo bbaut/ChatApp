@@ -17,3 +17,7 @@ spec:
           image: bbolv/minikube-middleware
           ports:
             - containerPort: 4000
+              name: middleware-port
+          env:
+            - name: PORT
+              value: "4000"

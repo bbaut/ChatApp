@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-service-deployment
+  name: auth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: auth-service
+      component: auth
   template:
     metadata:
       labels:
-        component: auth-service
+        component: auth
     spec:
       containers:
-        - name: auth-service
+        - name: auth
           image: bbolv/minikube-auth_service
           ports:
             - containerPort: 4001
@@ -23,4 +23,4 @@ spec:
             - name: JWT_SECRET
               value: micontraseñasecreta
             - name: MONGO_HOST
-              value: mongo-cluster-ip-service
+              value: mongo-service:27017

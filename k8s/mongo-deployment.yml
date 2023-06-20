@@ -1,38 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo
+  name: mongo-deployment
+  labels:
+    app: mongo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: mongo
+      app: mongo
   template:
     metadata:
       labels:
-        component: mongo
+        app: mongo
     spec:
-      volumes:
-        - name: mongo-storage
-          persistentVolumeClaim:
-            claimName: database-persistent-volume-claim
       containers:
-        - name: mongo
-          image: mongo
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: mongo-storage
-              mountPath: /Users/brandonbautista/Documents/ChatApp/data
-              subPath: mongo
-          env: 
-            - name: MONGO_INITDB_ROOT_USERNAME
-              valueFrom: 
-                secretKeyRef:
-                  name: mongocreds
-                  key: MONGOCREDS
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongopassword
-                  key: MONGOPASSWORD
+      - name: mongo
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongo-data
+        image: mongo
+        ports:
+        - containerPort: 27017
+        # env:
+        # - name: MONGO_INITDB_ROOT_USERNAME
+        #   value: "admin"
+        # - name: MONGO_INITDB_ROOT_PASSWORD
+        #   value: "admin" 
+      volumes:
+      - name: mongo-data
+        persistentVolumeClaim:
+          claimName: database-persistent-volume-claim
+      restartPolicy: Always

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chat-service-deployment
+  name: chat
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: chat-service
+      component: chat
   template:
     metadata:
       labels:
-        component: chat-service
+        component: chat
     spec:
       containers:
-        - name: chat-service
+        - name: chat
           image: bbolv/minikube-chat_service
           ports:
             - containerPort: 4003
@@ -21,4 +21,4 @@ spec:
             - name: PORT
               value: "4003"
             - name: MONGO_HOST
-              value: mongo-cluster-ip-service
+              value: mongo-service:27017
