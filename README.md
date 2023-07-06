@@ -1,23 +1,29 @@
 # ChatApp
 
-To start with this app, you should give envirenment variables to the services. 
+To run this app in AWS you must run the next commands. 
 
-`PORT = whateveryouwant`
+Go to the k8s folder. 
+`cd k8s`
 
-Also, on the auth service, you must specify also the jsonwebtoken secret word. 
+Within this folder, you must run the next 
+`kubectl apply -f database-persistent-volume-claim.yml`
+`kubectl apply -f persistent-volume.yml`
+`kubectl apply -f mongo-deployment.yml`
+`kubectl apply -f mongo-service.yml`
+`kubectl apply -f nginx-configMap.yml`
+`kubectl apply -f client-deployment.yml`
+`kubectl apply -f client-service.yml`
+`kubectl apply -f middleware-deployment.yml`
+`kubectl apply -f middleware-service.yml`
+`kubectl apply -f auth-deployment.yml`
+`kubectl apply -f auth-service.yml`
+`kubectl apply -f chat-deployment.yml`
+`kubectl apply -f chat-service.yml`
+`kubectl apply -f users-deployment.yml`
+`kubectl apply -f users-service.yml`
 
-`JWT_SECRET = whateveryouwant`
+Then, you can verify that everything is correct using the next command
 
-In order to start using the app, you can run all the services with the command
+`kubectl get all`
 
-`npm run dev`
-
-and the client with 
-
-`npm start`
-
-In order to run the application with cors, not recommended nevertheless if it is necessary, on apolloClient.js in the src/ folder on the client, you
-can uncomment the lines associated to the wsLink and httpLinks. 
-Also on the middleware, within the src/ folder, on the server.js, there are the lines commented associated to the cors configuration. Just uncomment the
-lines and run all services. 
-You should be fine. 
+And in the services, you must find the external ip which you can use to enter the app in the browser.
