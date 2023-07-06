@@ -14,7 +14,8 @@ const WS_URL =
 const wsLink = new GraphQLWsLink(createClient({
     // url: 'ws://localhost/subscription',
     // url: 'ws://localhost:4000/graphql',
-    url: "ws://chat-app.brandon/graphql",
+    // url: "ws://chat-app.brandon/graphql",
+    url: `ws://${window.location.host}/subscription`,
     connectionParams: {
       credentials: "same-origin",
     },
@@ -23,7 +24,8 @@ const wsLink = new GraphQLWsLink(createClient({
 const httpLink = new HttpLink({
     // uri: "http://localhost/graphql",
     // uri: "http://localhost:4000/graphql",
-      uri: "http://chat-app.brandon/graphql",
+    // uri: "http://chat-app.brandon/graphql",
+      uri: `http://${window.location.host}/graphql`,
       credentials: "same-origin",
 })
 

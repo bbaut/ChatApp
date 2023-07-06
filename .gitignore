@@ -27,3 +27,5 @@ yarn-error.log*
 /data
 
 /.mongodb
+
+AWSCLIV2.pkg
