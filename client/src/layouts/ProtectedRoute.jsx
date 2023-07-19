@@ -60,13 +60,15 @@ const ProtectedRoute = () => {
   })
 
   const { chatId } = useParams();
-  console.log(chatId)
   useEffect(() => {
-    if(notifications.sender === undefined){
+    if(notifications.sender === undefined || notifications.sender === username){
       return
     }
     else if(chatId !== undefined) {
       return
+    }
+    else if(notifications.received === username) {
+      notify()
     }
     else {
       notify()

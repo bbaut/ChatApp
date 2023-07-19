@@ -1,8 +1,8 @@
 import { put } from "redux-saga/effects";
-import { addGroup } from "../reducers/userSlice";
+import { createGroup } from "../reducers/userSlice";
 
 function* setNewGroup(action) {
-    yield put(addGroup(action.payload));
+    yield put(createGroup(action.payload));
 };
 
 export default setNewGroup;

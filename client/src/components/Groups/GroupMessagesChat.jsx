@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Box, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useSubscription } from '@apollo/client';
 import SEND_MESSAGE from '../../gql/sendMessage';
+import { useParams } from 'react-router-dom';
 
 const GroupMessagesChat = ({currentMember}) => {
 
+  const {chatId} = useParams();
 
   const { value, valueGroup, isFetching } = useSelector(
     (state) => state.chat
@@ -18,28 +20,41 @@ const GroupMessagesChat = ({currentMember}) => {
 
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
-        if(data.data.data.sendMessage.sender === currentMember){
-          sendedby = "sended"
+      console.log(data.data.data.sendMessage)
+        if(data.data.data.sendMessage.chatId === chatId){
+          if(data.data.data.sendMessage.sender === currentMember){
+            sendedby = "sended"
 
+          }
+          else {
+            sendedby = "received"
+          }
+          dispatch({
+              type: "addNewMessage",
+              payload: {
+                text: data.data.data.sendMessage.message.text,
+                sender: sendedby,
+                sendedBy: data.data.data.sendMessage.sender,
+                isScribble: data.data.data.sendMessage.message.isScribble
+              },
+          })
         }
-        else {
-          sendedby = "received"
-        }
-        dispatch({
-            type: "addNewMessage",
-            payload: {
-              text: data.data.data.sendMessage.message.text,
-              sender: sendedby,
-              sendedBy: data.data.data.sendMessage.sender,
-              isScribble: data.data.data.sendMessage.message.isScribble
-            },
-        })
-
     },
     onError: (error) => {
         console.log(error)
     }
   })
+
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if(messages.length) {
+      ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block:"end",
+      })
+    }
+  },[messages.length])
 
   return (
     <Box
@@ -168,6 +183,7 @@ const GroupMessagesChat = ({currentMember}) => {
           )
         })
       }
+      <div ref={ref} />
     </Box>
   )
 }

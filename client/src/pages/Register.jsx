@@ -64,6 +64,7 @@ const Register = () => {
                 }
             }
         })
+        setSuccess(t("succesfulCreation"))
 
         setUsername('');
         setEmail('');

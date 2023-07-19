@@ -57,6 +57,11 @@ const userSlice = createSlice({
       state.value = action.payload;
     },
     addGroup: (state=null, action) => {
+      if (state.value.username === action.payload.username){
+        state.value.groups = action.payload.groups
+      }
+    },
+    createGroup: (state=null, action) => {
       if (state.value.username === action.payload.groups.username){
         state.value.groups = action.payload.groups.groups
       }
@@ -92,7 +97,8 @@ export const {
   deleteRequest,
   addGroup,
   setLanguage,
-  deleteContact
+  deleteContact,
+  createGroup
 } = userSlice.actions;
 
 export default userSlice.reducer;

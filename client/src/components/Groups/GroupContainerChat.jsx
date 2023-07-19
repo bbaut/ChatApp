@@ -17,8 +17,10 @@ import { Box,
     DialogTitle, 
     DialogContent, 
     DialogContentText, 
-    TextField, 
+    TextField,
+    Paper, 
     DialogActions } from '@mui/material'
+import { styled } from "@mui/material/styles";
 
 const GroupContainer = ({currentChat, currentMember, messages}) => {
     const dispatch = useDispatch();
@@ -32,6 +34,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
 
     const [open, setOpen] = React.useState(false);
     const [openR, setOpenR] = React.useState(false);
+    const [openMembers, setOpenMembers] = React.useState(false);
     const [alert, setAlert] = React.useState("");
 
     const [member, setMember] = React.useState("");
@@ -59,6 +62,9 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     }
     const handleRemoveMember = () => {
         setOpenR(true);
+    }
+    const handleViewMembers = () => {
+        setOpenMembers(true);
     }
 
     const handleOnClickAdd = async () => {
@@ -140,6 +146,10 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
         setOpenR(false);
         setAlert("");
     };
+    const handleViewMembersClose = () => {
+        setOpenMembers(false);
+        setAlert("");
+    };
 
     return (
         <Box 
@@ -170,7 +180,11 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                 {createdBy === username ? 
                     <Box>
                     <Button sx={{ color:"white", cursor:"pointer"}} onClick={handleAddMember}><PersonAddIcon/></Button>
-                        <Dialog open={open} onClose={handleAddClose}>
+                        <Dialog 
+                            open={open} 
+                            onClose={handleAddClose}
+                            PaperProps={{style:{backgroundColor: "black", color: "white"}}}
+                        >
                             <DialogTitle>{t("addFriend")}</DialogTitle>
                             <DialogContent>
                             {alert && 
@@ -181,7 +195,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                                 </Typography>
                             </Stack>
                             }
-                            <DialogContentText>
+                            <DialogContentText color="white">
                                 {t("writeUsername")}
                             </DialogContentText>
                             <TextField
@@ -193,15 +207,17 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                                 fullWidth
                                 variant="standard"
                                 onChange={e => setMember(e.target.value)}
+                                sx={{input: {color: "white", background:'linear-gradient(to right bottom, transparent, #080420, #430089)'}}}
                             />
                             </DialogContent>
                             <DialogActions>
-                            <Button onClick={handleOnClickAdd}>{t("addFriend")}</Button>
-                            <Button onClick={handleAddClose}>{t("cancel")}</Button>
+                            <Button sx={{color: "white"}} onClick={handleOnClickAdd}>{t("addFriend")}</Button>
+                            <Button  sx={{color: "white"}} onClick={handleAddClose}>{t("cancel")}</Button>
                             </DialogActions>
                         </Dialog>
+
                         <Button sx={{color:"white", cursor:"pointer"}} onClick={handleRemoveMember}><PersonRemoveIcon/></Button>
-                        <Dialog open={openR} onClose={handleRemoveClose}>
+                        <Dialog open={openR} onClose={handleRemoveClose} PaperProps={{style:{backgroundColor: "black", color: "white"}}}>
                             <DialogTitle>{t("deleteFriend")}</DialogTitle>
                             <DialogContent>
                             {alert && 
@@ -212,7 +228,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                                 </Typography>
                             </Stack>
                             }
-                            <DialogContentText>
+                            <DialogContentText color="white">
                                 {t("writeUsername")}
                             </DialogContentText>
                             <TextField
@@ -224,11 +240,12 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                                 fullWidth
                                 variant="standard"
                                 onChange={e => setMember(e.target.value)}
+                                sx={{input: {color: "white", background:'linear-gradient(to right bottom, transparent, #080420, #430089)'}}}
                             />
                             </DialogContent>
                             <DialogActions>
-                            <Button onClick={handleOnClickRemove}>{t("removeFriend")}</Button>
-                            <Button onClick={handleRemoveClose}>{t("cancel")}</Button>
+                            <Button sx={{color: "white"}} onClick={handleOnClickRemove}>{t("removeFriend")}</Button>
+                            <Button sx={{color: "white"}} onClick={handleRemoveClose}>{t("cancel")}</Button>
                             </DialogActions>
                         </Dialog>
                     </Box>
@@ -242,9 +259,26 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
                 }
             </Box>
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
-                <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
-                    {chatMember.length} {t("friends")}
-                </Typography>
+                <Button onClick={handleViewMembers} sx={{ cursor:"pointer"}}>
+                    <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
+                        {chatMember.length} {t("friends")}
+                    </Typography>
+                </Button>
+                <Dialog open={openMembers} onClose={handleViewMembersClose} PaperProps={{style:{backgroundColor: "black", color: "white"}}}>
+                    <DialogTitle>{t("friends")}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText color="white">
+                            {chatMember.map((member) => {
+                                return (
+                                    <p>{member}</p>
+                                )
+                            })}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button sx={{color: "white"}} onClick={handleViewMembersClose}>{t("cancel")}</Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
             <GroupMessagesChat currentMember={currentMember}/>
             <GroupInputChat handleSendMsg={handleSendMsg}/>

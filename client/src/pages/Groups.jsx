@@ -48,6 +48,7 @@ const Groups = () => {
 
     useSubscription(CREATED_GROUP, {
         onData: (data) => {
+            console.log(data)
             dispatch({
                 type: "setNewGroup",
                 payload: {
@@ -114,11 +115,9 @@ const Groups = () => {
         })
     }, [chatId])
 
-
-
     return (
         <BoxContainer>
-                <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
+                <Box sx={{padding:"1rem", height: "90vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
                     <GroupContacts groupsArray={groupsArray} currentMember={username} changeChat={handleChatChange} avatarProfile={image}/>
                     {currentChat === undefined ? 
                         <Box sx={{color: "white"}}>{t("selectGroup")}</Box> 
