@@ -6,6 +6,7 @@ const ADDED_MEMBER = gql`
             _id
             contacts
             email
+            image
             groups {
             chatId
             chatName

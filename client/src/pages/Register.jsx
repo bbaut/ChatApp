@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Container, Stack, TextField, Button, Typography, Box} from "@mui/material"
+import { Container, Stack, TextField, Button, Typography, Box, Input} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useTranslation } from "react-i18next"
+import avatar from "../assets/profile-image.jpeg"
+
 
 
 const Register = () => {
@@ -16,20 +18,30 @@ const Register = () => {
         (state) => state.user
     );
 
- 
+    const {isFetching, error} = useSelector(
+      (state) => state.register
+    )
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [alert, setAlert] = useState("");
+    const [avatarImg, setAvatarImg] = useState("");
     const [success, setSuccess] = useState("");
+    const [loading, setLoading] = useState(false)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if([username, email, password, confirmPassword].includes('')){
             setAlert(t("fieldsRequired"));
             return;
+        }
+
+        if(password.length < 6) {
+            setAlert(t("passwordMin"));
+            return
         }
 
         if(password !== confirmPassword) {
@@ -47,18 +59,30 @@ const Register = () => {
                     username,
                     email,
                     password,
-                    confirmPassword
+                    confirmPassword,
+                    image: avatarImg
                 }
             }
         })
 
-
-        setSuccess(t("succesfulCreation"))
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
+        setAvatarImg(null);
     }
+
+      const inputImage = (e) => {
+        e.preventDefault()
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+          setAvatarImg(reader.result)
+        }
+        reader.onerror = error => {
+          console.log("Error: ", error)
+        }
+      }
 
     useEffect (() => {
         i18n.changeLanguage(localStorage.getItem("language"));
@@ -68,6 +92,16 @@ const Register = () => {
         i18n.changeLanguage(e.target.id);
         localStorage.setItem("language",e.target.id)
     }
+
+    useEffect(()=>{
+      if(error === "Duplicate"){
+        setAlert(t("duplicate"))
+      }
+      else if(error === "null"){
+        setSuccess(t("succesfulCreation"))
+        setAlert("")
+      }
+    }, [error])
 
   return (
     <>
@@ -84,6 +118,7 @@ const Register = () => {
                 </Stack>
                 }
 
+
                 {success && 
                 <Stack spacing={2} paddingBottom={2} sx={{color: "#000080"}}>
                     <ThumbUpOffAltIcon/>
@@ -93,10 +128,52 @@ const Register = () => {
                 </Stack>
                 }
 
+                {loading && 
+                <Stack spacing={2} paddingBottom={2} sx={{color: "#000000"}}>
+                    <ThumbUpOffAltIcon/>
+                    <Typography variant="h6">
+                        loading
+                    </Typography>
+                </Stack>
+                }
+
                 <form
                     onSubmit={handleSubmit}
                 >
                     <Stack spacing={2} paddingBottom={2}>
+                    { avatarImg ? (
+                      <Box 
+                      component="img"
+                      style={{
+                          width: "200px",
+                          height: "200px",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          border: "2px solid #4f04ff21"
+                      }}
+                      src={avatarImg} alt="profile image"
+                    />
+                    )
+                    :
+                    (
+                        <Box 
+                        component="img"
+                        style={{
+                            width: "200px",
+                            height: "200px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                            border: "2px solid #4f04ff21"
+                        }}
+                        src={avatar} alt="profile image"
+                    />
+                    )
+                    }
+                        <TextField
+                          name="avatarImg"
+                          onChange={inputImage}
+                          type="file"
+                        />
                         <TextField
                             label={t("username")}
                             name="username"

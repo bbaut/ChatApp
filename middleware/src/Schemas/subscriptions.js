@@ -7,6 +7,7 @@ type Subscription {
     createdGroup: UserData
     addedMember: UserData
     removedMember: UserData
+    deleteContact: [UserData]
 }
 
 type UserData {

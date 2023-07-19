@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 // import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -17,6 +17,8 @@ const ChatMessages = ({currentMember}) => {
   let sendedby
   
   const dispatch = useDispatch();
+
+  // con [notification, setNotification] = useState()
 
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
@@ -40,6 +42,17 @@ const ChatMessages = ({currentMember}) => {
         console.log(error)
     }
   })
+
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if(messages.length) {
+      ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block:"end",
+      })
+    }
+  },[messages.length])
 
   return (
     <Box
@@ -76,7 +89,41 @@ const ChatMessages = ({currentMember}) => {
                   }}
                   key={index}
                 >
-                  <Box
+                  {message.isScribble ? 
+                      <Box
+                      // content
+                      sx={{
+                        maxWidth: "40%",
+                        overflowWrap: "break-word",
+                        padding: "1rem",
+                        borderRadius: "1rem",
+                        color: "#d1d1d1",
+                        backgroundColor: "#d1d1d1",
+                      }}
+                    >
+                        <img src={message.text} alt=""/>
+                    </Box>
+                    :
+                    <Box
+                      // content
+                      sx={{
+                        maxWidth: "40%",
+                        overflowWrap: "break-word",
+                        padding: "1rem",
+                        borderRadius: "1rem",
+                        color: "#d1d1d1",
+                        backgroundColor: "#4f04ff21",
+                      }}
+                    >
+                        <Typography 
+                        variant='p'
+                      >
+                        {message.text}
+                      </Typography>
+                    </Box>
+                  }
+
+                  {/* <Box
                     // content
                     sx={{
                       maxWidth: "40%",
@@ -84,7 +131,8 @@ const ChatMessages = ({currentMember}) => {
                       padding: "1rem",
                       borderRadius: "1rem",
                       color: "#d1d1d1",
-                      backgroundColor: "#4f04ff21",
+                      // backgroundColor: "#4f04ff21",
+                      backgroundColor: "#d1d1d1",
                     }}
                   >
                     {message.isScribble ? 
@@ -96,7 +144,7 @@ const ChatMessages = ({currentMember}) => {
                         {message.text}
                       </Typography>
                     }
-                  </Box>
+                  </Box> */}
                 </Box>
               :  
                 <Box
@@ -107,7 +155,40 @@ const ChatMessages = ({currentMember}) => {
                     justifyContent: "flex-start"
                   }}
                 >
-                  <Box
+                  {message.isScribble ? 
+                      <Box
+                      // content
+                      sx={{
+                        maxWidth: "40%",
+                        overflowWrap: "break-word",
+                        padding: "1rem",
+                        borderRadius: "1rem",
+                        color: "#d1d1d1",
+                        backgroundColor: "#d1d1d1",
+                      }}
+                    >
+                        <img src={message.text} alt=""/>
+                    </Box>
+                    :
+                    <Box
+                      // content
+                      sx={{
+                        maxWidth: "40%",
+                        overflowWrap: "break-word",
+                        padding: "1rem",
+                        borderRadius: "1rem",
+                        color: "#d1d1d1",
+                        backgroundColor: "#9900ff20",
+                      }}
+                    >
+                        <Typography 
+                        variant='p'
+                      >
+                        {message.text}
+                      </Typography>
+                    </Box>
+                  }
+                  {/* <Box
                   // content
                     sx={{
                       maxWidth: "40%",
@@ -128,13 +209,14 @@ const ChatMessages = ({currentMember}) => {
                       </Typography>
               
                     }
-                  </Box>
+                  </Box> */}
                 </Box>
               }
             </Box>
           )
         })
       }
+      <div ref={ref} />
     </Box>
   )
 }

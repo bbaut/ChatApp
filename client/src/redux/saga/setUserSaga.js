@@ -20,6 +20,7 @@ function* setUserAuthenticated(action) {
                     }
                     username
                     _id
+                    image
                 }
             }
         `,

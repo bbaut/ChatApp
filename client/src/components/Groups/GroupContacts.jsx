@@ -14,9 +14,10 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { useTranslation } from "react-i18next"
+import avatar from "../../assets/profile-image.jpeg"
 
 
-const GroupContacts = ({groupsArray, currentMember, changeChat}) => {
+const GroupContacts = ({groupsArray, currentMember, changeChat, avatarProfile}) => {
 
   const [currentSelected, setCurrentSelected] = useState(undefined);
   const [open, setOpen] = React.useState(false);
@@ -199,7 +200,29 @@ useEffect(()=>{
             <Box
               // avatar
             >
-              <img style={{height:"4rem", maxInlineSize: "100%"}} src={Avatar} alt='avatar'/>
+              {avatarProfile ? 
+                <img 
+                  style={{
+                    height:"4rem",
+                    width: "4rem",
+                    borderRadius: "50%",
+                    objectFit: "cover", 
+                    maxInlineSize: "100%"
+                  }} 
+                  src={avatarProfile} 
+                  alt='avatar'/>
+              :
+                <img 
+                  style={{
+                    height:"4rem", 
+                    borderRadius: "50%",
+                    objectFit: "cover", 
+                    maxInlineSize: "100%"
+                  }} 
+                  src={avatar} 
+                  alt='avatar'
+                />
+              }
             </Box>
             <Box
               // username

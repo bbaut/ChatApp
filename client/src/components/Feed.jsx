@@ -1,5 +1,5 @@
 import { Box, Container } from "@mui/material"
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next"
 import {useEffect} from "react"
 import robot from "../assets/rebel-robot.gif"
@@ -10,6 +10,10 @@ const Feed = () => {
 
   const { auth } = useSelector(
     (state) => state.auth
+  );
+
+  const { image } = useSelector(
+    (state) => state.user.value
   );
 
   const {language} = useSelector(

@@ -1,8 +1,8 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 
 class UsersAPI extends RESTDataSource {
-    // baseURL = 'http://localhost:4002/';
-    baseURL = 'http://users:4002/';
+    baseURL = 'http://localhost:4002/';
+    // baseURL = 'http://users:4002/';
 
     constructor(options) {
         super(options);
@@ -32,13 +32,21 @@ class UsersAPI extends RESTDataSource {
         )
     };
 
+
+    async contact(params) {
+        return this.get(
+            `/api/users/contactData`,{params}
+        )
+    }
+
     //Pass username and email only
-    async create(username,email){
+    async create(username,email,image){
         return this.post(
             '/api/users/createuser', {
                 body: {
                     username,
-                    email  
+                    email,
+                    image  
                 }
             }   
         )
@@ -123,6 +131,19 @@ class UsersAPI extends RESTDataSource {
             '/api/users/removemember', {
                 body: {
                     object
+                }
+            }
+        )
+    }
+
+    async deleteContact(deleteObj){
+        const user = deleteObj[0];
+        const contact = deleteObj[1];
+        return this.post(
+            'api/users/deletecontact', {
+                body: {
+                    user,
+                    contact
                 }
             }
         )

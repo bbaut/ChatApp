@@ -32,7 +32,7 @@ const Groups = () => {
     const dispatch = useDispatch();
     const {t} = useTranslation();
 
-    const { groups, username } = useSelector(
+    const { groups, username, image } = useSelector(
       (state) => state.user.value
     );
     const { chatMember } = useSelector(
@@ -51,7 +51,7 @@ const Groups = () => {
             dispatch({
                 type: "setNewGroup",
                 payload: {
-                    groups: data.data.data.createdGroup.groups
+                    groups: data.data.data.createdGroup
                 }
             })
         },
@@ -119,7 +119,7 @@ const Groups = () => {
     return (
         <BoxContainer>
                 <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
-                    <GroupContacts groupsArray={groupsArray} currentMember={username} changeChat={handleChatChange}/>
+                    <GroupContacts groupsArray={groupsArray} currentMember={username} changeChat={handleChatChange} avatarProfile={image}/>
                     {currentChat === undefined ? 
                         <Box sx={{color: "white"}}>{t("selectGroup")}</Box> 
                         :

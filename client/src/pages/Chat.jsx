@@ -10,6 +10,7 @@ import ChatContainer from '../components/ChatContainer';
 import ChatContacts from '../components/ChatContacts';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next"
+import SEND_MESSAGE from '../gql/sendMessage';
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -24,6 +25,7 @@ const BoxContainer = styled(Box)(() => ({
 
 const Chat = () => {
     const [ currentChat, setCurrentChat] = useState(undefined); 
+    // const [ notifications, setNotifications] = useState({});
     const {t} = useTranslation();
 
     const navigate = useNavigate();
@@ -35,10 +37,19 @@ const Chat = () => {
 
     const dispatch = useDispatch();
 
-    const { contacts, username } = useSelector(
+    const { contacts, username, image } = useSelector(
       (state) => state.user.value
     );
 
+    const { value, isFetching, notifications } = useSelector(
+        (state) => state.chat
+      );
+    
+      let messages = value
+
+    //   const receivedMessages = messages.filter(message =>
+    //     message.sender === "received"
+    //   )
 
     useSubscription(ACCEPT_CONTACT_REQUEST, {
       onData: (data) => {
@@ -58,8 +69,6 @@ const Chat = () => {
             contactsArray.push(contacts[i])
         }
     }
-
-    let id;
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
@@ -88,10 +97,25 @@ const Chat = () => {
         })
     }, [chatId])
 
+    useEffect(() => {
+        if (contactsArray.length !== 0){
+            dispatch({
+                type: "getContactData",
+                payload: {
+                    contactDataInput:{
+                        usernameArray: contactsArray
+                    }
+                }
+            })
+        }
+    }, [])
+
+    console.log(notifications)
+
     return (
-        <BoxContainer>
+        <BoxContainer sx={{height: "100vh"}}>
             <Box sx={{padding:"1rem", height: "85vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
-                <ChatContacts contactsArray={contactsArray} currentMember={username} changeChat={handleChatChange}/>
+                <ChatContacts contactsArray={contactsArray} currentMember={username} changeChat={handleChatChange} avatarProfile={image} notifications={notifications}/>
                 {currentChat === undefined ? 
                     <Box sx={{color: "white"}}>{t("selectContact")}</Box> 
                     :

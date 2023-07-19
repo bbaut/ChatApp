@@ -10,12 +10,15 @@ const registerSlice = createSlice({
     name: 'register',
     initialState,
     reducers: {
-        setRegisterFetching: (state = null) => {
-            state.isFetching = true;
+        setRegisterFetching: (state = null, action) => {
+            state.isFetching = action.payload;
         },
+        setError: (state = null, action) => {
+            state.error = action.payload
+        }
     },
 });
 
-export const { setRegisterFetching } = registerSlice.actions;
+export const { setRegisterFetching, setError } = registerSlice.actions;
 
 export default registerSlice.reducer;

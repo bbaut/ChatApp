@@ -13,6 +13,7 @@ import store from './redux/store';
 import Requests from "./pages/Requests";
 import Chat from "./pages/Chat";
 import Group from "./pages/Groups";
+import AvatarProfile from "./pages/Avatar";
 
 const theme = createTheme({
   palette: {
@@ -43,6 +44,7 @@ function App() {
             <Route path="contacts" element={<Contacts/>}/>
             <Route path="addcontact" element={<AddContact/>}/>
             <Route path="requests" element={<Requests/>}/>
+            <Route path="avatar" element={<AvatarProfile/>}/>
             <Route path="chat/:chatId" element={<Chat/>} />
             <Route path="groups/:chatId" element={<Group/>} />
           </Route>

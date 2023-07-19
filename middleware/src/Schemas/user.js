@@ -5,6 +5,7 @@ type User {
     email: String
     password: String
     token: String
+    image: String
 } 
 
 type UserData {
@@ -14,6 +15,7 @@ type UserData {
     contacts: [String]
     requests: [Request]
     groups: [Groupdata]
+    image: String
 }
 
 type Request {
@@ -47,6 +49,7 @@ input RegisterInput {
     email: String
     password: String
     confirmPassword: String
+    image: String
 }
 
 input LoginInput {
@@ -66,11 +69,20 @@ input DeleteReqInput {
     username: String
 }
 
+input ContactDataInput {
+    usernameArray: [String]
+}
+
+input DeleteContactInput {
+    username: String
+}
+
 type Query {
     profileUser(profileInput: ProfileInput): UserData
     existanceContact(existanceInput: ExistanceInput): User
     profileUserData(userDataInput: UserDataInput): UserData
     requestsContact(requestsInput: RequestsInput): UserData
+    contactData(contactDataInput: ContactDataInput): [UserData]
 }
 
 type Mutation {
@@ -79,6 +91,7 @@ type Mutation {
     addContact(addInput: [AddInput]): UserData
     acceptContact(acceptContactInput: [AcceptContactInput]): [UserData]
     deleteRequest(deleteReqInput: [DeleteReqInput]): UserData
+    deleteContact(deleteContactInput: [DeleteContactInput]): [UserData]
 }
 `
 

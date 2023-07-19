@@ -6,6 +6,7 @@ import registerReducer from "./reducers/registerSlice.js";
 import userReducer from "./reducers/userSlice.js"
 import chatReducer from './reducers/chatSlice';
 import authReducer from "./reducers/authSlice.js";
+import contactReducer from "./reducers/contactSlice"
 
 const saga = createSagaMiddleware();
 const middlewares = [saga]
@@ -16,7 +17,8 @@ const store = configureStore({
         findContactFunc: findContactReducer,
         user: userReducer,
         chat: chatReducer,
-        auth: authReducer
+        auth: authReducer,
+        contact: contactReducer,
     },
     middleware: (getDefaultMiddleware) =>{
         const middleware = [

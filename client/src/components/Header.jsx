@@ -11,10 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import TouchAppIcon from '@mui/icons-material/TouchApp';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Link } from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
 import CONTACT_REQUEST from '../gql/contactRequest'
@@ -22,6 +21,8 @@ import { useSubscription } from '@apollo/client';
 import { useTranslation } from "react-i18next"
 import {useEffect} from "react"
 import LanguageMenu from './LanguageMenu';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import avatar from "../assets/profile-image.jpeg"
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -32,10 +33,16 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+const ITEM_HEIGHT = 48;
+
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const { image, username } = useSelector(
+    (state) => state.user.value
+  );
 
   useSubscription(CONTACT_REQUEST, {
     onData: (data) => {
@@ -84,20 +91,31 @@ function Header() {
   const {language} = useSelector(
     (state) => state.user
   );
-  const onChangeLanguage = (e) => {
-    i18n.changeLanguage(e.target.id);
-    localStorage.setItem("language",e.target.id)
-  }
 
   useEffect (() => {
     i18n.changeLanguage(localStorage.getItem("language"));
   },[language])
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const onChangeLanguage = (e) => {
+    i18n.changeLanguage(e.target.id);
+    localStorage.setItem("language",e.target.id)
+    setAnchorEl(null);
+  }
+
   return (
-    <AppBar position="static">
+    <AppBar position="relative">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <TouchAppIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -106,13 +124,13 @@ function Header() {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
-              fontWeight: 700,
+              fontWeight: 300,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            Chat app
+            inTouch
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -144,16 +162,52 @@ function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              {/* Here starts the menu options */}
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to={"/dashboard"}>
-                      dashboard
+                    <Link to={"/dashboard"} style={{textDecoration:"none", color:"black"}}>
+                    {t("profile")}
+                    </Link>
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to={"/dashboard/contacts"} style={{textDecoration:"none", color:"black"}}>
+                    {t("friends")}
+                    </Link>
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to={"/dashboard/chat/0"} style={{textDecoration:"none", color:"black"}}>
+                    {t("messages")}
+                    </Link>
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to={"/dashboard/groups/0"} style={{textDecoration:"none", color:"black"}}>
+                    {t("groups")}
+                    </Link>
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to={"/dashboard/requests"} style={{textDecoration:"none", color:"black"}}>
+                    {t("invites")}
+                    </Link>
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link to={"/dashboard/requests"} style={{textDecoration:"none", color:"black"}}>
+                    {t("logout")}
                     </Link>
                   </Typography>
                 </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <TouchAppIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -164,13 +218,14 @@ function Header() {
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
-              fontWeight: 700,
+              fontWeight: 300,
+              fontSize: 10,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            My chat app
+            inTouch
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button
@@ -205,28 +260,71 @@ function Header() {
                       {t("groups")}
                 </Link>
               </Button>
-              <IconButton aria-label="cart">
-                <StyledBadge badgeContent={requests.length} color="secondary" style={{color:"white"}}>
-                  <Link to={"/dashboard/requests"}>
-                    <PersonAddIcon style={{ fill: "white" }} />
+              <Button 
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                  <Link to={"/dashboard/requests"} style={{textDecoration: "none", color:"white"}}>
+                    {t("invites")}
                   </Link>
+              </Button>
+              <IconButton
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <StyledBadge badgeContent={0} color="secondary" style={{color:"white"}}>
+                  <NotificationsActiveIcon/>
                 </StyledBadge>
               </IconButton>
-              <Button
+          </Box>
+
+          <div>
+            {username}
+          </div>
+          <LanguageMenu/>
+          <div>
+            <IconButton
+              aria-controls={open ? 'long-menu' : undefined}
+              aria-expanded={open ? 'true' : undefined}
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Avatar">
+                    {image ? 
+                    <Avatar alt="Remy Sharp" src={image} />
+                    : 
+                    <Avatar alt="Remy Sharp" src={avatar} />
+                    }
+                </Tooltip>
+              </Box>
+            </IconButton>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                'aria-labelledby': 'long-button',
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: '20ch',
+                },
+              }}
+            >
+              {/* <Button
                 onClick={handleLogout}
                 sx={{ my: 2, color: 'white', display: 'block', paddingLeft:20 }}
               > 
                 {t("logout")}
-              </Button>
-          </Box>
-
-          <LanguageMenu/>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Avatar">
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-            </Tooltip>
-          </Box>
+              </Button> */}
+              <MenuItem  onClick={handleLogout}>
+                {t("logout")}
+              </MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </Container>
     </AppBar>

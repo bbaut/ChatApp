@@ -26,6 +26,10 @@ const subscriptions = {
             subscribe:
                 () => pubsub.asyncIterator("REMOVED_MEMBER")
         },
+        deleteContact: {
+            subscribe:
+                () => pubsub.asyncIterator("DELETE_CONTACT")
+        }
 
 }
 

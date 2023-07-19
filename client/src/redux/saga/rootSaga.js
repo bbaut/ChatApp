@@ -22,6 +22,10 @@ import setLng from "./languageSaga";
 import removeMemberGroup from "./removeMemberSaga";
 import addedMember from "./addedMemberSaga";
 import removedMember from "./removedMemberSaga";
+import getContactData from "./getContactData"
+import deleteContact from "./deleteContact";
+import deletedContact from "./deletedContactSaga";
+import chatNotification from "./chatNotificationsSaga";
 
 export function* watchRegister(){
     yield takeLatest("register", register);
@@ -108,6 +112,20 @@ export function* watchSetLanguage(){
     yield takeEvery("setLanguage", setLng)
 }
 
+export function* watchContactData(){
+    yield takeEvery("getContactData", getContactData)
+}
+export function* watchDeleteContact(){
+    yield takeEvery("deleteContact", deleteContact)
+}
+export function* watchDeletedContact(){
+    yield takeEvery("deletedContact", deletedContact)
+}
+
+export function* watchChatNotification(){
+    yield takeEvery("chatNotification", chatNotification)
+}
+
 export default function* rootSaga() {
     yield all([
         watchRegister(),
@@ -133,5 +151,9 @@ export default function* rootSaga() {
         watchRemoveMemberGroup(),
         watchSetNewGroup(),
         watchSetLanguage(),
+        watchContactData(),
+        watchDeleteContact(),
+        watchDeletedContact(),
+        watchChatNotification(),
     ]);
 }

@@ -1,7 +1,7 @@
 import { put, call } from "redux-saga/effects";
 import { gql } from "@apollo/client";
 import client from "../../apolloClient"
-import { setRegisterFetching } from "../reducers/registerSlice";
+import { setRegisterFetching, setError } from "../reducers/registerSlice";
 
 function* register(action) {
   const options = {
@@ -18,10 +18,11 @@ function* register(action) {
   };
 
   try {
-    yield put(setRegisterFetching());
+    yield put(setRegisterFetching(true));
     yield call(client.mutate, options);
+    yield put(setRegisterFetching(false));
   } catch (error) {
-    console.log(error.message)
+    yield put (setError(error.message))
   }
 }
 

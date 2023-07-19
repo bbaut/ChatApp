@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import Search from "../components/SearchContact"
 import { useSubscription } from '@apollo/client';
 import ACCEPT_CONTACT_REQUEST from "../gql/acceptContact"
+import DELETE_CONTACT from "../gql/deleteContact"
 import ContactLayer from '../components/ContactLayer';
 import { useTranslation } from "react-i18next"
 import {useEffect} from "react"
+import avatar from "../assets/profile-image.jpeg"
 
 const Contacts = () => {
 
@@ -22,6 +24,9 @@ const Contacts = () => {
       (state) => state.user
     );
 
+    const { value } = useSelector(
+      (state) => state.contact
+  )
 
     useSubscription(ACCEPT_CONTACT_REQUEST, {
       onData: (data) => {
@@ -34,12 +39,39 @@ const Contacts = () => {
           console.log(error)
       }
     })
+
+    useSubscription(DELETE_CONTACT, {
+      onData: (data) => {
+        dispatch({
+          type: "deletedContact",
+          payload: data.data.data.deleteContact,
+      })
+      },
+      onError:(error) => {
+        console.log(error)
+      }
+    })
   
     useEffect (() => {
       i18n.changeLanguage(localStorage.getItem("language"));
     },[language])
 
+    useEffect(() => {
+      if (contactsArray.length !== 0){
+          dispatch({
+              type: "getContactData",
+              payload: {
+                  contactDataInput:{
+                      usernameArray: contactsArray
+                  }
+              }
+          })
+      }
+  }, [])
+
     let contactsArray = [];
+
+    console.log(contacts)
 
     if (contacts.length !== 0) {
         for (let i = 0; i<  contacts.length; i++){
@@ -54,11 +86,19 @@ const Contacts = () => {
       >
           <h1>{t("friends")}</h1>
           <Search language={language}/>
-          <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-              {contactsArray.map((contact) => (
-                  <ContactLayer item={contact} key={contact} language={language}/>
+          {value.length !== 0 ? 
+            <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+              {contactsArray.map((contact, index) => (
+                  <ContactLayer item={contact} key={contact} language={language} avatar={value[index].image}/>
               ))}
           </List>
+          : 
+          <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+          {contactsArray.map((contact, index) => (
+              <ContactLayer item={contact} key={contact} language={language} avatar={avatar}/>
+          ))}
+      </List>
+          }
         </Box>
     );
   }

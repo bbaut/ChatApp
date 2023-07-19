@@ -17,6 +17,8 @@ const resources = {
             alreadyAccount: "Have an account?",
             fieldsRequired: "All fields required",
             passwordsDontMatch: "Passwords do not match. Try again",
+            passwordMin: "Password must have at least 6 characters",
+            duplicate: "This email is already register",
             succesfulCreation: "User created successfully. Go to login page",
             addFriend: "Add friend",
             writeUsername: "Write the username",
@@ -46,7 +48,8 @@ const resources = {
             cancel: "Cancel",
             save: "Save",
             removeFriend: "Remove friend",
-            send: "Send"
+            send: "Send",
+            invites: "Invites"
         }
     },
     es: {
@@ -64,6 +67,8 @@ const resources = {
             alreadyAccount: "¿Ya tienes una cuenta?",
             fieldsRequired: "Todos los campos son requeridos",
             passwordsDontMatch: "Contraseñas no coinciden. Inténtalo de nuevo",
+            passwordMin: "La contraseña debe ser de almenos 6 caracteres",
+            duplicate: "Este email ya se encuentra registrado",
             succesfulCreation: "Usuario creado exitosamente. Ve a la página de iniciar sesión",
             addFriend: "Agregar amigo",
             writeUsername: "Escribir usuario",
@@ -93,7 +98,8 @@ const resources = {
             cancel: "Cancelar",
             save: "Guardar",
             removeFriend: "Eliminar amigo",
-            send: "Enviar"
+            send: "Enviar",
+            invites: "Solicitudes"
         }
     },
     fr: {
@@ -111,6 +117,8 @@ const resources = {
             alreadyAccount: "Déjà inscrit(e)?",
             fieldsRequired: "Tous les champs sont obligatoires",
             passwordsDontMatch: "Les mots de passe ne correspondent pas. Essayer à nouveau",
+            passwordMin: "Le mot de passe doit comporter au moins 6 caractères",
+            duplicate: "Cet e-mail est déjà enregistré",
             succesfulCreation: "Utilisateur créé avec succès. Aller à la page de connexion",
             addFriend: "Ajouter un ami",
             writeUsername: "Écrire le nom d'utilisateur",
@@ -140,7 +148,8 @@ const resources = {
             cancel: "Annuler",
             save: "Enregistrer",
             removeFriend: "Supprimer un ami",
-            send: "Envoyer"
+            send: "Envoyer",
+            invites: "Invitation d'amis"
         }
     },
     br: {
@@ -158,6 +167,8 @@ const resources = {
             alreadyAccount: "Já se cadastrou?",
             fieldsRequired: "Todos os campos são necessários",
             passwordsDontMatch: "As senhas não coincidem. Tente novamente",
+            passwordMin: "A senha deve ter pelo menos 6 caracteres",
+            duplicate: "Este e-mail já está registado",
             succesfulCreation: "Usuário criado com sucesso. Ir para a página de login",
             addFriend: "Adicionar amigo",
             writeUsername: "Escreva o nome de usuário",
@@ -187,7 +198,8 @@ const resources = {
             cancel: "Cancelar",
             save: "Salvar",
             removeFriend: "Remover amigo",
-            send: "Enviar"
+            send: "Enviar",
+            invites: "Convite de amigos"
         }
     },
     it: {
@@ -205,6 +217,8 @@ const resources = {
             alreadyAccount:"Hai già un account?",
             fieldsRequired: "Tutti i campi sono obbligatori",
             passwordsDontMatch: "Le passwords non corrispondono. Riprova",
+            passwordMin: "La password deve contenere almeno 6 caratteri",
+            duplicate: "Questa email è già registrata",
             succesfulCreation: "Utente creato con successo. Vai alla pagina di accesso",
             addFriend: "Aggiungi amico",
             writeUsername: "Scrivi il nome utente",
@@ -234,7 +248,8 @@ const resources = {
             cancel: "Annulla",
             save: "Salva",
             removeFriend: "Rimuovi amico",
-            send:"Inviare"
+            send:"Inviare",
+            invites: "Invitati"
         }
     },
     dt: {
@@ -252,6 +267,8 @@ const resources = {
             alreadyAccount:"Bereits Mitglied?",
             fieldsRequired: "Alle Felder sind erforderlich",
             passwordsDontMatch: "Passwörter stimmen nicht überein. Versuchen Sie es erneut",
+            passwordMin: "Das Passwort muss mindestens 6 Zeichen lang sein",
+            duplicate: "Diese E-Mail ist bereits registriert",
             succesfulCreation: "Benutzer erfolgreich erstellt. Gehen Sie zur Anmeldeseite",
             addFriend: "Freund hinzufügen",
             writeUsername: "Benutzernamen schreiben",
@@ -281,7 +298,8 @@ const resources = {
             cancel: "Abbrechen",
             save: "Speichern",
             removeFriend: "Freund entfernen",
-            send: "Schicken"
+            send: "Schicken",
+            invites: "keine Freund"
         }
     }
 }

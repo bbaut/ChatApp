@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {TextField, Button, IconButton, Modal, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Picker from "emoji-picker-react";
 import { Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
@@ -9,6 +8,8 @@ import { useTranslation } from "react-i18next"
 import "./ChatInput.css"
 import Canvas from './Canvas';
 import GestureIcon from '@mui/icons-material/Gesture';
+import EmojiPicker from 'emoji-picker-react';
+import { EmojiClickData, EmojiStyle, Emoji } from 'emoji-picker-react';
 
 const BoxContainer = styled(Box)(() => ({
     display:"flex",
@@ -48,10 +49,11 @@ const ChatInput = ({handleSendMsg}) => {
         }
     }
 
-    const handleEmojiClick = (event,emoji) => {
+    const handleEmojiClick = (emojiObject, event) => {
         let txt = text;
-        txt += emoji.emoji;
+        txt += emojiObject.emoji;
         setText(txt)
+        // setText(emojiData.unified)
     }
 
     const handleClick = (event) => {
@@ -105,7 +107,7 @@ const ChatInput = ({handleSendMsg}) => {
             >
                 <EmojiEmotionsIcon sx={{color: "#ffff00c4"}}/>
             </IconButton>
-            {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick}/>}
+            {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick}/>}
             <TextField
                 direction="column"
                 placeholder={t("writeAMessage")}

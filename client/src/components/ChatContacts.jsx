@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography } from '@mui/material'
-import Avatar from "../assets/avatar.png"
+import { Box, Typography,Badge, Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from "react-i18next"
+import avatar from "../assets/profile-image.jpeg"
+import { styled } from '@mui/material/styles';
+import { blue, red } from '@mui/material/colors';
 
-const ChatContacts = ({contactsArray, currentMember, changeChat}) => {
+const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, notifications}) => {
 
   const [currentSelected, setCurrentSelected] = useState(undefined);
+  const [openChat, setOpenChat] = useState(false)
+  const [invisible, setInvisible] = useState(true);
 
+  const color = blue[500]
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      // border: `2px solid ${theme.palette.background.paper}`,
+      border: `2px solid ${color}`,
+      width: "15px",
+      height: "15px",
+      borderRadius: "50%",
+      padding: '0 4px',
+    },
+  }));
 
   const {t} = useTranslation();
 
@@ -16,7 +33,27 @@ const ChatContacts = ({contactsArray, currentMember, changeChat}) => {
 
   const { currentRoom } = useSelector(
     (state) => state.chat
-);
+  );
+
+    const { value } = useSelector(
+      (state) => state.contact
+    )
+
+    const number = () => {
+      if(openChat){
+        return 0
+      }
+        return 4
+    }
+
+    useEffect(() => {
+      if(notifications.length !== 0){
+        
+        setInvisible(!invisible);
+      }
+    },[])
+
+    
 
 useEffect(()=>{
     if (currentRoom){
@@ -29,10 +66,12 @@ useEffect(()=>{
     changeChat(contact)
   }
 
+  // console.log(receivedMessages)
+  // console.log(currentRoom)
+
 
   return (
     <> 
-
         <Box 
           sx={{
             display: "grid",
@@ -106,7 +145,15 @@ useEffect(()=>{
                     <Box
                       // avatar
                     >
-                      <img style={{height:"3rem"}} src={Avatar} alt='avatar'/>
+                      {value.length !== 0 ?
+                      <StyledBadge variant='dot' invisible={invisible}>
+                        <Avatar style={{height:"3rem"}} src={value[index].image} alt='avatar'/>
+                      </StyledBadge>
+                      :
+                        <StyledBadge variant='dot' color="secondary" style={{color:"white"}}>
+                          <img style={{height:"3rem"}} src={avatar} alt='avatar'/>
+                        </StyledBadge>
+                      } 
                     </Box>
                     <Box
                       // username
@@ -135,7 +182,29 @@ useEffect(()=>{
             <Box
               // avatar
             >
-              <img style={{height:"4rem", maxInlineSize: "100%"}} src={Avatar} alt='avatar'/>
+              {avatarProfile ? 
+                <img 
+                  style={{
+                    height:"4rem",
+                    width: "4rem",
+                    borderRadius: "50%",
+                    objectFit: "cover", 
+                    maxInlineSize: "100%"
+                  }} 
+                  src={avatarProfile} 
+                  alt='avatar'/>
+              :
+                <img 
+                  style={{
+                    height:"4rem", 
+                    borderRadius: "50%",
+                    objectFit: "cover", 
+                    maxInlineSize: "100%"
+                  }} 
+                  src={avatar} 
+                  alt='avatar'
+                />
+              }
             </Box>
             <Box
               // username

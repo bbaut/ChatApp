@@ -10,7 +10,9 @@ import { addContact,
         passIDtoUsername,
         addGroup,
         addMemberGroup,
-        removeMemberGroup
+        removeMemberGroup,
+        contactData,
+        deleteContact
     } from "../controllers/usersControllers.js";
 
 const router = Router();
@@ -20,6 +22,7 @@ router.get('/userprofile', userProfile);
 router.get('/searchcontact', searchContact);
 router.post('/addcontact', addContact);
 router.get('/idtousername', passIDtoUsername)
+router.post('/deletecontact', deleteContact)
 router.post('/deleterequest', deleteRequest);
 router.get('/requests', requestsContact);
 router.patch('/acceptcontact', acceptContact);
@@ -27,5 +30,6 @@ router.patch('/addchatcontact', addChatContact);
 router.post('/addgroup', addGroup)
 router.post('/addmember', addMemberGroup)
 router.post('/removemember', removeMemberGroup)
+router.get('/contactdata', contactData)
 
 export default router

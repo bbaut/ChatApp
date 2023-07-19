@@ -15,6 +15,9 @@ const UserSchema = new Schema({
         trim: true,
         unique: true
     },
+    image: {
+        type: String
+    },
     contacts: {
         type: Array,
         default: [] //It will save usernames

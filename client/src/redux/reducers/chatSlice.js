@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { compose, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isFetching: false,
@@ -8,7 +8,8 @@ const initialState = {
     groupName: '',
     createdBy: '',
     value: [],
-    valueGroup: []
+    valueGroup: [],
+    notifications: {},
 };
 
 const chatSlice = createSlice({
@@ -19,6 +20,9 @@ const chatSlice = createSlice({
             state.isFetching = false;
             state.value = [...state.value, action.payload]
             state.valueGroup =  [...state.valueGroup, action.payload]
+            if(action.payload.sender === "received"){
+                state.notifications = true
+            }
         },
         addMessageParticipants: (state = null, action) => {
             state.isFetching = false;
@@ -57,11 +61,19 @@ const chatSlice = createSlice({
         },
         isFetching: (state=null, action) => {
             state.isFetching = true;
+        },
+        setNotification: (state=null, action) => {
+            if(action.payload.received !== action.payload.sender){
+                state.notifications = action.payload 
+            }
+        },
+        resetNotifications: (state=null, action) => {
+            state.notifications = 0;
         }
     },
 });
 
-export const { addMessage, addMessageParticipants, currentRoom, currentGroup, getRoomMessages, setAddedMember, setRemovedMember, isFetching } = chatSlice.actions;
+export const { addMessage, addMessageParticipants, currentRoom, currentGroup, getRoomMessages, setAddedMember, setRemovedMember, isFetching, setNotification, resetNotifications } = chatSlice.actions;
 
 export default chatSlice.reducer;
 

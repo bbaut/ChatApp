@@ -27,6 +27,11 @@ const resolvers = {
             return await dataSources.usersAPI.requests({email});
         },
 
+        async contactData (_, {contactDataInput}, {dataSources, req, res}) {
+            const {usernameArray} = contactDataInput;
+            return await dataSources.usersAPI.contact(contactDataInput)
+        },
+
         async getMessages (_, {getMessageInput}, {dataSources, req, res}) {
             return await dataSources.chatAPI.getAllMessages(getMessageInput);
         },
@@ -37,19 +42,28 @@ const resolvers = {
 
         async getGroup (_, {getGroupInput}, {dataSources, req, res}) {
             return await dataSources.chatAPI.getGroup(getGroupInput);
-        }
+        },
     },
     Mutation: {
         async registerUser(_, {registerInput}, {dataSources, req, res}) {
 
-            console.log("from middleware")
-            console.log(registerInput)
-
-            const {username, email, password, confirmPassword} = registerInput;
+            const {username, email, password, confirmPassword, image} = registerInput;
 
             const isValidEmail = validate.isEmail(String(email).toLocaleLowerCase());
 
-            if (!isValidEmail || password !== confirmPassword || password.length < 6) {
+            if(password.length < 6) {
+                throw new GraphQLError("Password incorrect length", {
+                    extensions: {
+                        code: "BAD_USER_INPUT",
+                        http: { 
+                            status: 400,
+                            headers: "something happened"
+                        },
+                    },
+                });
+            }
+
+            if (!isValidEmail || password !== confirmPassword) {
                 throw new GraphQLError("Internal Error", {
                     extensions: {
                         code: "BAD_USER_INPUT",
@@ -62,13 +76,13 @@ const resolvers = {
             }
 
             try {
-                const userUsers = await dataSources.usersAPI.create(username, email);
+                const userUsers = await dataSources.usersAPI.create(username, email, image);
                 const user = await dataSources.authAPI.register(registerInput);
 
                 return user
             }
             catch(error){
-                console.log(error)
+                throw new GraphQLError(error.extensions.response.body.message);
             }
         },
 
@@ -232,6 +246,25 @@ const resolvers = {
                 throw new GraphQLError(message);
             }
         },
+        deleteContact: async(_, {deleteContactInput}, {dataSources}) => {
+            try {
+                const users = await dataSources.usersAPI.deleteContact(deleteContactInput);
+
+                const userUpdated = users.userUpdated
+                const contactUpdated = users.contactUpdated
+
+                let usersArray = [userUpdated, contactUpdated]
+
+                pubsub.publish("DELETE_CONTACT", {
+                    deleteContact: usersArray
+                })
+
+                return usersArray;
+            } catch (err) {
+                const message = err.extensions.response.body.error;
+                throw new GraphQLError(message);
+            }
+        }
 
     },
     Subscription: subscriptionsResolvers,

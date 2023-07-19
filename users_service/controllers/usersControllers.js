@@ -7,7 +7,13 @@ const createUser = async (req,res) => {
         res.json(userSaved);
     }
     catch (error) {
-        console.log(error);
+        const typeError = error.message.split(":")[0]
+        if (typeError === "E11000 duplicate key error collection") {
+            return res.status(404).json({message: "Duplicate"})
+        }
+        else {
+            return res.json(error)
+        }
     }
 }
 
@@ -49,6 +55,20 @@ const userProfile = async (req,res) => {
     }
     catch (error) {
         console.log(error);
+    }
+}
+
+const contactData = async (req,res) => {
+    const usernamesArray = req.query.usernameArray.split(",")
+    const dataArray = [] 
+    try {
+        for (let i = 0; i<usernamesArray.length; i++) {
+            const data = await Users.findOne({username: usernamesArray[i]})
+            dataArray.push(data)
+        }
+        res.json(dataArray)
+    } catch (error) {
+        return res.status(404).json({msg: error.message});
     }
 }
 
@@ -374,6 +394,42 @@ const removeMemberGroup = async (req,res) => {
     }
 }
 
+const deleteContact = async (req, res) => {
+    const userSend = req.body.user;
+    const userReceive = req.body.contact;
+
+    try {
+        const user = await Users.findOne({username: userSend.username}); //The one who receives the contact request
+        const contact = await Users.findOne({username: userReceive.username});
+        
+        if (!user || !contact) {
+            const error = new Error('User not found');
+            return res.status(404).json({msg: error.message});
+        }
+
+        const userID = user._id
+        const contactID = contact._id
+        
+        const userUpdated = await Users.findOneAndUpdate(
+            {username: user.username},
+            {$pull: { contacts: contactID } },
+            { new: true }
+        )
+
+        const contactUpdated = await Users.findOneAndUpdate(
+            {username: contact.username},
+            {$pull: { contacts: userID } },
+            { new: true }
+        )
+
+        return res.status(200).json({userUpdated, contactUpdated});
+
+    }
+    catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+}
+
 
 export {
     searchContact,
@@ -387,5 +443,7 @@ export {
     addChatContact,
     addGroup,
     addMemberGroup,
-    removeMemberGroup
+    removeMemberGroup,
+    contactData,
+    deleteContact
 }

@@ -16,6 +16,7 @@ function* acceptFriend(action) {
                 to
                 }
                 _id
+                image
             }
         }
       `,
