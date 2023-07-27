@@ -7,14 +7,15 @@ import { Box,
     DialogContent, 
     DialogContentText, 
     TextField, 
-    DialogActions } from '@mui/material'
-import Avatar from "../../assets/avatar.png"
+    DialogActions,
+    Avatar } from '@mui/material'
+import AvatarImg from "../../assets/group.svg"
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { useTranslation } from "react-i18next"
-import avatar from "../../assets/profile-image.jpeg"
+// import avatar from "../../assets/profile-image.jpeg"
 
 
 const GroupContacts = ({groupsArray, currentMember, changeChat, avatarProfile}) => {
@@ -171,7 +172,7 @@ useEffect(()=>{
                     <Box
                       // avatar
                     >
-                      <img style={{height:"3rem"}} src={Avatar} alt='avatar'/>
+                      <Avatar style={{height:"3rem", width:"3rem"}} src={AvatarImg} alt='avatar'/>
                     </Box>
                     <Box
                       // username
@@ -219,7 +220,7 @@ useEffect(()=>{
                     objectFit: "cover", 
                     maxInlineSize: "100%"
                   }} 
-                  src={avatar} 
+                  src={AvatarImg} 
                   alt='avatar'
                 />
               }

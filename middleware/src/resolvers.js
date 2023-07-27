@@ -49,6 +49,8 @@ const resolvers = {
 
             const {username, email, password, confirmPassword, image} = registerInput;
 
+            console.log(image)
+
             const isValidEmail = validate.isEmail(String(email).toLocaleLowerCase());
 
             if(password.length < 6) {

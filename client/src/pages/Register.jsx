@@ -49,6 +49,11 @@ const Register = () => {
             return
         }
 
+        if(avatarImg.length !== 0 && avatarImg.length > 32000){
+          setAlert(t("tooLargeImageSize"));
+          return
+        }
+
         setAlert('');
 
         dispatch({

@@ -100,7 +100,7 @@ const GroupMessagesChat = ({currentMember}) => {
                     padding: "1rem",
                     borderRadius: "1rem",
                     color: "#d1d1d1",
-                    backgroundColor: "#4f04ff21",
+                    backgroundColor: "#d1d1d1",
                   }}
                 >
                   {message.isScribble ?
@@ -136,14 +136,14 @@ const GroupMessagesChat = ({currentMember}) => {
                 padding: "1rem",
                 borderRadius: "1rem",
                 color: "#d1d1d1",
-                backgroundColor: "#9900ff20",
+                backgroundColor: "#d1d1d1",
               }}
             >
               {message.isScribble ?
                 <>
                   <Typography 
                     variant='subtitle2'
-                    color="white"
+                    color="black"
                   >
                     {message.sendedBy}
                   </Typography>

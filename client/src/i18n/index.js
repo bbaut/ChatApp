@@ -54,8 +54,8 @@ const resources = {
             alreadySentReqError: "You have already sent a request to this contact",
             alreadyHaveReqError: "You already have a request from this friend",
             removedFromFriendList: "You have been removed of your friend's list",
-            removedOfTheGroup: "You have been removed of the group"
-
+            removedOfTheGroup: "You have been removed of the group",
+            tooLargeImageSize: "Size of image too large"
         }
     },
     es: {
@@ -110,7 +110,8 @@ const resources = {
             alreadySentReqError: "Ya has mandado una solicitud de amistad a este contacto",
             alreadyHaveReqError: "Tienes una solicitud de amistad de este contacto",
             removedFromFriendList: "Has sido eliminado de la lista de tus amigos",
-            removedOfTheGroup: "Has sido eliminado del grupo"
+            removedOfTheGroup: "Has sido eliminado del grupo",
+            tooLargeImageSize: "Tamaño de la imagen muy grande"
         }
     },
     fr: {
@@ -165,7 +166,8 @@ const resources = {
             alreadySentReqError: "Vous avez déjà envoyé une invitation à ce contact",
             alreadyHaveReqError: "Vous avez déjà une invitation de cet ami",
             removedFromFriendList: "Vous avez été supprimé de votre liste d'amis",
-            removedOfTheGroup: "Vous avez été supprimé du groupe"
+            removedOfTheGroup: "Vous avez été supprimé du groupe",
+            tooLargeImageSize: "Taille de l'image trop grande"
         }
     },
     br: {
@@ -220,7 +222,8 @@ const resources = {
             alreadySentReqError: "Já enviou uma convite a este contacto",
             alreadyHaveReqError: "Você já tem uma convite deste amigo",
             removedFromFriendList: "Você foi removido da lista de amigos",
-            removedOfTheGroup: "Você foi removido do grupo"
+            removedOfTheGroup: "Você foi removido do grupo",
+            tooLargeImageSize: "Tamanho da imagem muito grande"
         }
     },
     it: {
@@ -275,7 +278,8 @@ const resources = {
             alreadySentReqError: "Hai già inviato una richiesta a questo contatto",
             alreadyHaveReqError: "Hai già una richiesta da questo amico",
             removedFromFriendList: "Sei stato rimosso dalla lista dei tuoi amici",
-            removedOfTheGroup: "Sei stato rimosso dal gruppo"
+            removedOfTheGroup: "Sei stato rimosso dal gruppo",
+            tooLargeImageSize: "Dimensioni dell'immagine troppo grandi"
         }
     },
     dt: {
@@ -330,7 +334,8 @@ const resources = {
             alreadySentReqError: "Sie haben bereits eine Anfrage an diesen Kontakt gesendet",
             alreadyHaveReqError: "Sie haben bereits eine Anfrage von diesem Freund",
             removedFromFriendList: "Sie wurden aus Ihrer Freundesliste entfernt",
-            removedOfTheGroup: "Sie wurden aus der Gruppe entfernt"
+            removedOfTheGroup: "Sie wurden aus der Gruppe entfernt",
+            tooLargeImageSize: "Bildgröße zu groß"
         }
     }
 }
