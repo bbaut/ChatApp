@@ -9,7 +9,6 @@ import "./ChatInput.css"
 import Canvas from './Canvas';
 import GestureIcon from '@mui/icons-material/Gesture';
 import EmojiPicker from 'emoji-picker-react';
-import { EmojiClickData, EmojiStyle, Emoji } from 'emoji-picker-react';
 
 const BoxContainer = styled(Box)(() => ({
     display:"flex",
@@ -19,13 +18,6 @@ const BoxContainer = styled(Box)(() => ({
     gap: "15px",
     backgroundColor: "#080420",
     paddingBottom: '0.3rem'
-}));
-
-const BoxButtonContainer = styled(Box)(() => ({
-    display: "flex",
-    alignItems: "center",
-    color: "white",
-    gap: "1rem",
 }));
 
 const ChatInput = ({handleSendMsg}) => {
@@ -53,7 +45,6 @@ const ChatInput = ({handleSendMsg}) => {
         let txt = text;
         txt += emojiObject.emoji;
         setText(txt)
-        // setText(emojiData.unified)
     }
 
     const handleClick = (event) => {
@@ -67,11 +58,6 @@ const ChatInput = ({handleSendMsg}) => {
         const canva = document.querySelector("canvas");
     
         const image = canva.toDataURL("image/png").toString();
-    
-        const messageInput = {
-          content: image,
-          isScribble: true,
-        };
 
         
          if (image.length < 92000) {
@@ -110,6 +96,7 @@ const ChatInput = ({handleSendMsg}) => {
             {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick}/>}
             <TextField
                 direction="column"
+                autoComplete='off'
                 placeholder={t("writeAMessage")}
                 inputProps={{
                     maxLength: 5000,

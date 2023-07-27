@@ -87,9 +87,6 @@ const resolvers = {
         },
 
         async loginUser(_, {loginInput}, {dataSources, req, res}){
-
-            console.log("from middleware")
-            console.log(loginInput)
             
             const {email, password} = loginInput;
 
@@ -139,7 +136,9 @@ const resolvers = {
                 return contactUpdated;
             }
             catch (error){
-                console.log(error);
+                const message = error.extensions.response.body.msg;
+                console.log(message)
+                throw new GraphQLError(message);
             }
         },
 

@@ -79,7 +79,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
         })
 
         if (!contact) {
-            alert(t("userNotFound"))
+            setAlert(t("userNotFound"))
             return
         }
 

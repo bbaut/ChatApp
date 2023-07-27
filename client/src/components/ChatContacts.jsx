@@ -1,31 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography,Badge, Avatar } from '@mui/material'
+import { Box, Typography, Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from "react-i18next"
 import avatar from "../assets/profile-image.jpeg"
-import { styled } from '@mui/material/styles';
-import { blue, red } from '@mui/material/colors';
 
 const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, notifications}) => {
 
   const [currentSelected, setCurrentSelected] = useState(undefined);
   const [openChat, setOpenChat] = useState(false)
   const [invisible, setInvisible] = useState(true);
-
-  const color = blue[500]
-  const StyledBadge = styled(Badge)(({ theme }) => ({
-    '& .MuiBadge-badge': {
-      right: -3,
-      top: 13,
-      // border: `2px solid ${theme.palette.background.paper}`,
-      border: `2px solid ${color}`,
-      width: "15px",
-      height: "15px",
-      borderRadius: "50%",
-      padding: '0 4px',
-    },
-  }));
 
   const {t} = useTranslation();
 
@@ -35,7 +19,7 @@ const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, 
     (state) => state.chat
   );
 
-    const { value } = useSelector(
+    const { value, isFetching } = useSelector(
       (state) => state.contact
     )
 
@@ -65,10 +49,6 @@ useEffect(()=>{
     setCurrentSelected(index);
     changeChat(contact)
   }
-
-  // console.log(receivedMessages)
-  // console.log(currentRoom)
-
 
   return (
     <> 
@@ -105,6 +85,7 @@ useEffect(()=>{
               {t("chats")}
             </Typography>
           </Box>
+          {value.length === 0 || isFetching ? 
           <Box 
             // contacts
             sx={{
@@ -145,14 +126,104 @@ useEffect(()=>{
                     <Box
                       // avatar
                     >
-                      {value.length !== 0 ?
-                      <StyledBadge variant='dot' invisible={invisible}>
+                        <Avatar style={{height:"3rem", width:"3rem"}} src={avatar} alt='avatar'/>
+                    </Box>
+                    <Box
+                      // username
+                    >
+                      <h3 
+                        style={{
+                          color: "white"
+                        }}
+                      >{contact}</h3>
+                    </Box>
+                  </Box>
+                )}
+              )}
+          </Box>
+            : 
+            <Box 
+            // contacts
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              overflow: "auto",
+              gap: "0.8rem",
+              "&::-webkit-scrollbar": {
+                width: "0.2rem",
+                "&-thumb": {
+                  backgroundColor: "#ffffff39",
+                  width: "0.1rem",
+                  borderRadius: "1rem",
+                }
+              }
+            }}
+          >
+            {contactsArray.map((contact, index) => {
+                return (
+                  <Box 
+                    // contact 
+                    sx={{
+                      backgroundColor: "#ffffff39",
+                      minHeight:"5rem",
+                      width:"90%",
+                      cursor:"pointer",
+                      borderRadius:"0.2rem",
+                      padding:"0.4rem",
+                      gap:"1rem",
+                      alignItems: "center",
+                      display: "flex",
+                      transition: "0.5s ease-in-out"
+                    }}
+                    key={index}
+                    onClick={()=>changeCurrentChat(index, contact)}
+                  >
+                    <Box
+                      // avatar
+                    >
+                        <Avatar style={{height:"3rem", width:"3rem"}} src={value[index].image ? value[index].image : avatar} alt='avatar'/>
+                    </Box>
+                    <Box
+                      // username
+                    >
+                      <h3 
+                        style={{
+                          color: "white"
+                        }}
+                      >{contact}</h3>
+                    </Box>
+                  </Box>
+                )}
+              )}
+          </Box>
+            }
+            {/* {contactsArray.map((contact, index) => {
+                return (
+                  <Box 
+                    // contact 
+                    sx={{
+                      backgroundColor: "#ffffff39",
+                      minHeight:"5rem",
+                      width:"90%",
+                      cursor:"pointer",
+                      borderRadius:"0.2rem",
+                      padding:"0.4rem",
+                      gap:"1rem",
+                      alignItems: "center",
+                      display: "flex",
+                      transition: "0.5s ease-in-out"
+                    }}
+                    key={index}
+                    onClick={()=>changeCurrentChat(index, contact)}
+                  >
+                    <Box
+                      // avatar
+                    >
+                      {value.length !== 0 || value[index].image ?
                         <Avatar style={{height:"3rem"}} src={value[index].image} alt='avatar'/>
-                      </StyledBadge>
                       :
-                        <StyledBadge variant='dot' color="secondary" style={{color:"white"}}>
                           <img style={{height:"3rem"}} src={avatar} alt='avatar'/>
-                        </StyledBadge>
                       } 
                     </Box>
                     <Box
@@ -167,8 +238,8 @@ useEffect(()=>{
                   </Box>
                 )
               })
-            }
-          </Box>
+            } */}
+          {/* </Box> */}
           <Box
             // currentuser
             sx={{

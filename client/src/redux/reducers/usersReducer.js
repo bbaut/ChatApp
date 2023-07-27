@@ -13,8 +13,6 @@ export const setUser = (users) => ({
 
 const initialState = {
     users: undefined,
-//     error: null,
-//     loading: false
 }
 
 export default function (state = initialState, action) {
@@ -26,21 +24,3 @@ export default function (state = initialState, action) {
             return state
     }
 }
-
-// const usersReducer = (state = [], action) => {
-//     switch (action.type) {
-//         case types.ADD_USER:
-//             return state.concat([
-//                 {
-//                     name: action.name,
-//                     id: action.id
-//                 }
-//             ])
-//         case types.USER_LIST:
-//             return action.user
-//         default:
-//             return state
-//     }
-// }
-
-// export default usersReducer;

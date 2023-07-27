@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 import { call, put } from "redux-saga/effects";
-import { setUserFetching, deleteRequest } from "../reducers/userSlice";
 import client from "../../apolloClient";
 
 function* deleteContact(action) {

@@ -3,9 +3,6 @@ import createJWT from "../utils/createJWT.js"
 import createId from "../utils/createId.js"
 
 const registerUser = async (req, res) => {
-
-    console.log("from auth")
-    console.log(req.body)
     //Not duplicate emails
     const {email} = req.body;
     const existsUser = await User.findOne({email});
@@ -27,9 +24,6 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-
-    console.log("from auth")
-    console.log(req.body)
     const {email, password} = req.body;
 
     const user = await User.findOne({email});

@@ -1,8 +1,12 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const URL = process.env.CHAT_BASE_URL
 
 class ChatAPI extends RESTDataSource {
-    baseURL = 'http://localhost:4003/';
-    // baseURL = 'http://chat:4003/';
+    baseURL = URL
 
     constructor(options) {
         super(options);

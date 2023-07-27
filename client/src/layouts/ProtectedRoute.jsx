@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import Header from "../components/Header";
-import { Box, Stack } from "@mui/system";
+import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
 import { useSelector,useDispatch } from "react-redux";
 import SEND_MESSAGE from '../gql/sendMessage';
@@ -15,9 +15,6 @@ const ProtectedRoute = () => {
 
   const dispatch = useDispatch();
 
-    // const { username } = useSelector(
-    //   (state) => state.user.value
-    // );
   const isFetching = useSelector(
     (state) => state.user.isFetching
   )
@@ -42,7 +39,6 @@ const ProtectedRoute = () => {
   
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
-      console.log(data.data.data.sendMessage)
       const notification = {
         received: username,
         sender: data.data.data.sendMessage.sender,

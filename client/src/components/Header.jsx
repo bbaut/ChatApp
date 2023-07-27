@@ -268,14 +268,6 @@ function Header() {
                     {t("invites")}
                   </Link>
               </Button>
-              <IconButton
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <StyledBadge badgeContent={0} color="secondary" style={{color:"white"}}>
-                  <NotificationsActiveIcon/>
-                </StyledBadge>
-              </IconButton>
           </Box>
 
           <div>

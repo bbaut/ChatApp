@@ -76,13 +76,19 @@ const userSlice = createSlice({
       const contact = action.payload[1]
 
       if (state.value.username === user.username) {
-        console.log(user.contacts)
         state.value.contacts = user.contacts
       }
       if (state.value.username === contact.username) {
-        console.log(contact.contacts)
         state.value.contacts = contact.contacts
       }
+    },
+    setError: (state=null, action) => {
+      // if (action.payload === "User already in your contact list"){
+      //   state.error = "alreadyContactError";
+      // }
+      // else {
+        state.error = action.payload;
+      // }
     }
   },
 });
@@ -98,7 +104,8 @@ export const {
   addGroup,
   setLanguage,
   deleteContact,
-  createGroup
+  createGroup,
+  setError
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -37,18 +37,16 @@ const AddContact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        dispatch({
-            type: "addFriend",
-            payload: {
-                add: [
-                    {"email":emailUser},
-                    {"email":emailContact}
-                ]
-            }
-        })
-
-        navigate("/dashboard/contacts")
+            dispatch({
+                type: "addFriend",
+                payload: {
+                    add: [
+                        {"email":emailUser},
+                        {"email":emailContact}
+                    ]
+                }
+            })
+            navigate("/dashboard/contacts")
     }
 
     return (

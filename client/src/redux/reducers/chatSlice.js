@@ -63,7 +63,6 @@ const chatSlice = createSlice({
             state.isFetching = true;
         },
         setNotification: (state=null, action) => {
-            console.log(action.payload)
             if(action.payload.received !== action.payload.sender){
                 state.notifications = action.payload 
             }

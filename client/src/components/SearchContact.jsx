@@ -2,7 +2,7 @@ import { Stack, TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { gql, useLazyQuery } from '@apollo/client';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { find_contact } from "../redux/reducers/findContactReducer";
 import { useTranslation } from "react-i18next"
 
@@ -20,12 +20,16 @@ const SearchContact = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
+
+    const { email } = useSelector(
+        (state) => state.user.value
+      );
     
-    const [email, setEmail] = useState('');
+    const [contactEmail, setContactEmail] = useState('');
 
     const[existanceContact, {loading,error,data}] = useLazyQuery(EXISTANCE_CONTACT,{
         variables: {existanceInput: {
-            email
+            email: contactEmail
         }},
         onError(graphQLErrors){
             console.log(graphQLErrors.networkError.result.msg);
@@ -40,7 +44,11 @@ const SearchContact = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(email === ''){
+        if(contactEmail === ''){
+            return;
+        }
+
+        if(contactEmail === email){
             return;
         }
         existanceContact();
@@ -53,8 +61,8 @@ const SearchContact = () => {
                 <TextField
                     label={t("email")}
                     name="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    value={contactEmail}
+                    onChange={e => setContactEmail(e.target.value)}
                     type="email"
                 />
             </Stack>

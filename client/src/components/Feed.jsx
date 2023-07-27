@@ -12,10 +12,6 @@ const Feed = () => {
     (state) => state.auth
   );
 
-  const { image } = useSelector(
-    (state) => state.user.value
-  );
-
   const {language} = useSelector(
     (state) => state.user
   );
@@ -23,11 +19,6 @@ const Feed = () => {
   useEffect (() => {
     i18n.changeLanguage(localStorage.getItem("language"));
   },[language])
-
-  const onChangeLanguage = (e) => {
-    i18n.changeLanguage(e.target.id);
-    localStorage.setItem("language",e.target.id)
-  }
 
   if (auth.hasOwnProperty('profileUser')){
     return (

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Box, Typography } from '@mui/material'
-// import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useSubscription } from '@apollo/client';
 import SEND_MESSAGE from '../gql/sendMessage';
@@ -9,7 +8,7 @@ import { useDispatch } from 'react-redux';
 const ChatMessages = ({currentMember}) => {
 
 
-  const { value, isFetching } = useSelector(
+  const { value } = useSelector(
     (state) => state.chat
   );
 
@@ -17,8 +16,6 @@ const ChatMessages = ({currentMember}) => {
   let sendedby
   
   const dispatch = useDispatch();
-
-  // con [notification, setNotification] = useState()
 
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
@@ -122,29 +119,6 @@ const ChatMessages = ({currentMember}) => {
                       </Typography>
                     </Box>
                   }
-
-                  {/* <Box
-                    // content
-                    sx={{
-                      maxWidth: "40%",
-                      overflowWrap: "break-word",
-                      padding: "1rem",
-                      borderRadius: "1rem",
-                      color: "#d1d1d1",
-                      // backgroundColor: "#4f04ff21",
-                      backgroundColor: "#d1d1d1",
-                    }}
-                  >
-                    {message.isScribble ? 
-                      <img src={message.text} alt=""/>
-                    :
-                      <Typography 
-                        variant='p'
-                      >
-                        {message.text}
-                      </Typography>
-                    }
-                  </Box> */}
                 </Box>
               :  
                 <Box
@@ -188,28 +162,6 @@ const ChatMessages = ({currentMember}) => {
                       </Typography>
                     </Box>
                   }
-                  {/* <Box
-                  // content
-                    sx={{
-                      maxWidth: "40%",
-                      overflowWrap: "break-word",
-                      padding: "1rem",
-                      borderRadius: "1rem",
-                      color: "#d1d1d1",
-                      backgroundColor: "#9900ff20",
-                    }}
-                  >
-                    {message.isScribble ? 
-                      <img src={message.text} alt=""/>
-                    :
-                      <Typography 
-                        variant='p'
-                      >
-                        {message.text}
-                      </Typography>
-              
-                    }
-                  </Box> */}
                 </Box>
               }
             </Box>

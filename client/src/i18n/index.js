@@ -49,7 +49,13 @@ const resources = {
             save: "Save",
             removeFriend: "Remove friend",
             send: "Send",
-            invites: "Invites"
+            invites: "Invites",
+            alreadyContactError: "User already in your contact list",
+            alreadySentReqError: "You have already sent a request to this contact",
+            alreadyHaveReqError: "You already have a request from this friend",
+            removedFromFriendList: "You have been removed of your friend's list",
+            removedOfTheGroup: "You have been removed of the group"
+
         }
     },
     es: {
@@ -99,7 +105,12 @@ const resources = {
             save: "Guardar",
             removeFriend: "Eliminar amigo",
             send: "Enviar",
-            invites: "Solicitudes"
+            invites: "Solicitudes",
+            alreadyContactError: "El usuario ya está en la lista de amigos",
+            alreadySentReqError: "Ya has mandado una solicitud de amistad a este contacto",
+            alreadyHaveReqError: "Tienes una solicitud de amistad de este contacto",
+            removedFromFriendList: "Has sido eliminado de la lista de tus amigos",
+            removedOfTheGroup: "Has sido eliminado del grupo"
         }
     },
     fr: {
@@ -149,7 +160,12 @@ const resources = {
             save: "Enregistrer",
             removeFriend: "Supprimer un ami",
             send: "Envoyer",
-            invites: "Invitation d'amis"
+            invites: "Invitation d'amis",
+            alreadyContactError: "Utilisateur déjà dans votre liste de contacts",
+            alreadySentReqError: "Vous avez déjà envoyé une invitation à ce contact",
+            alreadyHaveReqError: "Vous avez déjà une invitation de cet ami",
+            removedFromFriendList: "Vous avez été supprimé de votre liste d'amis",
+            removedOfTheGroup: "Vous avez été supprimé du groupe"
         }
     },
     br: {
@@ -199,7 +215,12 @@ const resources = {
             save: "Salvar",
             removeFriend: "Remover amigo",
             send: "Enviar",
-            invites: "Convite de amigos"
+            invites: "Convite de amigos",
+            alreadyContactError: "Usuário já em sua lista de contatos",
+            alreadySentReqError: "Já enviou uma convite a este contacto",
+            alreadyHaveReqError: "Você já tem uma convite deste amigo",
+            removedFromFriendList: "Você foi removido da lista de amigos",
+            removedOfTheGroup: "Você foi removido do grupo"
         }
     },
     it: {
@@ -249,7 +270,12 @@ const resources = {
             save: "Salva",
             removeFriend: "Rimuovi amico",
             send:"Inviare",
-            invites: "Invitati"
+            invites: "Invitati",
+            alreadyContactError: "Utente già presente nell'elenco dei contatti",
+            alreadySentReqError: "Hai già inviato una richiesta a questo contatto",
+            alreadyHaveReqError: "Hai già una richiesta da questo amico",
+            removedFromFriendList: "Sei stato rimosso dalla lista dei tuoi amici",
+            removedOfTheGroup: "Sei stato rimosso dal gruppo"
         }
     },
     dt: {
@@ -299,7 +325,12 @@ const resources = {
             save: "Speichern",
             removeFriend: "Freund entfernen",
             send: "Schicken",
-            invites: "keine Freund"
+            invites: "keine Freund",
+            alreadyContactError: "Benutzer bereits in Ihrer Kontaktliste",
+            alreadySentReqError: "Sie haben bereits eine Anfrage an diesen Kontakt gesendet",
+            alreadyHaveReqError: "Sie haben bereits eine Anfrage von diesem Freund",
+            removedFromFriendList: "Sie wurden aus Ihrer Freundesliste entfernt",
+            removedOfTheGroup: "Sie wurden aus der Gruppe entfernt"
         }
     }
 }

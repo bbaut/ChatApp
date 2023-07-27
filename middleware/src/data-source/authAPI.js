@@ -1,8 +1,12 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const URL = process.env.AUTH_BASE_URL
 
 class AuthAPI extends RESTDataSource {
-    baseURL = 'http://localhost:4001/';
-    // baseURL = 'http://auth:4001/';
+    baseURL = URL
 
     constructor(options) {
         super(options);

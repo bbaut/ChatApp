@@ -1,6 +1,7 @@
-import { call } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 import { gql } from "@apollo/client";
 import client from "../../apolloClient";
+import { setError } from "../reducers/userSlice";
 
 function* addFriend(action) {
     const options = {
@@ -20,17 +21,18 @@ function* addFriend(action) {
     try {
       yield call(client.mutate, options);
     } catch (error) {
-      if (error.message === "Request already sent") {
-        yield
-          console.log({ error: "add Friend Error", severity: "error" }
-        );
-      } else if (error.message === "User not found") {
-        yield
-          console.log({ error: "user Not Found", severity: "error" }
-        );
-      } else {
-        yield console.log({ error: error.message, severity: "error" });
-      }
+      yield put(setError(error.message));
+      // if (error.message === "Request already sent") {
+      //   yield
+      //     console.log({ error: "add Friend Error", severity: "error" }
+      //   );
+      // } else if (error.message === "User not found") {
+      //   yield
+      //     console.log({ error: "user Not Found", severity: "error" }
+      //   );
+      // } else {
+      //   yield console.log({ error: error.message, severity: "error" });
+      // }
     }
   }
   

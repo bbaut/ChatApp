@@ -1,8 +1,12 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const URL = process.env.USERS_BASE_URL
 
 class UsersAPI extends RESTDataSource {
-    baseURL = 'http://localhost:4002/';
-    // baseURL = 'http://users:4002/';
+    baseURL = URL
 
     constructor(options) {
         super(options);

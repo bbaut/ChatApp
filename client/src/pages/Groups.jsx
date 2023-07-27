@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { useSubscription } from '@apollo/client';
@@ -11,6 +11,9 @@ import CREATED_GROUP from '../gql/createdGroup';
 import { useTranslation } from "react-i18next"
 import ADDED_MEMBER from '../gql/addedMember';
 import REMOVED_MEMBER from '../gql/removedMember';
+import { useNavigate } from 'react-router-dom';
+import ErrorIcon from '@mui/icons-material/Error';
+import CloseIcon from '@mui/icons-material/Close';
 
 const BoxContainer = styled(Box)(() => ({
     height: "100vh",
@@ -25,6 +28,8 @@ const BoxContainer = styled(Box)(() => ({
 
 const Groups = () => {
 
+    const [alert, setAlert] = useState("");
+
     const [ currentChat, setCurrentChat] = useState(undefined); 
 
     const { chatId } = useParams();
@@ -32,11 +37,9 @@ const Groups = () => {
     const dispatch = useDispatch();
     const {t} = useTranslation();
 
+    const navigate = useNavigate();
     const { groups, username, image } = useSelector(
       (state) => state.user.value
-    );
-    const { chatMember } = useSelector(
-      (state) => state.chat
     );
   
     let groupsArray = [];
@@ -83,11 +86,21 @@ const Groups = () => {
                     member: data.data.data.removedMember
                 }
             })
+
+            if(data.data.data.removedMember.username === username){
+                setAlert(t("removedOfTheGroup"))
+            }
+            setCurrentChat(undefined)
+            navigate("/dashboard/groups/0")
         },
         onError: (error) => {
             console.log(error)
         }
       })
+
+      const handleCloseAlert = () => {
+        setAlert("")
+      }
 
     const handleChatChange = (chat) => {
 
@@ -120,7 +133,27 @@ const Groups = () => {
                 <Box sx={{padding:"1rem", height: "90vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
                     <GroupContacts groupsArray={groupsArray} currentMember={username} changeChat={handleChatChange} avatarProfile={image}/>
                     {currentChat === undefined ? 
-                        <Box sx={{color: "white"}}>{t("selectGroup")}</Box> 
+                        <Box sx={{color: "white"}}>
+                            {alert && 
+                        <Stack spacing={2} paddingBottom={2} sx={{color:"#f9c507"}}>
+                            <Box>
+                            <ErrorIcon/>
+                            <CloseIcon 
+                                onClick={handleCloseAlert}
+                                sx={{
+                                cursor: "pointer",
+                                marginLeft: "3rem",
+                                color: "red"
+                                }}
+                            />
+                            </Box>
+                            <Typography variant="h6">
+                                {alert}
+                            </Typography>
+                        </Stack>
+                    }
+                            {t("selectGroup")}
+                        </Box> 
                         :
                         <GroupContainer currentChat={currentChat} currentMember={username}/>
                     }

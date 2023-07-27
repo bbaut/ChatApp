@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Container, Stack, TextField, Button, Typography, Box, Input} from "@mui/material"
+import { Container, Stack, TextField, Button, Typography, Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -96,6 +96,7 @@ const Register = () => {
 
     useEffect(()=>{
       if(error === "Duplicate"){
+        setSuccess(t(""))
         setAlert(t("duplicate"))
       }
       else if(error === "null"){
@@ -119,7 +120,6 @@ const Register = () => {
                 </Stack>
                 }
 
-
                 {success && 
                 <Stack spacing={2} paddingBottom={2} sx={{color: "#000080"}}>
                     <ThumbUpOffAltIcon/>
@@ -131,7 +131,6 @@ const Register = () => {
 
                 {loading && 
                 <Stack spacing={2} paddingBottom={2} sx={{color: "#000000"}}>
-                    <ThumbUpOffAltIcon/>
                     <Typography variant="h6">
                         loading
                     </Typography>

@@ -85,7 +85,6 @@ const searchContact = async (req,res) => {
 
 const requestsContact = async (req,res) => {
     const contact = await Users.findOne(req.query);
-    console.log(contact)
 
     if (!contact) {
         const error = new Error('User not found');
@@ -96,6 +95,7 @@ const requestsContact = async (req,res) => {
 }
 
 const addContact = async (req,res) => {
+
     const userSend = req.body.user;
     const userReceive = req.body.contact;
 
@@ -109,14 +109,42 @@ const addContact = async (req,res) => {
         }
 
         const contactId = contact._id; 
+
+        let doubleRequest = false; 
+        let alreadySent = false;
+
         if (user.contacts.includes(contactId)){
             const error = new Error ('User already in your contact list');
             return res.status(400).json({msg: error.message});
         }
 
         const userId = user._id; 
-        if (contact.requests.includes(userId)){
+
+        if(contact.requests.length !== 0){
+            contact.requests.forEach((request) => {
+                if(request.to.toString() === contactId.toString()){
+                    doubleRequest = true
+                    return;
+                }
+            })
+        }
+        
+        if (doubleRequest){
             const error = new Error ('You have already sent a request to this contact');
+            return res.status(400).json({msg: error.message});
+        }
+
+        if(user.requests.length !== 0){
+            user.requests.forEach((request) => {
+                if(request.from.toString() === contactId.toString()){
+                    alreadySent = true
+                    return;
+                }
+            })
+        }
+
+        if (alreadySent){
+            const error = new Error ('You already have a request from this friend');
             return res.status(400).json({msg: error.message});
         }
 
@@ -422,8 +450,27 @@ const deleteContact = async (req, res) => {
             { new: true }
         )
 
-        return res.status(200).json({userUpdated, contactUpdated});
+        let contactsUsernameUser = [];
+        let contactsUsernameContact = [];
 
+        const contactsArrayUser = userUpdated.contacts
+        const contactsArrayContact = contactUpdated.contacts
+
+        for(let i = 0; i < contactsArrayUser.length; i++) {
+            const user = await Users.findById(contactsArrayUser[i]);
+            contactsUsernameUser.push(user.username);
+        }
+
+        userUpdated.contacts = contactsUsernameUser;
+
+        for(let i = 0; i < contactsArrayContact.length; i++) {
+            const user = await Users.findById(contactsArrayContact[i]);
+            contactsUsernameContact.push(user.username);
+        }
+
+        contactUpdated.contacts = contactsUsernameContact;
+
+        return res.status(200).json({userUpdated, contactUpdated});
     }
     catch (error) {
         return res.status(500).send({ error: error.message });
