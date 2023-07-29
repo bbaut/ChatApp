@@ -28,10 +28,11 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     const { contacts, username } = useSelector(
         (state) => state.user.value
     );
-    const { chatMember, createdBy } = useSelector(
+    const { groupMembers, createdBy } = useSelector(
         (state) => state.chat
     );
 
+    // console.log(chatMember)
     const [open, setOpen] = React.useState(false);
     const [openR, setOpenR] = React.useState(false);
     const [openMembers, setOpenMembers] = React.useState(false);
@@ -116,7 +117,7 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
             return
         }
 
-        const contact = chatMember.find(element => {
+        const contact = groupMembers.find(element => {
             return element === member
         })
 
@@ -261,14 +262,14 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0 2rem"}}>
                 <Button onClick={handleViewMembers} sx={{ cursor:"pointer"}}>
                     <Typography variant='p' color="white" sx={{flexBasis:"100"}}>
-                        {chatMember.length} {t("friends")}
+                        {groupMembers.length} {t("friends")}
                     </Typography>
                 </Button>
                 <Dialog open={openMembers} onClose={handleViewMembersClose} PaperProps={{style:{backgroundColor: "black", color: "white"}}}>
                     <DialogTitle>{t("friends")}</DialogTitle>
                     <DialogContent>
                         <DialogContentText color="white">
-                            {chatMember.map((member) => {
+                            {groupMembers.map((member) => {
                                 return (
                                     <p>{member}</p>
                                 )

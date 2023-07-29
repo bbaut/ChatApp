@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next"
 // import avatar from "../../assets/profile-image.jpeg"
 
 
-const GroupContacts = ({groupsArray, currentMember, changeChat, avatarProfile}) => {
+const GroupContacts = ({groups, currentMember, changeChat, avatarProfile}) => {
 
   const [currentSelected, setCurrentSelected] = useState(undefined);
   const [open, setOpen] = React.useState(false);
@@ -38,7 +38,7 @@ const { contacts, username } = useSelector(
 
 useEffect(()=>{
     if (currentRoom){
-        navigate(`/dashboard/groups/${currentRoom}`)
+        navigate(`/dashboard/groups/group/${currentRoom}`)
     }
 },[currentRoom])
 
@@ -72,6 +72,13 @@ useEffect(()=>{
   const handleClose = () => {
     setOpen(false);
   };
+
+  let groupsArray = [];
+    if (groups.length !== 0) {
+        for (let i = 0; i<  groups.length; i++){
+            groupsArray.push(groups[i].chatName)
+        }
+    }
 
   return (
     <> 

@@ -23,6 +23,7 @@ import {useEffect} from "react"
 import LanguageMenu from './LanguageMenu';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import avatar from "../assets/profile-image.jpeg"
+import { useNavigate } from 'react-router-dom';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -59,6 +60,7 @@ function Header() {
   const { requests } = useSelector(
     (state) => state.user.value
 );
+const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation();
@@ -104,6 +106,19 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleSetChat = () => {
+    navigate("/dashboard/chats")
+    dispatch({
+      type: "setCurrentChat",
+    })
+  }
+  const handleSetGroup = () => {
+    navigate("/dashboard/groups")
+    dispatch({
+      type: "setCurrentChat",
+    })
+  }
 
   const onChangeLanguage = (e) => {
     i18n.changeLanguage(e.target.id);
@@ -178,15 +193,15 @@ function Header() {
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link to={"/dashboard/chat/0"} style={{textDecoration:"none", color:"black"}}>
+                  <Typography textAlign="center" >
+                    <Link to={"/dashboard/chats"} style={{textDecoration:"none", color:"black"}}>
                     {t("messages")}
                     </Link>
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to={"/dashboard/groups/0"} style={{textDecoration:"none", color:"black"}}>
+                    <Link to={"/dashboard/groups"} style={{textDecoration:"none", color:"black"}}>
                     {t("groups")}
                     </Link>
                   </Typography>
@@ -245,18 +260,20 @@ function Header() {
                 </Link>
               </Button>
               <Button
-                onClick={handleCloseNavMenu}
+                // onClick={handleCloseNavMenu}
+                onClick={handleSetChat}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               > 
-                <Link to={"/dashboard/chat/0"} style={{textDecoration: "none", color:"white"}}>
+                <Link to={"/dashboard/chats"} style={{textDecoration: "none", color:"white"}}>
                       {t("messages")}
                 </Link>
               </Button>
               <Button
-                onClick={handleCloseNavMenu}
+                // onClick={handleCloseNavMenu}
+                onClick={handleSetGroup}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               > 
-                <Link to={"/dashboard/groups/0"} style={{textDecoration: "none", color:"white"}}>
+                <Link to={"/dashboard/groups"} style={{textDecoration: "none", color:"white"}}>
                       {t("groups")}
                 </Link>
               </Button>

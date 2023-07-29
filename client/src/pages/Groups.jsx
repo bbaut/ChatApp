@@ -42,12 +42,12 @@ const Groups = () => {
       (state) => state.user.value
     );
   
-    let groupsArray = [];
-    if (groups.length !== 0) {
-        for (let i = 0; i<  groups.length; i++){
-            groupsArray.push(groups[i].chatName)
-        }
-    }
+    // let groupsArray = [];
+    // if (groups.length !== 0) {
+    //     for (let i = 0; i<  groups.length; i++){
+    //         groupsArray.push(groups[i].chatName)
+    //     }
+    // }
 
     useSubscription(CREATED_GROUP, {
         onData: (data) => {
@@ -91,7 +91,7 @@ const Groups = () => {
                 setAlert(t("removedOfTheGroup"))
             }
             setCurrentChat(undefined)
-            navigate("/dashboard/groups/0")
+            navigate("/dashboard/groups")
         },
         onError: (error) => {
             console.log(error)
@@ -126,12 +126,17 @@ const Groups = () => {
                 }
             }
         })
+        if (chatId === undefined){
+            setCurrentChat(undefined)
+        }
     }, [chatId])
+
+    console.log(chatId)
 
     return (
         <BoxContainer>
                 <Box sx={{padding:"1rem", height: "90vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
-                    <GroupContacts groupsArray={groupsArray} currentMember={username} changeChat={handleChatChange} avatarProfile={image}/>
+                    <GroupContacts groups={groups} currentMember={username} changeChat={handleChatChange} avatarProfile={image}/>
                     {currentChat === undefined ? 
                         <Box sx={{color: "white"}}>
                             {alert && 

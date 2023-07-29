@@ -4,7 +4,8 @@ const initialState = {
     isFetching: false,
     error: null,
     currentRoom: '',
-    chatMember: [],
+    chatMember: '',
+    groupMembers: [],
     groupName: '',
     createdBy: '',
     value: [],
@@ -31,9 +32,19 @@ const chatSlice = createSlice({
         currentGroup: (state = null, action) => {
             state.isFetching = false;
             state.currentRoom = action.payload._id;
-            state.chatMember = action.payload.members;
+            state.groupMembers = action.payload.members;
             state.groupName = action.payload.groupName;
             state.createdBy = action.payload.createdBy;
+        },
+        setChat:(state = null) => {
+            console.log("hey")
+            state.currentRoom = "";
+            state.chatMember= '';
+            state.groupMembers= [];
+            state.groupName= '';
+            state.createdBy= '';
+            state.value = [];
+            state.valueGroup= [];
         },
         currentRoom: (state = null, action) => {
             state.isFetching = false;
@@ -73,7 +84,7 @@ const chatSlice = createSlice({
     },
 });
 
-export const { addMessage, addMessageParticipants, currentRoom, currentGroup, getRoomMessages, setAddedMember, setRemovedMember, isFetching, setNotification, resetNotifications } = chatSlice.actions;
+export const { addMessage, setChat, addMessageParticipants, currentRoom, currentGroup, getRoomMessages, setAddedMember, setRemovedMember, isFetching, setNotification, resetNotifications } = chatSlice.actions;
 
 export default chatSlice.reducer;
 

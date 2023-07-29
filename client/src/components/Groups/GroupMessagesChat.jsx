@@ -92,7 +92,42 @@ const GroupMessagesChat = ({currentMember}) => {
                 }}
                 key={index}
               >
+                {message.isScribble ? 
                 <Box
+                // content
+                sx={{
+                  maxWidth: "40%",
+                  overflowWrap: "break-word",
+                  padding: "1rem",
+                  borderRadius: "1rem",
+                  color: "#d1d1d1",
+                  backgroundColor: "#4f04ff21",
+
+                }}
+                >
+                  <img src={message.text} alt=""/>
+                </Box>
+                  :
+                  <Box
+                // content
+                sx={{
+                  maxWidth: "40%",
+                  overflowWrap: "break-word",
+                  padding: "1rem",
+                  borderRadius: "1rem",
+                  color: "#d1d1d1",
+                  backgroundColor: "#4f04ff21",
+
+                }}
+                >
+                  <Typography 
+                      variant='p'
+                    >
+                      {message.text}
+                    </Typography>
+                </Box>
+                }
+                {/* <Box
                   // content
                   sx={{
                     maxWidth: "40%",
@@ -100,7 +135,8 @@ const GroupMessagesChat = ({currentMember}) => {
                     padding: "1rem",
                     borderRadius: "1rem",
                     color: "#d1d1d1",
-                    backgroundColor: "#d1d1d1",
+                    backgroundColor: "#4f04ff21",
+
                   }}
                 >
                   {message.isScribble ?
@@ -112,12 +148,7 @@ const GroupMessagesChat = ({currentMember}) => {
                       {message.text}
                     </Typography>
                   }
-                  {/* <Typography 
-                    variant='p'
-                  >
-                    {message.text}
-                  </Typography> */}
-                </Box>
+                </Box> */}
               </Box>
             :  
             <Box
@@ -128,7 +159,54 @@ const GroupMessagesChat = ({currentMember}) => {
               justifyContent: "flex-start"
             }}
           >
-            <Box
+            {message.isScribble ? 
+                <Box
+                // content
+                sx={{
+                  maxWidth: "40%",
+                  overflowWrap: "break-word",
+                  padding: "1rem",
+                  borderRadius: "1rem",
+                  color: "#d1d1d1",
+                  backgroundColor: "#d1d1d1",
+
+                }}
+                >
+                  <Typography 
+                    variant='subtitle2'
+                    color="black"
+                  >
+                    {message.sendedBy}
+                  </Typography>
+                  <img src={message.text} alt=""/>
+                </Box>
+                  :
+                  <Box
+                // content
+                sx={{
+                  maxWidth: "40%",
+                  overflowWrap: "break-word",
+                  padding: "1rem",
+                  borderRadius: "1rem",
+                  color: "#d1d1d1",
+                  backgroundColor: "#9900ff20",
+
+                }}
+                >
+                  <Typography 
+                    variant='subtitle2'
+                    color="white"
+                  >
+                    {message.sendedBy}
+                  </Typography>
+                  <Typography 
+                      variant='p'
+                    >
+                      {message.text}
+                    </Typography>
+                </Box>
+                }
+            {/* <Box
               // content
               sx={{
                 maxWidth: "40%",
@@ -136,7 +214,7 @@ const GroupMessagesChat = ({currentMember}) => {
                 padding: "1rem",
                 borderRadius: "1rem",
                 color: "#d1d1d1",
-                backgroundColor: "#d1d1d1",
+                backgroundColor: "#9900ff20",
               }}
             >
               {message.isScribble ?
@@ -163,7 +241,7 @@ const GroupMessagesChat = ({currentMember}) => {
                     {message.text}
                   </Typography>
                 </>
-              }
+              } */}
 {/* 
               <Typography 
                   variant='subtitle2'
@@ -176,7 +254,7 @@ const GroupMessagesChat = ({currentMember}) => {
               >
                 {message.text}
               </Typography> */}
-            </Box>
+            {/* </Box> */}
           </Box>
             }
             </Box>

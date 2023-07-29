@@ -64,17 +64,17 @@ const Contacts = () => {
     },[language])
 
     useEffect(() => {
-      if (contactsArray.length !== 0){
+      if (contacts.length !== 0){
           dispatch({
               type: "getContactData",
               payload: {
                   contactDataInput:{
-                      usernameArray: contactsArray
+                      usernameArray: contacts
                   }
               }
           })
       }
-  },[])
+  },[contacts])
 
   useEffect(()=>{
     if(error === "User already in your contact list"){
@@ -97,12 +97,12 @@ const Contacts = () => {
   })
   }
 
-    let contactsArray = [];
+    // let contactsArray = [];
 
     if (contacts.length !== 0) {
-        for (let i = 0; i<  contacts.length; i++){
-            contactsArray.push(contacts[i])
-        }
+        // for (let i = 0; i<  contacts.length; i++){
+        //     contactsArray.push(contacts[i])
+        // }
 
      return (
        <Box
@@ -138,13 +138,13 @@ const Contacts = () => {
           </List> */}
           {value.length === 0 || isFetching ? 
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {contactsArray.map((contact, index) => (
+            {contacts.map((contact, index) => (
                 <ContactLayer item={contact} key={contact} language={language} avatar={avatar}/>
             ))}
              </List>
           : 
           <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-              {contactsArray.map((contact, index) => (
+              {contacts.map((contact, index) => (
                   <ContactLayer item={contact} key={contact} language={language} avatar={value[index].image ? value[index].image : avatar}/>
               ))}
           </List>

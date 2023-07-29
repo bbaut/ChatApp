@@ -106,6 +106,7 @@ const Chat = () => {
 
     
     useEffect(() => {
+        if(chatId){
         dispatch({
             type:"queryMessages",
             payload: 
@@ -115,7 +116,10 @@ const Chat = () => {
                     from: username
                 }
             }
-        })
+        })}
+        else{
+            navigate(`/dashboard/chats`)
+        }
     }, [chatId])
 
     useEffect(() => {
@@ -129,6 +133,9 @@ const Chat = () => {
                 }
             })
         }
+        dispatch({
+            type: "setCurrentChat",
+        })
     }, [])
 
     return (

@@ -42,6 +42,8 @@ const ChatMessages = ({currentMember}) => {
 
   const ref = useRef(null)
 
+  console.log(value)
+
   useEffect(() => {
     if(messages.length) {
       ref.current?.scrollIntoView({

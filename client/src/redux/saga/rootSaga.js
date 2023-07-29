@@ -28,6 +28,7 @@ import deletedContact from "./deletedContactSaga";
 import chatNotification from "./chatNotificationsSaga";
 import isFetchingC from "./isFetchingContactSaga";
 import setErrorFunction from "./setErrorSaga";
+import setCurrentChatFunction from "./setCurrentChatSaga";
 
 export function* watchRegister(){
     yield takeLatest("register", register);
@@ -136,6 +137,10 @@ export function* watchSetError(){
     yield takeEvery("setError", setErrorFunction)
 }
 
+export function* watchSetCurrentChat(){
+    yield takeEvery("setCurrentChat", setCurrentChatFunction)
+}
+
 export default function* rootSaga() {
     yield all([
         watchRegister(),
@@ -166,6 +171,7 @@ export default function* rootSaga() {
         watchDeletedContact(),
         watchChatNotification(),
         watchIsFetchingContact(),
-        watchSetError()
+        watchSetError(),
+        watchSetCurrentChat()
     ]);
 }

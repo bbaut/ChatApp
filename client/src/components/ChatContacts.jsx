@@ -8,7 +8,7 @@ import avatar from "../assets/profile-image.jpeg"
 const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, notifications}) => {
 
   const [currentSelected, setCurrentSelected] = useState(undefined);
-  const [openChat, setOpenChat] = useState(false)
+  // const [openChat, setOpenChat] = useState(false)
   const [invisible, setInvisible] = useState(true);
 
   const {t} = useTranslation();
@@ -23,12 +23,12 @@ const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, 
       (state) => state.contact
     )
 
-    const number = () => {
-      if(openChat){
-        return 0
-      }
-        return 4
-    }
+    // const number = () => {
+    //   if(openChat){
+    //     return 0
+    //   }
+    //     return 4
+    // }
 
     useEffect(() => {
       if(notifications.length !== 0){
@@ -36,12 +36,11 @@ const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, 
         setInvisible(!invisible);
       }
     },[])
-
     
 
 useEffect(()=>{
     if (currentRoom){
-        navigate(`/dashboard/chat/${currentRoom}`)
+        navigate(`/dashboard/chats/chat/${currentRoom}`)
     }
 },[currentRoom])
 
@@ -161,7 +160,7 @@ useEffect(()=>{
             }}
           >
             {contactsArray.map((contact, index) => {
-                return (
+                return ( 
                   <Box 
                     // contact 
                     sx={{
@@ -176,7 +175,7 @@ useEffect(()=>{
                       display: "flex",
                       transition: "0.5s ease-in-out"
                     }}
-                    key={index}
+                    key={contact}
                     onClick={()=>changeCurrentChat(index, contact)}
                   >
                     <Box

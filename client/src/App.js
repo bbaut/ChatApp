@@ -44,8 +44,12 @@ function App() {
             <Route path="contacts" element={<Contacts/>}/>
             <Route path="addcontact" element={<AddContact/>}/>
             <Route path="requests" element={<Requests/>}/>
-            <Route path="chat/:chatId" element={<Chat/>} />
-            <Route path="groups/:chatId" element={<Group/>} />
+            <Route path="chats" element={<Chat/>}>
+              <Route path="chat/:chatId" element={<Chat/>}/>
+            </Route>
+            <Route path="groups" element={<Group/>}>
+              <Route path="group/:chatId" element={<Chat/>}/>
+            </Route>
           </Route>
         </Routes>
       </AuthProvider>
