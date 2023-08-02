@@ -10,6 +10,7 @@ function* setUserAuthenticated(action) {
                 profileUserData(userDataInput: $userDataInput) {
                     contacts
                     email
+                    chatContacts
                     groups{
                         chatId
                         chatName

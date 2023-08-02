@@ -49,8 +49,6 @@ const resolvers = {
 
             const {username, email, password, confirmPassword, image} = registerInput;
 
-            console.log(image)
-
             const isValidEmail = validate.isEmail(String(email).toLocaleLowerCase());
 
             if(password.length < 6) {
@@ -139,7 +137,6 @@ const resolvers = {
             }
             catch (error){
                 const message = error.extensions.response.body.msg;
-                console.log(message)
                 throw new GraphQLError(message);
             }
         },
@@ -178,7 +175,7 @@ const resolvers = {
         async createMessage(_, {createMessageInput}, {dataSources, req, res}){
             try {
                 const createdMessage = await dataSources.chatAPI.createMessage(createMessageInput);
-                
+
                 pubsub.publish("SEND_MESSAGE", {
                     sendMessage: createdMessage
                 })
@@ -193,7 +190,8 @@ const resolvers = {
         createChatRoom: async (_, { createRoomInput }, { dataSources }) => {
             try {
               const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
-
+              await dataSources.usersAPI.chatRoom(createdRoom);
+               
               return createdRoom;
             } catch (err) {
               const message = err.extensions.response.body.error;

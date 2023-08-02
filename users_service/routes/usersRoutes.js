@@ -12,7 +12,8 @@ import { addContact,
         addMemberGroup,
         removeMemberGroup,
         contactData,
-        deleteContact
+        deleteContact,
+        chatRoom
     } from "../controllers/usersControllers.js";
 
 const router = Router();
@@ -31,5 +32,6 @@ router.post('/addgroup', addGroup)
 router.post('/addmember', addMemberGroup)
 router.post('/removemember', removeMemberGroup)
 router.get('/contactdata', contactData)
+router.post('/chatroom', chatRoom)
 
 export default router

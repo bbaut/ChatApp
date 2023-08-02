@@ -41,13 +41,6 @@ const Groups = () => {
     const { groups, username, image } = useSelector(
       (state) => state.user.value
     );
-  
-    // let groupsArray = [];
-    // if (groups.length !== 0) {
-    //     for (let i = 0; i<  groups.length; i++){
-    //         groupsArray.push(groups[i].chatName)
-    //     }
-    // }
 
     useSubscription(CREATED_GROUP, {
         onData: (data) => {
@@ -130,8 +123,6 @@ const Groups = () => {
             setCurrentChat(undefined)
         }
     }, [chatId])
-
-    console.log(chatId)
 
     return (
         <BoxContainer>

@@ -37,7 +37,6 @@ const chatSlice = createSlice({
             state.createdBy = action.payload.createdBy;
         },
         setChat:(state = null) => {
-            console.log("hey")
             state.currentRoom = "";
             state.chatMember= '';
             state.groupMembers= [];
@@ -74,9 +73,7 @@ const chatSlice = createSlice({
             state.isFetching = true;
         },
         setNotification: (state=null, action) => {
-            if(action.payload.received !== action.payload.sender){
-                state.notifications = action.payload 
-            }
+            state.notifications = action.payload
         },
         resetNotifications: (state=null, action) => {
             state.notifications = 0;

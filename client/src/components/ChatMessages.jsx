@@ -5,7 +5,7 @@ import { useSubscription } from '@apollo/client';
 import SEND_MESSAGE from '../gql/sendMessage';
 import { useDispatch } from 'react-redux';
 
-const ChatMessages = ({currentMember}) => {
+const ChatMessages = ({currentMember, currentChat}) => {
 
 
   const { value } = useSelector(
@@ -31,7 +31,8 @@ const ChatMessages = ({currentMember}) => {
             payload: {
               text: data.data.data.sendMessage.message.text,
               sender: sendedby,
-              isScribble: data.data.data.sendMessage.message.isScribble
+              isScribble: data.data.data.sendMessage.message.isScribble,
+              received: currentChat
             },
         })
     },
@@ -41,8 +42,6 @@ const ChatMessages = ({currentMember}) => {
   })
 
   const ref = useRef(null)
-
-  console.log(value)
 
   useEffect(() => {
     if(messages.length) {

@@ -101,7 +101,7 @@ const GroupMessagesChat = ({currentMember}) => {
                   padding: "1rem",
                   borderRadius: "1rem",
                   color: "#d1d1d1",
-                  backgroundColor: "#4f04ff21",
+                  backgroundColor: "#d1d1d1",
 
                 }}
                 >

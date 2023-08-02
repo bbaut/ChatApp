@@ -9,6 +9,7 @@ function* addMemberGroup(action) {
             addMemberGroup(addMemberInput: $addMemberInput) {
                 _id
                 contacts
+                chatContacts
                 email
                 groups {
                 chatId

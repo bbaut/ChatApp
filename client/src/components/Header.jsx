@@ -323,12 +323,6 @@ const navigate = useNavigate();
                 },
               }}
             >
-              {/* <Button
-                onClick={handleLogout}
-                sx={{ my: 2, color: 'white', display: 'block', paddingLeft:20 }}
-              > 
-                {t("logout")}
-              </Button> */}
               <MenuItem  onClick={handleLogout}>
                 {t("logout")}
               </MenuItem>

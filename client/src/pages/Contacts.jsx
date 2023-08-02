@@ -97,12 +97,7 @@ const Contacts = () => {
   })
   }
 
-    // let contactsArray = [];
-
     if (contacts.length !== 0) {
-        // for (let i = 0; i<  contacts.length; i++){
-        //     contactsArray.push(contacts[i])
-        // }
 
      return (
        <Box
@@ -129,13 +124,6 @@ const Contacts = () => {
           }
           <h1>{t("friends")}</h1>
           <Search language={language}/>
-          {/* <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          {contactsArray.map((contact, index) =>
-          (          
-              <ContactLayer item={contact} key={contact} language={language} avatar={value.length === 0 || isFetching ?  avatar : value[index].image}/>
-          )
-          )}
-          </List> */}
           {value.length === 0 || isFetching ? 
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {contacts.map((contact, index) => (

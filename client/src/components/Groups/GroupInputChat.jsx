@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import {TextField, Button, IconButton, Modal, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Picker from "emoji-picker-react";
 import { Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import { useTranslation } from "react-i18next"
-import GestureIcon from '@mui/icons-material/Gesture';
-import Canvas from "../Canvas"
 import "./GroupInputChat.css"
+import Canvas from '../Canvas';
+import GestureIcon from '@mui/icons-material/Gesture';
+import EmojiPicker from 'emoji-picker-react';
 
 const BoxContainer = styled(Box)(() => ({
     display:"flex",
@@ -20,17 +20,10 @@ const BoxContainer = styled(Box)(() => ({
     paddingBottom: '0.3rem'
 }));
 
-const BoxButtonContainer = styled(Box)(() => ({
-    display: "flex",
-    alignItems: "center",
-    color: "white",
-    gap: "1rem",
-}));
-
-const GroupInputChat = ({handleSendMsg}) => {
+const ChatInput = ({handleSendMsg}) => {
 
     const [text, setText] = useState('');
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [open, setOpen] = useState(false);
     const [error, setError] = useState(false);
 
@@ -43,16 +36,17 @@ const GroupInputChat = ({handleSendMsg}) => {
     const sendChat = (e) => {
         e.preventDefault();
         if(text.length>0){
-            handleSendMsg(text);
+            handleSendMsg(text, false);
             setText('');
         }
     }
 
-    const handleEmojiClick = (event,emoji) => {
+    const handleEmojiClick = (emojiObject, event) => {
         let txt = text;
-        txt += emoji.emoji;
+        txt += emojiObject.emoji;
         setText(txt)
     }
+
     const handleClick = (event) => {
         event.preventDefault();
     
@@ -64,11 +58,6 @@ const GroupInputChat = ({handleSendMsg}) => {
         const canva = document.querySelector("canvas");
     
         const image = canva.toDataURL("image/png").toString();
-    
-        const messageInput = {
-          content: image,
-          isScribble: true,
-        };
 
         
          if (image.length < 92000) {
@@ -104,9 +93,10 @@ const GroupInputChat = ({handleSendMsg}) => {
             >
                 <EmojiEmotionsIcon sx={{color: "#ffff00c4"}}/>
             </IconButton>
-            {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick}/>}
+            {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick}/>}
             <TextField
                 direction="column"
+                autoComplete='off'
                 placeholder={t("writeAMessage")}
                 inputProps={{
                     maxLength: 5000,
@@ -224,4 +214,4 @@ const GroupInputChat = ({handleSendMsg}) => {
     )
 }
 
-export default GroupInputChat
+export default ChatInput

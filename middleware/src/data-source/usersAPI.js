@@ -152,6 +152,16 @@ class UsersAPI extends RESTDataSource {
             }
         )
     }
+
+    async chatRoom(chatObject){
+        return this.post(
+            'api/users/chatroom', {
+                body: {
+                    chatObject
+                }
+            }
+        )
+    }
 }
 
 export default UsersAPI

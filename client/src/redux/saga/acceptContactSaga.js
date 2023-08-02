@@ -10,6 +10,7 @@ function* acceptFriend(action) {
                 email
                 contacts
                 username
+                chatContacts
                 requests {
                 from
                 to

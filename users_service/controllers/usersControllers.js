@@ -477,6 +477,34 @@ const deleteContact = async (req, res) => {
     }
 }
 
+const chatRoom = async(req,res) => {
+    const {_id, createdBy, member} = req.body.chatObject
+
+
+    try {
+        const user = await Users.findOne({username: createdBy}); //The one who creates the room
+        const contact = await Users.findOne({username: member});
+
+        if(!user.chatContacts.includes(_id)){
+            await Users.findOneAndUpdate(
+                {username: user.username},
+                {$push: { chatContacts: _id } },
+                { new: true }
+            )
+        }
+
+        if(!contact.chatContacts.includes(_id)){
+            await Users.findOneAndUpdate(
+                {username: contact.username},
+                {$push: { chatContacts: _id } },
+                { new: true }
+            )
+        }
+        return res.status(200).json({user, contact})
+    } catch (error) {
+        return res.status(502).json({error: "error"})
+    }
+}
 
 export {
     searchContact,
@@ -492,5 +520,6 @@ export {
     addMemberGroup,
     removeMemberGroup,
     contactData,
-    deleteContact
+    deleteContact,
+    chatRoom
 }

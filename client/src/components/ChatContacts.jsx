@@ -8,7 +8,6 @@ import avatar from "../assets/profile-image.jpeg"
 const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, notifications}) => {
 
   const [currentSelected, setCurrentSelected] = useState(undefined);
-  // const [openChat, setOpenChat] = useState(false)
   const [invisible, setInvisible] = useState(true);
 
   const {t} = useTranslation();
@@ -22,13 +21,6 @@ const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, 
     const { value, isFetching } = useSelector(
       (state) => state.contact
     )
-
-    // const number = () => {
-    //   if(openChat){
-    //     return 0
-    //   }
-    //     return 4
-    // }
 
     useEffect(() => {
       if(notifications.length !== 0){
@@ -197,48 +189,6 @@ useEffect(()=>{
               )}
           </Box>
             }
-            {/* {contactsArray.map((contact, index) => {
-                return (
-                  <Box 
-                    // contact 
-                    sx={{
-                      backgroundColor: "#ffffff39",
-                      minHeight:"5rem",
-                      width:"90%",
-                      cursor:"pointer",
-                      borderRadius:"0.2rem",
-                      padding:"0.4rem",
-                      gap:"1rem",
-                      alignItems: "center",
-                      display: "flex",
-                      transition: "0.5s ease-in-out"
-                    }}
-                    key={index}
-                    onClick={()=>changeCurrentChat(index, contact)}
-                  >
-                    <Box
-                      // avatar
-                    >
-                      {value.length !== 0 || value[index].image ?
-                        <Avatar style={{height:"3rem"}} src={value[index].image} alt='avatar'/>
-                      :
-                          <img style={{height:"3rem"}} src={avatar} alt='avatar'/>
-                      } 
-                    </Box>
-                    <Box
-                      // username
-                    >
-                      <h3 
-                        style={{
-                          color: "white"
-                        }}
-                      >{contact}</h3>
-                    </Box>
-                  </Box>
-                )
-              })
-            } */}
-          {/* </Box> */}
           <Box
             // currentuser
             sx={{

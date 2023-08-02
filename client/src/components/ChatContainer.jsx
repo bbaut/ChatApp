@@ -53,7 +53,7 @@ const ChatContainer = ({currentChat, currentMember, messages}) => {
                     </Typography>
                 </Box>
             </Box>
-            <ChatMessages currentMember={currentMember}/>
+            <ChatMessages currentMember={currentMember} currentChat={currentChat}/>
             <ChatInput handleSendMsg={handleSendMsg}/>
         </Box>
     )
