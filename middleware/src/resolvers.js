@@ -76,6 +76,7 @@ const resolvers = {
             }
 
             try {
+                console.log(username)
                 const userUsers = await dataSources.usersAPI.create(username, email, image);
                 const user = await dataSources.authAPI.register(registerInput);
 

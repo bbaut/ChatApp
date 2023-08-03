@@ -7,9 +7,12 @@ const createUser = async (req,res) => {
         res.json(userSaved);
     }
     catch (error) {
-        const typeError = error.message.split(":")[0]
-        if (typeError === "E11000 duplicate key error collection") {
-            return res.status(404).json({message: "Duplicate"})
+        const typeError = error.message.split(":")[2].trim()
+        if (typeError === "email_1 dup key") {
+            return res.status(404).json({message: "DuplicateEmail"})
+        }
+        else if (typeError === "username_1 dup key"){
+            return res.status(404).json({message: "DuplicateUsername"})
         }
         else {
             return res.json(error)
@@ -214,7 +217,7 @@ const acceptContact = async (req,res) => {
             return res.status(404).json({msg: error.message});
         }
 
-        if(user.contacts.includes(contact.username)){
+        if(user.contacts.includes(contact._id)){
             const error = new Error('Already friends');
             return res.status(404).json({msg: error.message});
         }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useFetcher } from "react-router-dom"
 import { Container, Stack, TextField, Button, Typography, Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -36,16 +36,25 @@ const Register = () => {
 
         if([username, email, password, confirmPassword].includes('')){
             setAlert(t("fieldsRequired"));
+            setTimeout(() => {
+              setAlert('');
+            }, 2000)
             return;
         }
 
         if(password.length < 6) {
             setAlert(t("passwordMin"));
+            setTimeout(() => {
+              setAlert('');
+            }, 2000)
             return
         }
 
         if(password !== confirmPassword) {
             setAlert(t("passwordsDontMatch"));
+            setTimeout(() => {
+              setAlert('');
+            }, 2000)
             return
         }
 
@@ -69,13 +78,17 @@ const Register = () => {
                 }
             }
         })
+        
         setSuccess(t("succesfulCreation"))
+        setTimeout(() => {
+          setSuccess('');
+        }, 2000)
 
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        setAvatarImg(null);
+        setAvatarImg('');
     }
 
       const inputImage = (e) => {
@@ -100,13 +113,26 @@ const Register = () => {
     }
 
     useEffect(()=>{
-      if(error === "Duplicate"){
-        setSuccess(t(""))
-        setAlert(t("duplicate"))
+      if(error === "DuplicateEmail"){
+        setSuccess("")
+        setAlert(t("duplicateEmail"))
+        setTimeout(() => {
+          setAlert('');
+        }, 2000)
+      }
+      else if (error === "DuplicateUsername"){
+        setSuccess("")
+        setAlert(t("duplicateUsername"))
+        setTimeout(() => {
+          setAlert('');
+        }, 2000)
       }
       else if(error === "null"){
         setSuccess(t("succesfulCreation"))
         setAlert("")
+        setTimeout(() => {
+          setSuccess('');
+        }, 2000)
       }
     }, [error])
 
