@@ -86,7 +86,7 @@ const Login = () => {
                   {t("welcome")}
                 </h1>
                 <h1>
-                  my chat app
+                  inTouch
                 </h1>
                 {alert && 
                 <Stack spacing={2} paddingBottom={2} sx={{color:"#990f02"}}>

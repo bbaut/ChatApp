@@ -70,14 +70,14 @@ const Chat = () => {
       }
 
     useSubscription(DELETE_CONTACT, {
-        onData: (data) => {
+        onData: (data) => { 
           dispatch({
             type: "deletedContact",
             payload: data.data.data.deleteContact,
           })
           setAlert(t("removedFromFriendList"))
           setCurrentChat(undefined)
-          navigate("/dashboard/chat/0")
+          navigate("/dashboard/chats")
         },
         onError:(error) => {
           console.log(error)
