@@ -10,6 +10,7 @@ type Content {
 type Room {
     _id: String
     member: String
+    createdBy: String
 }
 
 type Group {

@@ -83,12 +83,14 @@ const userSlice = createSlice({
       }
     },
     setError: (state=null, action) => {
-      // if (action.payload === "User already in your contact list"){
-      //   state.error = "alreadyContactError";
-      // }
-      // else {
         state.error = action.payload;
-      // }
+    },
+    addChatContacts: (state=null, action) => {
+      if(state.value.username === action.payload.chatMember || state.value.username === action.payload.chatCreatedBy){
+        if(!state.value.chatContacts.includes(action.payload.chatId)){
+          state.value.chatContacts.push( action.payload.chatId);
+        }
+      }
     }
   },
 });
@@ -105,7 +107,8 @@ export const {
   setLanguage,
   deleteContact,
   createGroup,
-  setError
+  setError,
+  addChatContacts
 } = userSlice.actions;
 
 export default userSlice.reducer;

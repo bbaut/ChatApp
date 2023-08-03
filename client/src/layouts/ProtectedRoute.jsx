@@ -62,7 +62,6 @@ const ProtectedRoute = () => {
 
 
   useEffect(() => {
-
     if(notifications.sender === undefined || notifications.sender === username){
       return
     }
