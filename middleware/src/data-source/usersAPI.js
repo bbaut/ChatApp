@@ -162,6 +162,12 @@ class UsersAPI extends RESTDataSource {
             }
         )
     }
+
+    async checkChatUser (params) {
+        return this.get(
+            `/api/users/chatuser`,{params}
+        )
+    }
 }
 
 export default UsersAPI

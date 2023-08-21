@@ -42,6 +42,7 @@ const Login = () => {
     },
     onCompleted(data) {
       localStorage.setItem('token', data.loginUser.token);
+
       
       dispatch({
         type: "setUserAuth",

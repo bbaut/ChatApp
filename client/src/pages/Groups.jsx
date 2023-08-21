@@ -42,9 +42,12 @@ const Groups = () => {
       (state) => state.user.value
     );
 
+    const { groupMembers } = useSelector(
+        (state) => state.chat
+    );
+
     useSubscription(CREATED_GROUP, {
         onData: (data) => {
-            console.log(data)
             dispatch({
                 type: "setNewGroup",
                 payload: {
@@ -59,6 +62,7 @@ const Groups = () => {
 
     useSubscription(ADDED_MEMBER, {
         onData: (data) => {
+            console.log(data)
             dispatch({
                 type: "setAddedMember",
                 payload: {
@@ -124,6 +128,10 @@ const Groups = () => {
         }
     }, [chatId])
 
+    useEffect(() => {
+        navigate(`/dashboard/groups`)
+    }, [])
+
     return (
         <BoxContainer>
                 <Box sx={{padding:"1rem", height: "90vh", width: "85vw", backgroundColor:"#00000076", display: "grid", gridTemplateColumns: "25% 75%"}}>
@@ -151,7 +159,7 @@ const Groups = () => {
                             {t("selectGroup")}
                         </Box> 
                         :
-                        <GroupContainer currentChat={currentChat} currentMember={username}/>
+                        <GroupContainer currentChat={currentChat} currentMember={username} groupMembers={groupMembers}/>
                     }
                 </Box>
             </BoxContainer>

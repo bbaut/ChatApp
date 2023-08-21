@@ -92,21 +92,26 @@ const Chat = () => {
     }
 
     const handleChatChange = (chat) => {
-        setCurrentChat(chat);
-        dispatch({
-            type: "createNewRoom",
-            payload: {
-                newRoom:{
-                    createdBy: username,
-                    member: chat
+        if(chat !== "undefined"){
+            setCurrentChat(chat);
+            dispatch({
+                type: "createNewRoom",
+                payload: {
+                    newRoom:{
+                        createdBy: username,
+                        member: chat
+                    }
                 }
-            }
-        })
+            })
+        }
+        else {
+            return
+        }
     }
-
     
     useEffect(() => {
         if(chatId){
+
         dispatch({
             type:"queryMessages",
             payload: 
@@ -116,13 +121,16 @@ const Chat = () => {
                     from: username
                 }
             }
-        })}
+        })
+        }
         else{
             navigate(`/dashboard/chats`)
+            handleChatChange(undefined)
         }
     }, [chatId])
 
     useEffect(() => {
+        navigate(`/dashboard/chats`)
         if (contactsArray.length !== 0){
             dispatch({
                 type: "getContactData",

@@ -22,17 +22,16 @@ import { Box,
     DialogActions } from '@mui/material'
 import { styled } from "@mui/material/styles";
 
-const GroupContainer = ({currentChat, currentMember, messages}) => {
+const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
     const dispatch = useDispatch();
     const { chatId } = useParams();
     const { contacts, username } = useSelector(
         (state) => state.user.value
     );
-    const { groupMembers, createdBy } = useSelector(
+    const { createdBy } = useSelector(
         (state) => state.chat
     );
 
-    // console.log(chatMember)
     const [open, setOpen] = React.useState(false);
     const [openR, setOpenR] = React.useState(false);
     const [openMembers, setOpenMembers] = React.useState(false);
@@ -69,9 +68,14 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     }
 
     const handleOnClickAdd = async () => {
-
+        console.log(chatId)
         if (member === ""){
             setAlert(t("usernameRequired"))
+            return
+        }
+
+        if(member === username) {
+            setAlert(t("userNotFound"))
             return
         }
 
@@ -112,8 +116,14 @@ const GroupContainer = ({currentChat, currentMember, messages}) => {
     }
 
     const handleOnClickRemove = async () => {
+        console.log(chatId)
         if (member === ""){
             setAlert(t("usernameRequired"))
+            return
+        }
+
+        if(member === username) {
+            setAlert(t("userNotFound"))
             return
         }
 

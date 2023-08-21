@@ -23,6 +23,8 @@ const ProtectedRoute = () => {
     (state) => state.auth
   );
 
+  console.log(auth)
+
   const { notifications } = useSelector(
     (state) => state.chat
   )

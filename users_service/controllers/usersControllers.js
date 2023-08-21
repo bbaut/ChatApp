@@ -284,8 +284,8 @@ const deleteRequest = async (req, res) => {
         }
 
         const requestObj = { 
-            from: user.username,
-            to: contact.username 
+            from: user._id,
+            to: contact._id 
         };
 
         const contactUpdated = await Users.findOneAndUpdate(
@@ -294,6 +294,7 @@ const deleteRequest = async (req, res) => {
             { new: true }
         )
 
+        console.log(contactUpdated)
         return res.status(200).json(contactUpdated);
 
     }
@@ -372,6 +373,7 @@ const addMemberGroup = async (req,res) => {
 
     const memberToAdd = req.body.object.member
     try {
+        console.log(req.body.object)
         const user = await Users.findOne({username: memberToAdd});
         
         if(!user){
@@ -384,12 +386,14 @@ const addMemberGroup = async (req,res) => {
             chatName: req.body.object.chatName
         }
 
+        console.log(userGroupObject)
+
         const userUpdated = await Users.findOneAndUpdate(
             {username: user.username},
             { $push: { groups: userGroupObject }},
             { new: true }
         )
-
+            console.log(userUpdated)
         return res.status(200).json(userUpdated);
     }
     catch (error) {
@@ -407,6 +411,8 @@ const removeMemberGroup = async (req,res) => {
             return res.status(404).json({msg: error.message});
         }
 
+        console.log(req.body.object)
+
         const userGroupObject = {
             chatId: req.body.object.id,
             chatName: req.body.object.chatName
@@ -417,6 +423,8 @@ const removeMemberGroup = async (req,res) => {
             { $pull: { groups: userGroupObject }},
             { new: true }
         )
+
+        console.log(userUpdated)
 
         return res.status(200).json(userUpdated);
     }
@@ -509,6 +517,20 @@ const chatRoom = async(req,res) => {
     }
 }
 
+const checkChatUser = async (req, res) => {
+    try {
+        let usersObject = await Users.find({chatContacts: req.query.chatIdentifier});
+        let users = usersObject.map((user) => {
+            return user.username
+        })
+
+        return res.status(200).json(users);
+        
+    } catch (error) {
+        return res.status(502).json({error: "error"})
+    }
+}
+
 export {
     searchContact,
     userProfile,
@@ -524,5 +546,6 @@ export {
     removeMemberGroup,
     contactData,
     deleteContact,
-    chatRoom
+    chatRoom,
+    checkChatUser
 }

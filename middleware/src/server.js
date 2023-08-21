@@ -10,6 +10,8 @@ import AuthAPI from "./data-source/authAPI.js";
 import UsersAPI from "./data-source/usersAPI.js";
 import ChatAPI from "./data-source/chatAPI.js";
 import bodyParser from "body-parser"
+import { parse } from "cookie-parse";
+import cookieParser from "cookie-parser";
 // import typeDefs from "./schema.js";
 import { typeDef as Chat } from './Schemas/chat.js';
 import { typeDef as User } from './Schemas/user.js';
@@ -41,8 +43,16 @@ const Server = async () => {
 
     const serverCleanup = useServer({ 
         schema,
-        context: async () => {
+        context: async (ctx) => {
             const { cache } = server;
+
+            const token = ctx.connectionParams.headers.authorization || '';
+
+            let authUser;
+
+            if(token) {
+                authUser = await new AuthAPI().profile(token);
+            }
 
             const dataSources = {
                 authAPI: new AuthAPI({ cache }),
@@ -50,7 +60,8 @@ const Server = async () => {
                 chatAPI: new ChatAPI({ cache }),
             };
             return {
-                dataSources
+                dataSources,
+                authUser
             };
         }
     }, wsServer);
@@ -74,17 +85,27 @@ const Server = async () => {
 
     app.use(
         "/graphql",
-        // cors ({ origin: ['http://localhost:3000'] }),
+        cookieParser(),
         bodyParser.json(),
         expressMiddleware(server, {
             context: async({req, res}) => {
                 const { cache } = server;
+
+                const token = req.headers.authorization || '';
+
+                let authUser;
+
+                if(token) {
+                    authUser = await new AuthAPI().profile(token);
+                }
+
                 const dataSources = {
                     authAPI: new AuthAPI({ cache }),
                     usersAPI: new UsersAPI({ cache }),
                     chatAPI: new ChatAPI({ cache }),
                 };
                 return {
+                    authUser,
                     req,
                     res,
                     dataSources

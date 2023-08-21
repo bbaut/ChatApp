@@ -43,9 +43,17 @@ const createChatRoom = async (req, res) => {
 }
 
 const createGroupRoom = async (req, res) => {
+    const {createdBy, groupName} = req.body;
+    const members = [];
+    members.push(createdBy);
 
+    const groupObject = {
+        createdBy,
+        groupName,
+        members,
+    }
     try {
-        const group = new Groups(req.body);
+        const group = new Groups(groupObject);
         const groupSaved = await group.save();
         res.json(groupSaved);
     
@@ -117,7 +125,7 @@ const getGroup = async (req, res) => {
 }
 const addMemberGroup = async (req, res) => {
     const chatObject = req.body.object 
-
+    console.log(chatObject)
     try {
         const chat = await Groups.findById(chatObject.id)
         
@@ -126,7 +134,7 @@ const addMemberGroup = async (req, res) => {
                 { $push: { members: chatObject.member }},
                 { new: true }
         )
-
+        console.log(chatUpdated)
         res.json(chatUpdated)
     } catch (err) {
         return res.status(500).send(err.message);
@@ -134,6 +142,7 @@ const addMemberGroup = async (req, res) => {
 }
 const removeMemberGroup = async (req, res) => {
     const chatObject = req.body.object 
+    console.log(chatObject)
     try {
         const chat = await Groups.findById(chatObject.id)
 
@@ -142,6 +151,8 @@ const removeMemberGroup = async (req, res) => {
                 { $pull: { members: chatObject.member }},
                 { new: true }
         )
+
+        console.log(chatUpdated) 
 
         res.json(chatUpdated)
     } catch (err) {

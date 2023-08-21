@@ -17,6 +17,7 @@ type UserData {
     requests: [Request]
     groups: [Groupdata]
     image: String
+    token: String
 }
 
 type Request {

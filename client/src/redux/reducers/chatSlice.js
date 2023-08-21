@@ -4,7 +4,7 @@ const initialState = {
     isFetching: false,
     error: null,
     currentRoom: '',
-    chatMember: '',
+    chatMember: [],
     groupMembers: [],
     groupName: '',
     createdBy: '',
@@ -57,15 +57,26 @@ const chatSlice = createSlice({
         },
         setAddedMember: (state = null, action) => {
             state.chatMember = [...state.chatMember, action.payload]
+            state.groupMembers = [...state.groupMembers, action.payload]
         },
         setRemovedMember: (state = null, action) => {
               const newMembers = [];
 
-              state.chatMember.forEach(element => {
+              if(state.chatMember.length !== 0){
+                  state.chatMember.forEach(element => {
+                        if(element !== action.payload){
+                           newMembers.push(element)
+                        }
+                    })
+              }
+              else {
+                state.groupMembers.forEach(element => {
                     if(element !== action.payload){
                        newMembers.push(element)
                     }
-              })
+                })
+            }
+            state.groupMembers = newMembers;
 
               state.chatMember = newMembers;
         },

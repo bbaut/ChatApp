@@ -1,6 +1,7 @@
 import { call, put } from "redux-saga/effects";
 import { gql } from "@apollo/client";
 import client from "../../apolloClient";
+import { acceptNewRequest } from "../reducers/userSlice";
 
 function* acceptFriend(action) {
     const options = {
@@ -26,7 +27,8 @@ function* acceptFriend(action) {
       fetchPolicy: "no-cache",
     };
     try {
-        yield call(client.mutate, options);
+        const userData = yield call(client.mutate, options);
+        yield put( acceptNewRequest (userData.data.acceptContact));
     } catch (error) {
         yield console.log({ error: "add Friend Error", severity: "error" }
         );

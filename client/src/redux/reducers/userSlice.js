@@ -43,20 +43,26 @@ const userSlice = createSlice({
       const contact = action.payload[1]
 
       if (state.value.username === user.username) {
-        state.value.contacts = [...state.value.contacts, contact.username]
-        state.value.requests = user.requests
+        // state.value.contacts = [...state.value.contacts, contact.username]
+        // state.value.requests = user.requests
+        state.value = user
       }
       if (state.value.username === contact.username) {
-        state.value.contacts = [...state.value.contacts, user.username]
-        state.value.requests = contact.requests
+        // state.value.contacts = [...state.value.contacts, user.username]
+        // state.value.requests = contact.requests
+        state.value = contact
       }
 
     },
     deleteRequest: (state=null, action) => {
       state.isFetching = false;
-      state.value = action.payload;
+      const user = action.payload
+      if (state.value.username === user.username){
+        state.value = action.payload;
+      }
     },
     addGroup: (state=null, action) => {
+      console.log(action.payload)
       if (state.value.username === action.payload.username){
         state.value.groups = action.payload.groups
       }

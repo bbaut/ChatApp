@@ -7,7 +7,9 @@ const resolvers = {
     Query: {
         async profileUser (_,{profileInput}, {dataSources, req, res}) {
             const {token} = profileInput;
-            return await dataSources.authAPI.profile(token);
+            const user =  await dataSources.authAPI.profile(token);
+            return user
+            // return await dataSources.authAPI.profile(token);
         },
 
         async existanceContact (_,{existanceInput}, {dataSources, req, res}) {
@@ -16,9 +18,11 @@ const resolvers = {
         }, 
 
         async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
+            // console.log(userDataInput)
             const {email} = userDataInput;
            
             const data = await dataSources.usersAPI.userData({email});
+            // console.log(data)
             return  data
         },
 
@@ -150,7 +154,6 @@ const resolvers = {
                 
                 let friendsArray = [userUpdated, contactUpdated]
 
-                const body = acceptContactInput
                 pubsub.publish("ACCEPT_CONTACT_REQUEST", {
                     acceptContactRequest: friendsArray
                 })
@@ -162,6 +165,7 @@ const resolvers = {
         },
 
         async deleteRequest(_,{deleteReqInput}, {dataSources, req, res}){
+            console.log(deleteReqInput)
             try {
                 const contactUpdated = await dataSources.usersAPI.deleteReq(deleteReqInput);
                 return contactUpdated;
@@ -215,13 +219,17 @@ const resolvers = {
                 throw new GraphQLError(message);
             }
         },
-        addMemberGroup: async (_, { addMemberInput }, { dataSources }) => {
+        addMemberGroup: async (_, { addMemberInput }, { dataSources, authUser }) => {
+            if(addMemberInput.username === addMemberInput.member) {
+                return res.status(500)
+            }
             try {
                 const userUpdated = await dataSources.usersAPI.addMember(addMemberInput);
                 const chatUpdated = await dataSources.chatAPI.addMember(addMemberInput);
                 
                 pubsub.publish("ADDED_MEMBER", {
-                    addedMember: userUpdated
+                    addedMember: userUpdated,
+                    chatUpdated: chatUpdated
                 })
 
                 return userUpdated;
@@ -231,12 +239,16 @@ const resolvers = {
             }
         },
         removeMemberGroup: async (_, { removeMemberInput }, { dataSources }) => {
+            if(removeMemberInput.username === removeMemberInput.member) {
+                return res.status(500)
+            }
             try {
                 const userUpdated = await dataSources.usersAPI.removeMember(removeMemberInput);
                 const chatUpdated = await dataSources.chatAPI.removeMember(removeMemberInput);
-
+                
                 pubsub.publish("REMOVED_MEMBER", {
-                    removedMember: userUpdated
+                    removedMember: userUpdated,
+                    chatUpdated: chatUpdated
                 })
 
                 return userUpdated;

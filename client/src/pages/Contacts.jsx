@@ -24,6 +24,8 @@ const Contacts = () => {
       (state) => state.user.value
     );
 
+    console.log(contacts)
+
     const {language, error} = useSelector(
       (state) => state.user
     );

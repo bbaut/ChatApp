@@ -15,6 +15,8 @@ export default function AlignItemsList() {
         (state) => state.user.value
     );
 
+    console.log(requests)
+
     useSubscription(CONTACT_REQUEST, {
         onData: (data) => {
             dispatch({

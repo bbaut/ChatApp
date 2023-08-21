@@ -33,7 +33,7 @@ export default function RequestLayer({item}) {
             ]
         })
 
-        navigate("/dashboard/contacts");
+        // navigate("/dashboard/contacts");
     }
     const handleDelete = (e) => {
         e.preventDefault();
@@ -59,10 +59,10 @@ export default function RequestLayer({item}) {
             >
                 {from}
                 <br/>
-                <Button onClick={handleAccept}>
+                <Button onClick={handleAccept} sx={{padding: "0px", marginRight:"5px"}}>
                     {t("acceptContact")}
                 </Button>
-                <Button onClick={handleDelete}>
+                <Button onClick={handleDelete} sx={{padding: "0px", marginRight:"5px"}}>
                     {t("deleteRequest")}
                 </Button>
             </ListItemText>

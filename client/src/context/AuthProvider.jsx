@@ -29,6 +29,7 @@ const AuthProvider = ({children}) => {
               })
         },
         onCompleted(data) {
+            console.log(data)
             dispatch({
                 type: "setUserAuth",
                 payload: {

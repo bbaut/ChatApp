@@ -1,6 +1,9 @@
-import { call } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 import { gql } from "@apollo/client";
 import client from "../../apolloClient";
+import { setAddedMember } from "../reducers/chatSlice";
+import { addGroup } from "../reducers/userSlice";
+
 
 function* addMemberGroup(action) {
     const options = {
@@ -30,6 +33,9 @@ function* addMemberGroup(action) {
     };
     try {
       const res = yield call(client.mutate, options);
+      console.log(res)
+      // yield put(setAddedMember(action.payload.member.username));
+      // yield put(addGroup(action.payload.member));
     } catch (error) {
       
     }

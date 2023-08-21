@@ -15,7 +15,6 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { useTranslation } from "react-i18next"
-// import avatar from "../../assets/profile-image.jpeg"
 
 
 const GroupContacts = ({groups, currentMember, changeChat, avatarProfile}) => {
