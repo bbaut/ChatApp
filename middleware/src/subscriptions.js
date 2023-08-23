@@ -16,9 +16,7 @@ const subscriptions = {
             subscribe: withFilter(
                 () => pubsub.asyncIterator("ACCEPT_CONTACT_REQUEST"),
                 async ({acceptContactRequest}, _, {dataSources, authUser}) => {
-                    let usernamesArray = acceptContactRequest.map((user) => {
-                        return user.username
-                    })
+                    let usernamesArray = acceptContactRequest.map((user) => user.username )
                     if (usernamesArray.includes(authUser.username)){
                         return true
                     }

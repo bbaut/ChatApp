@@ -1,38 +1,27 @@
-import { Box, Stack, Avatar, Typography, Button } from "@mui/material"
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Box, Stack, Avatar, Typography, Button } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 const AddContact = () => {
-
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
     const {t} = useTranslation();
 
-    const contact = useSelector((state) => state.findContactFunc.contact);
-    const dataAuth = useSelector(
+    const contact = useSelector(
+        (state) => state.findContactFunc.contact
+    );
+    const {auth} = useSelector(
         (state) => state.auth
     );
-    const user = dataAuth.auth
 
-    let emailUser;
-    let emailContact
+    let emailUser = auth.userAuthenticated.email;
 
+    let emailContact;
     if (Object.keys(contact).length === 0){
         emailContact = "";
     }else {
         emailContact = contact.existanceContact.email;
-    }
-    
-    
-
-    if (user.hasOwnProperty('profileUser')){
-        emailUser = user.profileUser.email
-    }
-    else {
-        emailUser = user.loginUser.email
     }
 
     const handleSubmit = (e) => {

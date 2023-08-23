@@ -145,7 +145,7 @@ const resolvers = {
             }
         },
 
-        async acceptContact(_,{acceptContactInput}, {dataSources, req, res}){
+        async acceptContact(_,{acceptContactInput}, {dataSources, authUser, req, res}){
             try {
                 const friends = await dataSources.usersAPI.acceptContact(acceptContactInput);
                 
@@ -157,6 +157,7 @@ const resolvers = {
                 pubsub.publish("ACCEPT_CONTACT_REQUEST", {
                     acceptContactRequest: friendsArray
                 })
+
                 return friendsArray;
             }
             catch(error){

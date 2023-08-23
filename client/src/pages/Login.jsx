@@ -35,6 +35,13 @@ const Login = () => {
         password
       }
     })
+    dispatch({
+      type: "setUser",
+      payload: 
+      {
+          email
+      }
+    })
     setAlert('');
   }
 

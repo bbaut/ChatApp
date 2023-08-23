@@ -23,11 +23,7 @@ const Contacts = () => {
       (state) => state.user.value
     );
 
-    const {auth} = useSelector (
-      (state) => state.auth
-    )
-
-    console.log(auth)
+    console.log(contacts)
 
     const {language, error} = useSelector(
       (state) => state.user
@@ -38,6 +34,7 @@ const Contacts = () => {
   )
     useSubscription(ACCEPT_CONTACT_REQUEST, {
       onData: (data) => {
+        console.log(data)
         dispatch({
           type: "isFetchingContact"
         })

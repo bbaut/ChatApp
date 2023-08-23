@@ -39,6 +39,9 @@ const userSlice = createSlice({
     acceptNewRequest: (state=null, action) => {
       state.isFetching = false;
 
+
+      console.log(action.payload)
+
       const user = action.payload[0]
       const contact = action.payload[1]
 
