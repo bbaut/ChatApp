@@ -22,6 +22,7 @@ function* login(action) {
     const data = yield call(client.mutate, options);
     yield put(auth(data.data.loginUser));
     localStorage.setItem('token', data.data.loginUser.token);
+    localStorage.setItem('email', data.data.loginUser.email);
   } catch (err) {
     yield console.log({ error: "errorSendMessage", severity: "warning" });
   }

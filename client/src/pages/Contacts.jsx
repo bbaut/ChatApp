@@ -13,7 +13,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Contacts = () => {
-
   const [alert, setAlert] = useState("");
 
   const {t, i18n} = useTranslation();
@@ -24,7 +23,11 @@ const Contacts = () => {
       (state) => state.user.value
     );
 
-    console.log(contacts)
+    const {auth} = useSelector (
+      (state) => state.auth
+    )
+
+    console.log(auth)
 
     const {language, error} = useSelector(
       (state) => state.user

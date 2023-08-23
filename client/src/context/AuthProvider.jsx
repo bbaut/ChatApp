@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 const AuthProvider = ({children}) => {
-
     const dispatch = useDispatch();
 
     useEffect(() => {
         const authUser = async () => {
             const token = localStorage.getItem('token');
+            const email = localStorage.getItem('email');
             if (!token) {
                 dispatch({
                     type: "setLoading",
@@ -21,7 +21,14 @@ const AuthProvider = ({children}) => {
             dispatch({
                 type: "getUser",
                 payload: {
-                    token: localStorage.getItem('token')
+                    token
+                }
+            })
+            dispatch({
+                type: "setUser",
+                payload: 
+                {
+                    email
                 }
             })
         }

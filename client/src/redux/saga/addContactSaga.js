@@ -19,7 +19,8 @@ function* addFriend(action) {
       fetchPolicy: "no-cache",
     };
     try {
-      yield call(client.mutate, options);
+      const data = yield call(client.mutate, options);
+      console.log(data)
     } catch (error) {
       yield put(setError(error.message));
       // if (error.message === "Request already sent") {

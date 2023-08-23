@@ -10,7 +10,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProtectedRoute = () => {
-
   const dispatch = useDispatch();
   const { chatId } = useParams();
 
@@ -69,18 +68,6 @@ const ProtectedRoute = () => {
       }
     }
   }, [notifications])
-
-  useEffect(() => {
-    if(Object.keys(auth).length !== 0){
-      dispatch({
-          type: "setUser",
-          payload: 
-          {
-              email: auth.userAuthenticated.email
-          }
-      })
-    }
-  },[auth])
 
   const notify = (name, type) => {
     if(type === "messages"){
