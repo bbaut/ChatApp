@@ -1,45 +1,35 @@
-import { Outlet, Navigate } from "react-router-dom";
-import Header from "../components/Header";
-import { Box } from "@mui/system";
-import { CircularProgress } from "@mui/material";
+import { useEffect } from "react";
+import { Outlet, Navigate, useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
-import SEND_MESSAGE from '../gql/sendMessage';
 import { useSubscription } from "@apollo/client";
+import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/system";
+import Header from "../components/Header";
+import SEND_MESSAGE from '../gql/sendMessage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from "react";
-import { useParams } from 'react-router-dom';
-
 
 const ProtectedRoute = () => {
 
   const dispatch = useDispatch();
-
-  const isFetching = useSelector(
-    (state) => state.user.isFetching
-  )
+  const { chatId } = useParams();
 
   const { auth, isLoading } = useSelector(
     (state) => state.auth
   );
 
-  console.log(auth)
-
   const { notifications } = useSelector(
     (state) => state.chat
   )
 
-  const {value} = useSelector(
+  const {value, isFetching} = useSelector(
     (state) => state.user
   )
-
+  
   let username;
 
-  if (auth.hasOwnProperty('profileUser')){
-     username = auth.profileUser.username
-  }
-  else if (auth.hasOwnProperty('loginUser')){
-    username = auth.loginUser.username
+  if (auth.hasOwnProperty('userAuthenticated')){
+     username = auth.userAuthenticated.username
   }
   
   useSubscription(SEND_MESSAGE, {
@@ -60,9 +50,6 @@ const ProtectedRoute = () => {
     }
   })
 
-  const { chatId } = useParams();
-
-
   useEffect(() => {
     if(notifications.sender === undefined || notifications.sender === username){
       return
@@ -82,6 +69,18 @@ const ProtectedRoute = () => {
       }
     }
   }, [notifications])
+
+  useEffect(() => {
+    if(Object.keys(auth).length !== 0){
+      dispatch({
+          type: "setUser",
+          payload: 
+          {
+              email: auth.userAuthenticated.email
+          }
+      })
+    }
+  },[auth])
 
   const notify = (name, type) => {
     if(type === "messages"){
@@ -109,13 +108,13 @@ const ProtectedRoute = () => {
         });
     }
   }
-  
-  if(isLoading || isFetching) return (
+
+  if( isLoading || isFetching) return (
     <Box sx={{ display: 'flex' }}>
       <CircularProgress />
     </Box>
   )
-  else if (auth.hasOwnProperty('profileUser')){
+  else if (auth.hasOwnProperty('userAuthenticated')){
      return (
        <Box>
        <Header/>
@@ -124,16 +123,6 @@ const ProtectedRoute = () => {
        </Box>
     )
   }
-  else if (auth.hasOwnProperty('loginUser')){
-     return (
-       <Box>
-       <Header/>
-       <Outlet/>
-       <ToastContainer />
-       </Box>
-    )
-  }
-
   return (
     <Navigate to="/"/>
   )

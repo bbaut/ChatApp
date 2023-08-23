@@ -1,5 +1,8 @@
 import {takeLatest, takeEvery, all} from "redux-saga/effects";
 import register from "./registerSaga";
+import login from "./loginSaga";
+import logout from "./logoutSaga";
+import getUser from "./getUserSaga";
 import addFriend from "./addContactSaga";
 import addNewRequest from "./addRequestSaga";
 import setUser from "./setUserSaga";
@@ -30,8 +33,19 @@ import isFetchingC from "./isFetchingContactSaga";
 import setErrorFunction from "./setErrorSaga";
 import setCurrentChatFunction from "./setCurrentChatSaga";
 
+export function* watchLogin(){
+    yield takeLatest("login", login);
+}
+export function* watchLogout(){
+    yield takeLatest("logout", logout);
+}
+
 export function* watchRegister(){
     yield takeLatest("register", register);
+}
+
+export function* watchGetUser(){
+    yield takeLatest("getUser", getUser);
 }
 
 export function* watchSetUser(){
@@ -143,7 +157,10 @@ export function* watchSetCurrentChat(){
 
 export default function* rootSaga() {
     yield all([
+        watchLogin(),
+        watchLogout(),
         watchRegister(),
+        watchGetUser(),
         watchSetUser(),
         watchSetAuthUser(),
         watchSetLoading(),

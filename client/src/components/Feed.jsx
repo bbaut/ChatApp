@@ -1,7 +1,7 @@
-import { Box, Container } from "@mui/material"
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next"
 import {useEffect} from "react"
+import { useSelector } from "react-redux";
+import { Box, Container } from "@mui/material"
+import { useTranslation } from "react-i18next"
 import robot from "../assets/rebel-robot.gif"
 
 const Feed = () => {
@@ -20,7 +20,6 @@ const Feed = () => {
     i18n.changeLanguage(localStorage.getItem("language"));
   },[language])
 
-  if (auth.hasOwnProperty('profileUser')){
     return (
       <Container maxWidth="sm" sx={{marginTop: "8rem", marginBottom: "8rem", textAlign: "center"}}>
         <h1>
@@ -38,34 +37,10 @@ const Feed = () => {
         src={robot}
       />
         <h1>
-          {auth.profileUser.username}
+          {auth.userAuthenticated.username}
         </h1>
       </Container>
     )
-  }
-  else if (auth.hasOwnProperty('loginUser')){
-    return (
-      <Container maxWidth="sm" sx={{marginTop: "8rem", marginBottom: "8rem", textAlign: "center"}}>
-        <h1>
-          {t("welcome")}
-        </h1>
-        <Box
-        component="img"
-        sx={{
-          height: 233,
-          width: 350,
-          maxHeight: { xs: 233, md: 167 },
-          maxWidth: { xs: 350, md: 250 },
-        }}
-        alt="The house from the offer."
-        src={robot}
-      />
-        <h1>
-          {auth.loginUser.username}
-        </h1>
-      </Container>
-    )
-  }
 }
 
 export default Feed

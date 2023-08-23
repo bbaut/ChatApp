@@ -1,73 +1,40 @@
 import { useState, useEffect } from "react"
-import { Container, Stack, TextField, Button, Typography, Box } from "@mui/material"
-import { Link, useNavigate } from "react-router-dom"
-import { gql, useMutation} from '@apollo/client';
+import { Link, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
+import { Container, Stack, TextField, Button, Typography, Box } from "@mui/material"
 import { useTranslation } from "react-i18next"
-
-const LOGIN_USER = gql `
-    mutation Mutation($loginInput: LoginInput) {
-      loginUser(loginInput: $loginInput) {
-        username,
-        email,
-        token
-    }
-  }
-`
-
 
 const Login = () => {
 
+  const dispatch = useDispatch();
   const {t, i18n} = useTranslation();
-
-  const navigate = useNavigate();
 
   const {language} = useSelector(
     (state) => state.user
   );
 
+  const {auth} = useSelector(
+    (state) => state.auth
+  )
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState('');
 
-  const dispatch = useDispatch()
-
-  const[loginUser, {loading,error,data}] = useMutation(LOGIN_USER,{
-    variables: {loginInput: {
-        email,
-        password
-    }},
-    onError(graphQLErrors){
-        setAlert(graphQLErrors.networkError.result.msg);
-    },
-    onCompleted(data) {
-      localStorage.setItem('token', data.loginUser.token);
-
-      
-      dispatch({
-        type: "setUserAuth",
-        payload: {
-          data
-        }
-      })
-      dispatch({
-        type: "setUser",
-        payload: {
-          "email" : data.loginUser.email
-        }
-      })
-      navigate("/dashboard")
-    },
-  })
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if ([email, password].includes('')){
       setAlert("All fields required");
       return;
     }
-    loginUser();
+    dispatch({
+      type: "login",
+      payload: {
+        email,
+        password
+      }
+    })
     setAlert('');
   }
 
@@ -79,6 +46,11 @@ const Login = () => {
   useEffect (() => {
     i18n.changeLanguage(localStorage.getItem("language"));
   },[language])
+
+
+  if(Object.keys(auth).length !== 0){
+    return <Navigate to="/dashboard"/>
+  }
 
   return (
     <>

@@ -18,11 +18,12 @@ function* register(action) {
   };
 
   try {
-    yield put(setRegisterFetching(true));
+    // yield put(setRegisterFetching(true));
     yield call(client.mutate, options);
-    yield put(setRegisterFetching(false));
+    // yield put(setRegisterFetching(false));
   } catch (error) {
     yield put (setError(error.message))
+    console.log(error)
   }
 }
 

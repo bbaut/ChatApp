@@ -1,49 +1,36 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import TouchAppIcon from '@mui/icons-material/TouchApp';
-import Badge from '@mui/material/Badge';
-import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import {useEffect, useState} from "react"
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
-import CONTACT_REQUEST from '../gql/contactRequest'
 import { useSubscription } from '@apollo/client';
 import { useTranslation } from "react-i18next"
-import {useEffect} from "react"
+import { 
+  AppBar, 
+  Box, 
+  Toolbar, 
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import TouchAppIcon from '@mui/icons-material/TouchApp';
+import CONTACT_REQUEST from '../gql/contactRequest'
 import LanguageMenu from './LanguageMenu';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import avatar from "../assets/profile-image.jpeg"
-import { useNavigate } from 'react-router-dom';
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}));
 
 const ITEM_HEIGHT = 48;
 
-
 function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const { image, username } = useSelector(
-    (state) => state.user.value
-  );
+  // const { image, username } = useSelector(
+  //   (state) => state.user.value
+  // );
 
   useSubscription(CONTACT_REQUEST, {
     onData: (data) => {
@@ -57,19 +44,22 @@ function Header() {
     }
 })
 
-  const { requests } = useSelector(
-    (state) => state.user.value
-);
 const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation();
 
+  const { auth } = useSelector(
+    (state) => state.auth
+  );
+
   const handleLogout = () => {
     dispatch({
-      type: "setUserAuth",
+      type: "logout",
       payload: {
-        data:{}
+        data:{
+          profileUser: {}
+        }
       }
     })
     localStorage.removeItem('token');
@@ -98,7 +88,7 @@ const navigate = useNavigate();
     i18n.changeLanguage(localStorage.getItem("language"));
   },[language])
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -288,7 +278,7 @@ const navigate = useNavigate();
           </Box>
 
           <div>
-            {username}
+            {auth.userAuthenticated.username}
           </div>
           <LanguageMenu/>
           <div>
@@ -300,11 +290,11 @@ const navigate = useNavigate();
             >
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Avatar">
-                    {image ? 
+                    {/* {image ? 
                     <Avatar alt="Remy Sharp" src={image} />
-                    : 
+                    :  */}
                     <Avatar alt="Remy Sharp" src={avatar} />
-                    }
+                    {/* } */}
                 </Tooltip>
               </Box>
             </IconButton>

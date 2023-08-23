@@ -18,7 +18,7 @@ const Register = () => {
         (state) => state.user
     );
 
-    const {isFetching, error} = useSelector(
+    const {error} = useSelector(
       (state) => state.register
     )
 
