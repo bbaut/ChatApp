@@ -133,10 +133,10 @@ const resolvers = {
                 const contactUpdated = await dataSources.usersAPI.add(addInput);
                 
                 let contact = contactUpdated
+                
                 pubsub.publish("CONTACT_REQUEST", {
                     addContactRequest: contact
                 })
-
                 return contactUpdated;
             }
             catch (error){

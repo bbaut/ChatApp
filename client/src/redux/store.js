@@ -7,6 +7,7 @@ import userReducer from "./reducers/userSlice.js"
 import chatReducer from './reducers/chatSlice';
 import authReducer from "./reducers/authSlice.js";
 import contactReducer from "./reducers/contactSlice"
+import displayReducer from "./reducers/displaySlice"
 
 const saga = createSagaMiddleware();
 const middlewares = [saga]
@@ -19,6 +20,7 @@ const store = configureStore({
         chat: chatReducer,
         auth: authReducer,
         contact: contactReducer,
+        display: displayReducer
     },
     middleware: (getDefaultMiddleware) =>{
         const middleware = [

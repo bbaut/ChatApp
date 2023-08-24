@@ -7,10 +7,10 @@ import { createClient } from 'graphql-ws';
 const wsLink = new GraphQLWsLink(createClient({
     url: `ws://${window.location.host}/subscription`,
     connectionParams: {
-      credentials: "same-origin",
-      headers: {
-        authorization: localStorage.getItem('token')
-      }
+      credentials: "same-origin"
+      // headers: {
+      //   authorization: localStorage.getItem('token')
+      // }
     },
   }));
 
@@ -31,18 +31,20 @@ const splitLink = split(
     httpLink,
   );
 
-const authLink = setContext((_, {headers}) => {
-  return {
-    headers: {
-      ...headers,
-      authorization: localStorage.getItem("token") || ""
-    }
-  }
-})
+// const authLink = setContext((_, {headers}) => {
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: localStorage.getItem("token") || ""
+//     }
+//   }
+// })
 
 const client = new ApolloClient ({
-    link: authLink.concat(splitLink),
-    cache: new InMemoryCache()
+    link: splitLink,
+    cache: new InMemoryCache({
+      addTypename: false,
+    }),
 })
 
 export default client;

@@ -3,6 +3,7 @@ import register from "./registerSaga";
 import login from "./loginSaga";
 import logout from "./logoutSaga";
 import getUser from "./getUserSaga";
+import setDisplayView from "./displaySaga";
 import addFriend from "./addContactSaga";
 import addNewRequest from "./addRequestSaga";
 import setUser from "./setUserSaga";
@@ -42,6 +43,10 @@ export function* watchLogout(){
 
 export function* watchRegister(){
     yield takeLatest("register", register);
+}
+
+export function* watchSetDisplayView(){
+    yield takeLatest("setDisplay", setDisplayView)
 }
 
 export function* watchGetUser(){
@@ -160,6 +165,7 @@ export default function* rootSaga() {
         watchLogin(),
         watchLogout(),
         watchRegister(),
+        watchSetDisplayView(),
         watchGetUser(),
         watchSetUser(),
         watchSetAuthUser(),

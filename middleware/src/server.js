@@ -46,7 +46,8 @@ const Server = async () => {
         context: async (ctx) => {
             const { cache } = server;
 
-            const token = ctx.connectionParams.headers.authorization || '';
+            // const token = ctx.connectionParams.headers.authorization;
+            const { token } = parse(ctx.extra.request.headers.cookie);
 
             let authUser;
 
@@ -91,10 +92,11 @@ const Server = async () => {
             context: async({req, res}) => {
                 const { cache } = server;
 
-                const token = req.headers.authorization || '';
+                // const token = req.headers.authorization || '';
+                const { token } = req.cookies;
 
                 let authUser;
-
+                
                 if(token) {
                     authUser = await new AuthAPI().profile(token);
                 }

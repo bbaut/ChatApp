@@ -92,6 +92,7 @@ const Chat = () => {
     }
 
     const handleChatChange = (chat) => {
+        console.log("hey")
         if(chat !== "undefined"){
             setCurrentChat(chat);
             dispatch({

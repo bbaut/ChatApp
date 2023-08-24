@@ -104,7 +104,7 @@ const ProtectedRoute = () => {
   else if (auth.hasOwnProperty('userAuthenticated')){
      return (
        <Box>
-       <Header/>
+       {/* <Header/> */}
        <Outlet/>
        <ToastContainer />
        </Box>

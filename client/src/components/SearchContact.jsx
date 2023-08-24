@@ -36,7 +36,10 @@ const SearchContact = () => {
         },
         onCompleted(data) {
           dispatch(find_contact(data));
-          navigate("/dashboard/addcontact");
+            dispatch({
+                type: "setDisplay",
+                payload: "addContact",
+            })
         },
     })
 

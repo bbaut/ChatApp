@@ -21,7 +21,7 @@ const Feed = () => {
   },[language])
 
     return (
-      <Container maxWidth="sm" sx={{marginTop: "8rem", marginBottom: "8rem", textAlign: "center"}}>
+      <Container maxWidth="sm" sx={{marginTop: "8rem", marginBottom: "8rem", textAlign: "center", color:"white"}}>
         <h1>
           {t("welcome")}
         </h1>
