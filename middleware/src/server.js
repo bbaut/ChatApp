@@ -93,7 +93,7 @@ const Server = async () => {
                 const { cache } = server;
 
                 // const token = req.headers.authorization || '';
-                const { token } = req.cookies;
+                const { token } = req.cookies || '';
 
                 let authUser;
                 

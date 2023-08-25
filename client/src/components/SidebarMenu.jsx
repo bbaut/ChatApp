@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
 
 const SidebarMenu = () => {
     const {t} = useTranslation();
-    const [ currentMenuOption, setCurrentMenuOption] = useState("undefined"); 
     const dispatch = useDispatch();
 
     const handleSetOption = (option) => {
@@ -37,6 +36,15 @@ const SidebarMenu = () => {
               > 
                 {/* <Link to={"/dashboard/chats"} style={{textDecoration: "none", color:"white"}}> */}
                       <ChatIcon/>
+                {/* </Link> */}
+              </Button>
+            <Button
+                // onClick={handleCloseNavMenu}
+                onClick={() => {handleSetOption("groups")}}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              > 
+                {/* <Link to={"/dashboard/chats"} style={{textDecoration: "none", color:"white"}}> */}
+                      <PeopleAltIcon/>
                 {/* </Link> */}
               </Button>
             <Button

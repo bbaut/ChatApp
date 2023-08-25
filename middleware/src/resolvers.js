@@ -18,11 +18,9 @@ const resolvers = {
         }, 
 
         async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
-            // console.log(userDataInput)
             const {email} = userDataInput;
            
             const data = await dataSources.usersAPI.userData({email});
-            // console.log(data)
             return  data
         },
 
@@ -166,7 +164,6 @@ const resolvers = {
         },
 
         async deleteRequest(_,{deleteReqInput}, {dataSources, req, res}){
-            console.log(deleteReqInput)
             try {
                 const contactUpdated = await dataSources.usersAPI.deleteReq(deleteReqInput);
                 return contactUpdated;

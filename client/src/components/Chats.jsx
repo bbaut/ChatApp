@@ -25,9 +25,15 @@ const Chats = () => {
         }
     }
 
-    const handleChatChange = (chat) => {
+    const handleChatChange = (index, chat) => {
         if(chat !== "undefined"){
-            setCurrentChat(chat);
+            // setCurrentChat(chat);
+            dispatch({
+              type: "currentGroup",
+              payload: {
+                group: "undefined"
+              }
+            })
             dispatch({
                 type: "createNewRoom",
                 payload: {
@@ -36,6 +42,12 @@ const Chats = () => {
                         member: chat
                     }
                 }
+            })
+            dispatch({
+              type: "currentChat",
+              payload: {
+                chat
+              }
             })
         }
         else {
@@ -54,10 +66,13 @@ const Chats = () => {
                 }
             })
         }
-        dispatch({
-            type: "setCurrentChat",
-        })
+        // dispatch({
+        //     type: "setCurrentChat",
+        // })
     }, [])
+
+
+    // console.log(currentChat)
   return (
     <Box>
     {value.length === 0 || isFetching ? 
@@ -96,7 +111,7 @@ const Chats = () => {
                     transition: "0.5s ease-in-out"
                   }}
                   key={index}
-                  // onClick={()=>changeCurrentChat(index, contact)}
+                  onClick={()=>handleChatChange(index, contact)}
                 >
                   <Box
                     // avatar
@@ -152,7 +167,7 @@ const Chats = () => {
                     transition: "0.5s ease-in-out"
                   }}
                   key={contact}
-                  // onClick={()=>changeCurrentChat(index, contact)}
+                  onClick={()=>handleChatChange(index, contact)}
                 >
                   <Box
                     // avatar

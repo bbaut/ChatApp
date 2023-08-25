@@ -142,7 +142,6 @@ const addMemberGroup = async (req, res) => {
 }
 const removeMemberGroup = async (req, res) => {
     const chatObject = req.body.object 
-    console.log(chatObject)
     try {
         const chat = await Groups.findById(chatObject.id)
 
@@ -151,8 +150,6 @@ const removeMemberGroup = async (req, res) => {
                 { $pull: { members: chatObject.member }},
                 { new: true }
         )
-
-        console.log(chatUpdated) 
 
         res.json(chatUpdated)
     } catch (err) {

@@ -3,18 +3,22 @@ import { Box, Typography } from '@mui/material'
 import { useParams } from 'react-router-dom';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-const ChatContainer = ({currentChat, currentMember, messages}) => {
+const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
     const dispatch = useDispatch();
-    const { chatId } = useParams();
+    // const { chatId } = useParams();
+    const {username} = useSelector(
+        (state) => state.user.value
+    )
 
     const handleSendMsg = async (msg, isScribble) => {
         dispatch({
             type: "createNewMessage",
             payload: {
                 newMessage: {
-                    chatId: chatId,
+                    chatId: currentRoom,
                     message: {
                       text: msg,
                       isScribble: isScribble
@@ -24,6 +28,28 @@ const ChatContainer = ({currentChat, currentMember, messages}) => {
             }
         })
     }
+
+    useEffect(() => {
+        console.log(currentChat)
+        console.log(currentRoom)
+        if(currentChat !== "undefined"){
+
+        dispatch({
+            type:"queryMessages",
+            payload: 
+            {
+                queryInput: {
+                    chatId: currentRoom,
+                    from: username
+                }
+            }
+        })
+        }
+        // else{
+        //     navigate(`/dashboard/chats`)
+        //     handleChatChange(undefined)
+        // }
+    }, [currentRoom])
 
     return (
         <Box 

@@ -11,13 +11,20 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSubscription } from '@apollo/client';
 import Feed from "../components/Feed"
 import Sidebar from '../components/Sidebar';
 import CONTACT_REQUEST from '../gql/contactRequest';
 import ACCEPT_CONTACT_REQUEST from '../gql/acceptContact';
-import DELETE_CONTACT from "../gql/deleteContact"
+import DELETE_CONTACT from "../gql/deleteContact";
+import CREATED_GROUP from '../gql/createdGroup';
+import ADDED_MEMBER from '../gql/addedMember';
+import REMOVED_MEMBER from '../gql/removedMember';
+import ChatContainer from '../components/ChatContainer';
+import GroupContainerChat from '../components/Groups/GroupContainerChat';
+import { useTranslation } from "react-i18next"
 
 
 const BoxContainer = styled(Box)(() => ({
@@ -32,8 +39,21 @@ const BoxContainer = styled(Box)(() => ({
   }));
 
 const Dashboard = () => {
+  const [alert, setAlert] = useState("");
+  const {t} = useTranslation();
+  // const [ currentChat, setCurrentChat] = useState(undefined); 
     const { value } = useSelector(
         (state) => state.display
+    );
+    const { currentChat, currentRoom, currentGroup} = useSelector(
+        (state) => state.chat
+    );
+    const {username} = useSelector(
+      (state) => state.user.value
+    )
+
+    const { groupMembers } = useSelector(
+      (state) => state.chat
     );
 
     const dispatch = useDispatch();
@@ -52,7 +72,6 @@ const Dashboard = () => {
 
     useSubscription(ACCEPT_CONTACT_REQUEST, {
         onData: (data) => {
-          console.log(data)
           dispatch({
             type: "isFetchingContact"
           })
@@ -79,14 +98,85 @@ const Dashboard = () => {
         }
       })
 
-    return (
-        <BoxContainer sx={{height: "100vh"}}>
+      useSubscription(CREATED_GROUP, {
+        onData: (data) => {
+            dispatch({
+                type: "setNewGroup",
+                payload: {
+                    groups: data.data.data.createdGroup
+                }
+            })
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+      })
+
+
+    useSubscription(ADDED_MEMBER, {
+        onData: (data) => {
+            dispatch({
+                type: "setAddedMember",
+                payload: {
+                    member: data.data.data.addedMember
+                }
+            })
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+      })
+
+    useSubscription(REMOVED_MEMBER, {
+        onData: (data) => {
+            dispatch({
+                type: "setRemovedMember",
+                payload: {
+                    member: data.data.data.removedMember
+                }
+            })
+
+            if(data.data.data.removedMember.username === username){
+                setAlert(t("removedOfTheGroup"))
+            }
+            // setCurrentChat(undefined)
+            // navigate("/dashboard/groups")
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+      })
+
+      if(currentChat !== "undefined"){
+        return (
+            <BoxContainer sx={{height: "100vh"}}>
+                <Box sx={{padding:"1rem", height: "100vh", width: "100vw", backgroundColor:"#080420", display: "grid", gridTemplateColumns: "25% 75%"}}>
+                  <Sidebar/>
+                  <ChatContainer currentChat={currentChat} currentMember={username} currentRoom={currentRoom}/>
+                </Box>
+            </BoxContainer>
+        )
+      }
+      else if (currentGroup !== "undefined"){
+        return (
+          <BoxContainer sx={{height: "100vh"}}>
+              <Box sx={{padding:"1rem", height: "100vh", width: "100vw", backgroundColor:"#080420", display: "grid", gridTemplateColumns: "25% 75%"}}>
+                <Sidebar/>
+                <GroupContainerChat groupMembers={groupMembers} currentGroup={currentGroup} currentRoom={currentRoom}/>
+              </Box>
+          </BoxContainer>
+        )
+      }
+      else {
+        return (
+          <BoxContainer sx={{height: "100vh"}}>
             <Box sx={{padding:"1rem", height: "100vh", width: "100vw", backgroundColor:"#080420", display: "grid", gridTemplateColumns: "25% 75%"}}>
-            <Sidebar/>
-            <Feed/>
+              <Sidebar/>
+              <Feed/>
             </Box>
         </BoxContainer>
-    )
+        )
+      }
 }
 
 export default Dashboard

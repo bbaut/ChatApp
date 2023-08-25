@@ -19,6 +19,7 @@ const ChatMessages = ({currentMember, currentChat}) => {
 
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
+      console.log(data)
         if(data.data.data.sendMessage.sender === currentMember){
           sendedby = "sended"
 
@@ -29,6 +30,7 @@ const ChatMessages = ({currentMember, currentChat}) => {
         dispatch({
             type: "addNewMessage",
             payload: {
+              chatId: data.data.data.sendMessage.chatId,
               text: data.data.data.sendMessage.message.text,
               sender: sendedby,
               isScribble: data.data.data.sendMessage.message.isScribble,
@@ -51,6 +53,12 @@ const ChatMessages = ({currentMember, currentChat}) => {
       })
     }
   },[messages.length])
+
+  useEffect(() => {
+    dispatch({
+        type: "setCurrentChat",
+    })
+}, [])
 
   return (
     <Box

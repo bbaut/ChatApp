@@ -12,9 +12,11 @@ import removeRequest from "./deleteRequestSaga";
 import acceptFriend from "./acceptContactSaga";
 import acceptRequest from "./acceptRequestSaga";
 import newRoom from "./newRoomSaga";
+import currentChatClick from "./currentChatSaga";
 import newMessage from "./newMessageSaga";
 import queryMessages from "./getMessagesSaga";
 import addNewMessage from "./MessageSaga";
+import currentGroupClick from "./currentGroupSaga";
 import queryRoom from "./getRoomSaga";
 import newGroup from "./newGroupSaga";
 import queryGroup from "./getGroupSaga";
@@ -87,6 +89,10 @@ export function* watchRemoveRequest(){
 export function* watchCreateNewRoom(){
     yield takeLatest("createNewRoom", newRoom)
 }
+
+export function* watchCurrentChat(){
+    yield takeLatest("currentChat", currentChatClick)
+}
 export function* watchCreateNewGroup(){
     yield takeLatest("createNewGroup", newGroup)
 }
@@ -100,6 +106,10 @@ export function* watchAddNewMessage(){
 }
 export function* watchAddNewMessageParticipants(){
     yield takeEvery("addNewMessageParticipants", addNewMessageParticipants)
+}
+
+export function* watchCurrentGroup(){
+    yield takeEvery("currentGroup", currentGroupClick)
 }
 
 export function* watchGetMessages(){
@@ -178,10 +188,12 @@ export default function* rootSaga() {
         watchCreateNewRoom(),
         watchCreateNewGroup(),
         watchCreateNewMessage(),
+        watchCurrentChat(),
         watchAddNewMessage(),
         watchAddNewMessageParticipants(),
         watchGetMessages(),
         watchGetRoom(),
+        watchCurrentGroup(),
         watchGetGroup(),
         watchAddMemberGroup(),
         watchSetAddedMember(),

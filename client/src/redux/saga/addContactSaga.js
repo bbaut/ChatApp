@@ -20,7 +20,6 @@ function* addFriend(action) {
     };
     try {
       const data = yield call(client.mutate, options);
-      console.log(data)
     } catch (error) {
       yield put(setError(error.message));
       // if (error.message === "Request already sent") {

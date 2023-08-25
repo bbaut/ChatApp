@@ -356,6 +356,14 @@ const addGroup = async (req, res) => {
             chatName: groupName
         }
 
+        if(!user.chatContacts.includes(groupId)){
+            await Users.findOneAndUpdate(
+                {username: user.username},
+                {$push: { chatContacts: groupId } },
+                { new: true }
+            )
+        }
+
         const userUpdated = await Users.findOneAndUpdate(
             {username: user.username},
             { $push: { groups: userGroupObject }},
@@ -371,9 +379,11 @@ const addGroup = async (req, res) => {
 
 const addMemberGroup = async (req,res) => {
 
-    const memberToAdd = req.body.object.member
+    const memberToAdd = req.body.object.member;
+    const groupId = req.body.object.id;
+
     try {
-        console.log(req.body.object)
+
         const user = await Users.findOne({username: memberToAdd});
         
         if(!user){
@@ -386,14 +396,19 @@ const addMemberGroup = async (req,res) => {
             chatName: req.body.object.chatName
         }
 
-        console.log(userGroupObject)
+        if(!user.chatContacts.includes(groupId)){
+            await Users.findOneAndUpdate(
+                {username: user.username},
+                {$push: { chatContacts: groupId } },
+                { new: true }
+            )
+        }
 
         const userUpdated = await Users.findOneAndUpdate(
             {username: user.username},
             { $push: { groups: userGroupObject }},
             { new: true }
         )
-            console.log(userUpdated)
         return res.status(200).json(userUpdated);
     }
     catch (error) {
@@ -490,7 +505,7 @@ const deleteContact = async (req, res) => {
 
 const chatRoom = async(req,res) => {
     const {_id, createdBy, member} = req.body.chatObject
-
+    console.log(_id)
 
     try {
         const user = await Users.findOne({username: createdBy}); //The one who creates the room
@@ -519,7 +534,9 @@ const chatRoom = async(req,res) => {
 
 const checkChatUser = async (req, res) => {
     try {
+        console.log(req.query)
         let usersObject = await Users.find({chatContacts: req.query.chatIdentifier});
+        console.log(usersObject)
         let users = usersObject.map((user) => {
             return user.username
         })

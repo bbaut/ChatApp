@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import SidebarHeader from './SidebarHeader';
 import SidebarMenu from './SidebarMenu';
 import Chats from './Chats';
+import Groups from './Groups';
 import Contacts from './Contacts';
 import Requests from './Requests';
 import AddContact from './AddContact';
@@ -45,6 +46,24 @@ const Sidebar = () => {
                     <SidebarHeader/>
                     <SidebarMenu/>
                     <Contacts/>
+                </Box>
+            </>
+        )
+    }
+    else if (value === "groups") {
+        return (
+            <>
+                <Box 
+                sx={{
+                    display: "grid",
+                    gridTemplateRows: "10% 10% 80%",
+                    overflow: "hidden",
+                    backgroundColor: "#080420"
+                }}
+                >
+                    <SidebarHeader/>
+                    <SidebarMenu/>
+                    <Groups/>
                 </Box>
             </>
         )

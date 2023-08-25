@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import GroupInputChat from './GroupInputChat';
@@ -22,9 +23,8 @@ import { Box,
     DialogActions } from '@mui/material'
 import { styled } from "@mui/material/styles";
 
-const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
+const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
     const dispatch = useDispatch();
-    const { chatId } = useParams();
     const { contacts, username } = useSelector(
         (state) => state.user.value
     );
@@ -46,12 +46,12 @@ const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
             type: "createNewMessage",
             payload: {
                 newMessage: {
-                    chatId: chatId,
+                    chatId: currentRoom,
                     message: {
                         text: msg,
                         isScribble: isScribble
                     },
-                    sender: currentMember
+                    sender: username
                 }
             }
         })
@@ -68,7 +68,6 @@ const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
     }
 
     const handleOnClickAdd = async () => {
-        console.log(chatId)
         if (member === ""){
             setAlert(t("usernameRequired"))
             return
@@ -91,10 +90,10 @@ const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
         dispatch({
             type: "addMember",
             payload: {
-                username: currentMember,
-                id: chatId,
+                username: username,
+                id: currentRoom,
                 member: member,
-                chatName: currentChat
+                chatName: currentGroup
             }
         })
 
@@ -107,16 +106,35 @@ const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
         dispatch({
             type: "removeMember",
             payload: {
-                username: currentMember,
-                id: chatId,
-                member: currentMember,
-                chatName: currentChat
+                username: username,
+                id: currentRoom,
+                member: username,
+                chatName: currentGroup
             }
         })
     }
 
+    useEffect(() => {
+        if(currentGroup !== "undefined"){
+
+        dispatch({
+            type:"queryMessages",
+            payload: 
+            {
+                queryInput: {
+                    chatId: currentRoom,
+                    from: username
+                }
+            }
+        })
+        }
+        // else{
+        //     navigate(`/dashboard/chats`)
+        //     handleChatChange(undefined)
+        // }
+    }, [currentRoom])
+
     const handleOnClickRemove = async () => {
-        console.log(chatId)
         if (member === ""){
             setAlert(t("usernameRequired"))
             return
@@ -138,10 +156,10 @@ const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
         dispatch({
             type: "removeMember",
             payload: {
-                username: currentMember,
-                id: chatId,
+                username: username,
+                id: currentRoom,
                 member: member,
-                chatName: currentChat
+                chatName: currentGroup
             }
         })
         setAlert("");
@@ -185,7 +203,7 @@ const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
                     }}
                 >
                     <Typography variant='h4' color="white">
-                        {currentChat}
+                        {currentGroup}
                     </Typography>
                 </Box>
                 {createdBy === username ? 
@@ -291,7 +309,7 @@ const GroupContainer = ({currentChat, currentMember, groupMembers}) => {
                     </DialogActions>
                 </Dialog>
             </Box>
-            <GroupMessagesChat currentMember={currentMember}/>
+            <GroupMessagesChat currentMember={username}/>
             <GroupInputChat handleSendMsg={handleSendMsg}/>
         </Box>
     )

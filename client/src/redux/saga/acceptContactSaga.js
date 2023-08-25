@@ -12,6 +12,10 @@ function* acceptFriend(action) {
                 contacts
                 username
                 chatContacts
+                groups{
+                        chatId
+                        chatName
+                    }
                 requests {
                 from
                 to

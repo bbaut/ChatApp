@@ -56,6 +56,12 @@ const GroupMessagesChat = ({currentMember}) => {
     }
   },[messages.length])
 
+  useEffect(() => {
+    dispatch({
+        type: "setCurrentChat",
+    })
+}, [])
+
   return (
     <Box
       sx={{

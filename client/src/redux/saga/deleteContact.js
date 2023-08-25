@@ -16,6 +16,10 @@ function* deleteContact(action) {
                         from
                         to
                     }
+                    groups{
+                        chatId
+                        chatName
+                    }
                 }
             }
         `,
