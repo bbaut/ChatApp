@@ -9,7 +9,7 @@
 //   export default Dashboard
 
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,10 +26,9 @@ import ChatContainer from '../components/ChatContainer';
 import GroupContainerChat from '../components/Groups/GroupContainerChat';
 import { useTranslation } from "react-i18next"
 
-
 const BoxContainer = styled(Box)(() => ({
-    height: "100vh",
-    width: "100vw",
+    // height: "100vh",
+    // width: "100vw",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -41,6 +40,7 @@ const BoxContainer = styled(Box)(() => ({
 const Dashboard = () => {
   const [alert, setAlert] = useState("");
   const {t} = useTranslation();
+
   // const [ currentChat, setCurrentChat] = useState(undefined); 
     const { value } = useSelector(
         (state) => state.display
@@ -149,8 +149,8 @@ const Dashboard = () => {
 
       if(currentChat !== "undefined"){
         return (
-            <BoxContainer sx={{height: "100vh"}}>
-                <Box sx={{padding:"1rem", height: "100vh", width: "100vw", backgroundColor:"#080420", display: "grid", gridTemplateColumns: "25% 75%"}}>
+            <BoxContainer>
+                <Box sx={{padding:"1rem", height: "100vh", width: "100%", backgroundColor:"#080420", display: "grid", gridTemplateColumns: "25% 75%"}}>
                   <Sidebar/>
                   <ChatContainer currentChat={currentChat} currentMember={username} currentRoom={currentRoom}/>
                 </Box>
@@ -179,4 +179,4 @@ const Dashboard = () => {
       }
 }
 
-export default Dashboard
+export default Dashboard;

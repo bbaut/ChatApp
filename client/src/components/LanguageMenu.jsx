@@ -42,7 +42,7 @@ export default function LanguageMenu() {
   }
 
   return (
-    <div>
+    <>
       <IconButton
         aria-label="more"
         id="long-button"
@@ -50,9 +50,9 @@ export default function LanguageMenu() {
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleClick}
-        sx={{ my: 2, display: 'block', padding:'0 20px'}}
+        sx={{ my: 1, ml:1, display: 'block', color: {xs: 'inherit', sm: 'inherit', md: 'inherit', lg:'white'}}}
       >
-        <LanguageIcon style={{ fill: "white" }}/>
+        <LanguageIcon />
       </IconButton>
       <Menu
         id="long-menu"
@@ -75,6 +75,6 @@ export default function LanguageMenu() {
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </>
   );
 }

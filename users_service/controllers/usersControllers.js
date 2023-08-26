@@ -382,6 +382,8 @@ const addMemberGroup = async (req,res) => {
     const memberToAdd = req.body.object.member;
     const groupId = req.body.object.id;
 
+    console.log(req.body.object)
+
     try {
 
         const user = await Users.findOne({username: memberToAdd});
@@ -417,20 +419,30 @@ const addMemberGroup = async (req,res) => {
 }
 
 const removeMemberGroup = async (req,res) => {
-    const memberToAdd = req.body.object.member
+
+    const memberToRemove = req.body.object.member
+    const groupId = req.body.object.id;
+    const chatName = req.body.object.chatName;
+
     try {
-        const user = await Users.findOne({username: memberToAdd});
+        const user = await Users.findOne({username: memberToRemove});
         
         if(!user){
             const error = new Error('User not found');
             return res.status(404).json({msg: error.message});
         }
 
-        console.log(req.body.object)
+        if(user.chatContacts.includes(groupId)){
+            await Users.findOneAndUpdate(
+                {username: user.username},
+                {$pull: { chatContacts: groupId } },
+                { new: true }
+            )
+        }
 
         const userGroupObject = {
-            chatId: req.body.object.id,
-            chatName: req.body.object.chatName
+            chatId: groupId,
+            chatName: chatName
         }
 
         const userUpdated = await Users.findOneAndUpdate(
@@ -438,9 +450,6 @@ const removeMemberGroup = async (req,res) => {
             { $pull: { groups: userGroupObject }},
             { new: true }
         )
-
-        console.log(userUpdated)
-
         return res.status(200).json(userUpdated);
     }
     catch (error) {

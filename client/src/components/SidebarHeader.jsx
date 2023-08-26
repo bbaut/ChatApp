@@ -10,6 +10,10 @@ const SidebarHeader = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
+    const { image } = useSelector(
+    (state) => state.user.value
+  );
+
     const ITEM_HEIGHT = 48;
 
     const handleLogout = () => {
@@ -41,7 +45,7 @@ const SidebarHeader = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "1rem"
+              gap: "1rem",
             }}
           >
             <IconButton
@@ -52,11 +56,11 @@ const SidebarHeader = () => {
             >
             <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Avatar">
-                    {/* {image ? 
+                    {image ? 
                     <Avatar alt="Remy Sharp" src={image} />
-                    :  */}
+                    : 
                     <Avatar alt="Remy Sharp" src={avatar} />
-                    {/* } */}
+                    }
                 </Tooltip>
               </Box>
               </IconButton>

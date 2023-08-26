@@ -38,6 +38,7 @@ const chatSlice = createSlice({
             state.isFetching = false;
             state.currentRoom = action.payload._id;
             state.groupMembers = action.payload.members;
+            state.chatMember = action.payload.members;
             state.groupName = action.payload.groupName;
             state.createdBy = action.payload.createdBy;
         },
@@ -53,7 +54,8 @@ const chatSlice = createSlice({
         currentRoom: (state = null, action) => {
             state.isFetching = false;
             state.currentRoom = action.payload.chatId;
-            state.chatMember = action.payload.chatMember;
+            // state.chatMember = action.payload.chatMember;
+            // state.chatMember = [...state.chatMember, action.payload.chatMember]
         },
         getRoomMessages: (state = null, action) => {
             state.value = action.payload;
@@ -67,20 +69,23 @@ const chatSlice = createSlice({
         setRemovedMember: (state = null, action) => {
               const newMembers = [];
 
-              if(state.chatMember.length !== 0){
-                  state.chatMember.forEach(element => {
-                        if(element !== action.payload){
-                           newMembers.push(element)
-                        }
-                    })
-              }
-              else {
+              console.log(state.chatMember.length)
+              console.log(state.groupMembers.length)
+
+            //   if(state.chatMember.length !== 0){
+            //       state.chatMember.forEach(element => {
+            //             if(element !== action.payload){
+            //                newMembers.push(element)
+            //             }
+            //         })
+            //   }
+            //   else {
                 state.groupMembers.forEach(element => {
                     if(element !== action.payload){
                        newMembers.push(element)
                     }
                 })
-            }
+            // }
             state.groupMembers = newMembers;
 
               state.chatMember = newMembers;

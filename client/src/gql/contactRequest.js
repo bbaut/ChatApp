@@ -5,6 +5,11 @@ const CONTACT_REQUEST = gql`
     addContactRequest {
       contacts
       email
+      image
+      groups {
+            chatId
+            chatName
+            }
       requests {
           from
           to

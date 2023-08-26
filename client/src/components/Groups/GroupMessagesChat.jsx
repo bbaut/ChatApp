@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 const GroupMessagesChat = ({currentMember}) => {
 
-  const {chatId} = useParams();
+  // const {chatId} = useParams();
 
   const { value, valueGroup, isFetching } = useSelector(
     (state) => state.chat
@@ -21,7 +21,7 @@ const GroupMessagesChat = ({currentMember}) => {
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
       console.log(data.data.data.sendMessage)
-        if(data.data.data.sendMessage.chatId === chatId){
+        // if(data.data.data.sendMessage.chatId === chatId){
           if(data.data.data.sendMessage.sender === currentMember){
             sendedby = "sended"
 
@@ -32,13 +32,14 @@ const GroupMessagesChat = ({currentMember}) => {
           dispatch({
               type: "addNewMessage",
               payload: {
+                chatId: data.data.data.sendMessage.chatId,
                 text: data.data.data.sendMessage.message.text,
                 sender: sendedby,
                 sendedBy: data.data.data.sendMessage.sender,
                 isScribble: data.data.data.sendMessage.message.isScribble
               },
           })
-        }
+        // }
     },
     onError: (error) => {
         console.log(error)

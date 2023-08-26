@@ -12,6 +12,7 @@ function* addMemberGroup(action) {
             addMemberGroup(addMemberInput: $addMemberInput) {
                 _id
                 contacts
+                image
                 chatContacts
                 email
                 groups {

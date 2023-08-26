@@ -5,6 +5,7 @@ const REMOVED_MEMBER = gql`
         removedMember {
         _id
         contacts
+        image
         email
         groups {
         chatId

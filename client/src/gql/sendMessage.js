@@ -6,7 +6,6 @@ const SEND_MESSAGE = gql`
             chatId
             message {
                 text
-                sender
                 isScribble
             }
             sender

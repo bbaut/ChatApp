@@ -87,7 +87,6 @@ const Groups = () => {
       };
     
       let groupsArray = [];
-      console.log(groups)
         if (groups.length !== 0) {  
             for (let i = 0; i<  groups.length; i++){
                 groupsArray.push(groups[i].chatName)

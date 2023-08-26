@@ -9,6 +9,7 @@ function* removeMemberGroup(action) {
             removeMemberGroup(removeMemberInput: $removeMemberInput) {
                 _id
                 contacts
+                image
                 chatContacts
                 email
                 groups {
