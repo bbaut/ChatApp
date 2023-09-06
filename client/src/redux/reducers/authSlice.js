@@ -12,6 +12,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
       auth: (state=null, action) => {
+        state.error = null
         let auth = { 
           userAuthenticated: action.payload
         }
@@ -27,6 +28,9 @@ const authSlice = createSlice({
       },
       fetching: (state=null, action) => {
         state.isFetching = action.payload
+      },
+      loginError: (state=null, action) => {
+        state.error = action.payload
       }
     },
   });
@@ -35,7 +39,8 @@ const authSlice = createSlice({
     auth,
     logoutUser,
     loading,
-    fetching
+    fetching,
+    loginError
   } = authSlice.actions;
   
   export default authSlice.reducer;

@@ -13,7 +13,7 @@ const Login = () => {
     (state) => state.user
   );
 
-  const {auth} = useSelector(
+  const {auth, error} = useSelector(
     (state) => state.auth
   )
 
@@ -54,6 +54,20 @@ const Login = () => {
     i18n.changeLanguage(localStorage.getItem("language"));
   },[language])
 
+  useEffect(()=>{
+    if(error === "The user does not exist"){
+      setAlert(t("userNotFound"))
+      setTimeout(() => {
+        setAlert('');
+      }, 2000)
+    }
+    else if (error === "The password is incorrect"){
+      setAlert(t("incorrectPassword"))
+      setTimeout(() => {
+        setAlert('');
+      }, 2000)
+    }
+  }, [error])
 
   if(Object.keys(auth).length !== 0){
     return <Navigate to="/dashboard"/>

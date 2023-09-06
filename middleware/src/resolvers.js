@@ -111,13 +111,14 @@ const resolvers = {
                 return auth;
             }
             catch(error){
-                if (error.extensions.response.status === 403){
-                    return res.status(403).json(error.extensions.response.body)
-                }
+                throw new GraphQLError(error.extensions.response.body.msg)
+                // if (error.extensions.response.status === 403){
+                //     throw new GraphQLError(error.extensions.response.body.msg);
+                // }
 
-                if(error.extensions.response.status === 404){
-                    return res.status(404).json(error.extensions.response.body)
-                }
+                // if(error.extensions.response.status === 404){
+                //     throw new GraphQLError(error.extensions.response.body.msg);
+                // }
             }
         },
 

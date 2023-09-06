@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { call, put } from "redux-saga/effects";
-import { auth, fetching } from "../reducers/authSlice";
+import { auth, fetching, loginError } from "../reducers/authSlice";
 import client from "../../apolloClient";
 
 function* login(action) {
@@ -24,8 +24,8 @@ function* login(action) {
     document.cookie = `token = ${data.data.loginUser.token}`;
     localStorage.setItem('email', data.data.loginUser.email);
     yield put(auth(data.data.loginUser));
-  } catch (err) {
-    yield console.log({ error: "errorSendMessage", severity: "warning" });
+  } catch (error) {
+    yield put(loginError(error.message));
   }
 }
 

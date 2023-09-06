@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link, useFetcher } from "react-router-dom"
+import { Link, useFetcher, useNavigate } from "react-router-dom"
 import { Container, Stack, TextField, Button, Typography, Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -11,6 +11,7 @@ import avatar from "../assets/profile-image.jpeg"
 
 const Register = () => {
     let dispatch = useDispatch();
+    let navigate = useNavigate();
 
     const {t, i18n} = useTranslation();
 
@@ -82,7 +83,8 @@ const Register = () => {
         setSuccess(t("succesfulCreation"))
         setTimeout(() => {
           setSuccess('');
-        }, 2000)
+          navigate("/");
+        }, 1000)
 
         setUsername('');
         setEmail('');
@@ -132,7 +134,9 @@ const Register = () => {
         setAlert("")
         setTimeout(() => {
           setSuccess('');
-        }, 2000)
+          navigate("/");
+        }, 1000)
+        console.log("great")
       }
     }, [error])
 
@@ -224,6 +228,7 @@ const Register = () => {
                             name="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
+                            helperText="Password must be at least 6 characters long"
                             type="password"
                         />
                         <TextField
