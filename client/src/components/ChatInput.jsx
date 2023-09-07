@@ -9,6 +9,7 @@ import "./ChatInput.css"
 import Canvas from './Canvas';
 import GestureIcon from '@mui/icons-material/Gesture';
 import EmojiPicker from 'emoji-picker-react';
+import CloseIcon from '@mui/icons-material/Close';
 
 const BoxContainer = styled(Box)(() => ({
     display:"flex",
@@ -25,12 +26,14 @@ const ChatInput = ({handleSendMsg}) => {
     const [text, setText] = useState('');
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [open, setOpen] = useState(false);
+    const [openEmoji, setOpenEmoji] = useState(false);
     const [error, setError] = useState(false);
 
     const {t} = useTranslation();
 
     const handleEmojiPicker = () => {
         setShowEmojiPicker(!showEmojiPicker) 
+        setOpenEmoji(!openEmoji);
     }
 
     const sendChat = (e) => {
@@ -91,7 +94,12 @@ const ChatInput = ({handleSendMsg}) => {
                 }}
                 onClick={handleEmojiPicker}
             >
-                <EmojiEmotionsIcon sx={{color: "#ffff00c4"}}/>
+                {   
+                    openEmoji ?
+                    <CloseIcon sx={{color: "#ffffff"}}/>
+                    :
+                    <EmojiEmotionsIcon sx={{color: "#ffff00c4"}}/>
+                }
             </IconButton>
             {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick}/>}
             <TextField
