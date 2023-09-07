@@ -67,7 +67,6 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
         setOpenMembers(true);
     }
 
-    console.log(currentRoom)
     const handleOnClickAdd = async () => {
         if (member === ""){
             setAlert(t("usernameRequired"))

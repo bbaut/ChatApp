@@ -31,6 +31,7 @@ type UserData {
     _id: ID!
     username: String
     email: String
+    chatContacts: [String]
     contacts: [String]
     requests: [Request]
     groups: [Groupdata]

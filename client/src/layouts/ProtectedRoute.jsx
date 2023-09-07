@@ -25,6 +25,8 @@ const ProtectedRoute = () => {
     (state) => state.user
   )
   
+    console.log(value)
+
   let username;
 
   if (auth.hasOwnProperty('userAuthenticated')){
