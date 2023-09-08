@@ -238,6 +238,7 @@ const resolvers = {
             }
         },
         removeMemberGroup: async (_, { removeMemberInput }, { dataSources }) => {
+
             if(removeMemberInput.username === removeMemberInput.member) {
                 return res.status(500)
             }

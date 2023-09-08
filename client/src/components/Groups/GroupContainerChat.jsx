@@ -103,13 +103,17 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
     }
 
     const handleLeaveGroup = async () => {
+        console.log("hey")
+        console.log(username)
+        console.log(currentRoom)
+        console.log(currentGroup)
+        console.log(member)
         dispatch({
             type: "removeMember",
             payload: {
-                username: username,
                 id: currentRoom,
-                member: username,
-                chatName: currentGroup
+                chatName: currentGroup,
+                member: username
             }
         })
     }

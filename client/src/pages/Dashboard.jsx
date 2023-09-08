@@ -129,6 +129,7 @@ const Dashboard = () => {
 
     useSubscription(REMOVED_MEMBER, {
         onData: (data) => {
+          console.log(data)
             dispatch({
                 type: "setRemovedMember",
                 payload: {

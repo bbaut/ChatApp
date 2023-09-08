@@ -55,6 +55,7 @@ const Chats = () => {
             //     email
             //   }
             // })
+            console.log(email)
         }
         else {
             return

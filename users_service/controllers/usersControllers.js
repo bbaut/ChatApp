@@ -426,7 +426,6 @@ const removeMemberGroup = async (req,res) => {
 
     try {
         const user = await Users.findOne({username: memberToRemove});
-        
         if(!user){
             const error = new Error('User not found');
             return res.status(404).json({msg: error.message});
@@ -450,6 +449,8 @@ const removeMemberGroup = async (req,res) => {
             { $pull: { groups: userGroupObject }},
             { new: true }
         )
+
+        console.log(userUpdated)
         return res.status(200).json(userUpdated);
     }
     catch (error) {

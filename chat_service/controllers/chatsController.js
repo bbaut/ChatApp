@@ -141,17 +141,23 @@ const addMemberGroup = async (req, res) => {
     }
 }
 const removeMemberGroup = async (req, res) => {
-    const chatObject = req.body.object 
+    const memberToRemove = req.body.object.member
+    const groupId = req.body.object.id;
+
     try {
-        const chat = await Groups.findById(chatObject.id)
+            const chat = await Groups.findById(groupId)
+            if(!chat){
+                const error = new Error('Group not found');
+                return res.status(404).json({msg: error.message});
+            }
 
-        const chatUpdated = await Groups.findOneAndUpdate(
-                {_id: chatObject.id},
-                { $pull: { members: chatObject.member }},
-                { new: true }
-        )
+            const chatUpdated = await Groups.findOneAndUpdate(
+                    {_id: groupId},
+                    { $pull: { members: memberToRemove }},
+                    { new: true }
+            )
 
-        res.json(chatUpdated)
+            res.json(chatUpdated)
     } catch (err) {
         return res.status(500).send(err.message);
     }
