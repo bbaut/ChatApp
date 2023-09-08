@@ -117,6 +117,8 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
     useEffect(() => {
         if(currentGroup !== "undefined"){
 
+        console.log(currentGroup)
+
         dispatch({
             type:"queryMessages",
             payload: 

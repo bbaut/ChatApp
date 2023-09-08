@@ -7,6 +7,7 @@ const ACCEPT_CONTACT_REQUEST = gql`
             contacts
             image
             email
+            chatContacts
             groups {
             chatId
             chatName

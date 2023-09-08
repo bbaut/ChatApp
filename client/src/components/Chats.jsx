@@ -12,7 +12,7 @@ const Chats = () => {
         (state) => state.contact
       )
 
-      const { contacts, username, image } = useSelector(
+      const { contacts, username, email } = useSelector(
         (state) => state.user.value
       );
 
@@ -49,6 +49,12 @@ const Chats = () => {
                 chat
               }
             })
+            // dispatch({
+            //   type: "setUser",
+            //   payload: {
+            //     email
+            //   }
+            // })
         }
         else {
             return

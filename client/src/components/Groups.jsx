@@ -79,7 +79,7 @@ const Groups = () => {
       })
 
       setGroupName("");
-        setOpen(false);
+      setOpen(false);
     }
 
     const handleClose = () => {

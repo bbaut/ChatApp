@@ -24,8 +24,6 @@ const ProtectedRoute = () => {
   const {value, isFetching} = useSelector(
     (state) => state.user
   )
-  
-    console.log(value)
 
   let username;
 

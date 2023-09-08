@@ -36,10 +36,11 @@ const chatSlice = createSlice({
         },
         currentGroup: (state = null, action) => {
             state.isFetching = false;
-            state.currentRoom = action.payload._id;
-            state.groupMembers = action.payload.members;
-            state.chatMember = action.payload.members;
+            state.currentGroup = action.payload.groupName;
             state.groupName = action.payload.groupName;
+            state.currentRoom = action.payload._id;
+            state.chatMember = action.payload.members;
+            state.groupMembers = action.payload.members;
             state.createdBy = action.payload.createdBy;
         },
         setChat:(state = null) => {
