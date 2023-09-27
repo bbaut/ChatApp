@@ -7,7 +7,7 @@ import Chats from './Chats';
 import Groups from './Groups';
 import Contacts from './Contacts';
 import Requests from './Requests';
-import AddContact from './AddContact';
+import SendRequest from './SendRequest';
 
 const Sidebar = () => {
     const { value } = useSelector(
@@ -99,7 +99,7 @@ const Sidebar = () => {
                 >
                     <SidebarHeader/>
                     <SidebarMenu/>
-                    <AddContact/>
+                    <SendRequest/>
                 </Box>
             </>
         )

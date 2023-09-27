@@ -22,7 +22,6 @@ function* newGroup(action) {
   try {
     yield put(isFetching());
     const data = yield call(client.mutate, options);
-    console.log(data)
     const _id = data.data.createGroupRoom._id;
     const members = data.data.createGroupRoom.members;
     const groupName = data.data.createGroupRoom.groupName;

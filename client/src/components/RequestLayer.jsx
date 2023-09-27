@@ -32,8 +32,6 @@ export default function RequestLayer({item}) {
                 }
             ]
         })
-
-        // navigate("/dashboard/contacts");
     }
     const handleDelete = (e) => {
         e.preventDefault();

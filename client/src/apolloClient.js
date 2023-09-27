@@ -1,6 +1,5 @@
 import { ApolloClient, InMemoryCache, HttpLink, split, from} from "@apollo/client";
 import { getMainDefinition } from '@apollo/client/utilities';
-import { setContext } from '@apollo/client/link/context'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 
@@ -8,9 +7,6 @@ const wsLink = new GraphQLWsLink(createClient({
     url: `ws://${window.location.host}/subscription`,
     connectionParams: {
       credentials: "same-origin"
-      // headers: {
-      //   authorization: localStorage.getItem('token')
-      // }
     },
   }));
 
@@ -30,15 +26,6 @@ const splitLink = split(
     wsLink,
     httpLink,
   );
-
-// const authLink = setContext((_, {headers}) => {
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: localStorage.getItem("token") || ""
-//     }
-//   }
-// })
 
 const client = new ApolloClient ({
     link: splitLink,

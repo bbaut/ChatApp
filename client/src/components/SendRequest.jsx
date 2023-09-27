@@ -2,13 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Stack, Avatar, Typography, Button } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
-const AddContact = () => {
+const SendRequest = () => {
     const dispatch = useDispatch()
     const {t} = useTranslation();
 
     const contact = useSelector(
-        (state) => state.findContactFunc.contact
+        (state) => state.findContact.contact
     );
+    
     const {auth} = useSelector(
         (state) => state.auth
     );
@@ -67,4 +68,4 @@ const AddContact = () => {
     )
 }
 
-export default AddContact
+export default SendRequest

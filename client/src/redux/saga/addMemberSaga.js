@@ -34,9 +34,6 @@ function* addMemberGroup(action) {
     };
     try {
       const res = yield call(client.mutate, options);
-      console.log(res)
-      // yield put(setAddedMember(action.payload.member.username));
-      // yield put(addGroup(action.payload.member));
     } catch (error) {
       
     }

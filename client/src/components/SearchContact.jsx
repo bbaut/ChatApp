@@ -1,24 +1,12 @@
 import { Stack, TextField, Button } from "@mui/material";
 import { useState } from "react";
-import { gql, useLazyQuery } from '@apollo/client';
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { find_contact } from "../redux/reducers/findContactReducer";
 import { useTranslation } from "react-i18next"
 
-const EXISTANCE_CONTACT = gql `
-    query ExistanceContact($existanceInput: ExistanceInput) {
-        existanceContact(existanceInput: $existanceInput) {
-            username,
-            email
-        }
-    }
-`
 
 const SearchContact = () => {
     const {t} = useTranslation();
 
-    const navigate = useNavigate();
     const dispatch = useDispatch(); 
 
     const { email } = useSelector(
@@ -26,23 +14,6 @@ const SearchContact = () => {
       );
     
     const [contactEmail, setContactEmail] = useState('');
-
-    const[existanceContact, {loading,error,data}] = useLazyQuery(EXISTANCE_CONTACT,{
-        variables: {existanceInput: {
-            email: contactEmail
-        }},
-        onError(graphQLErrors){
-            console.log(graphQLErrors.networkError.result.msg);
-        },
-        onCompleted(data) {
-          dispatch(find_contact(data));
-            dispatch({
-                type: "setDisplay",
-                payload: "addContact",
-            })
-        },
-    })
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +25,16 @@ const SearchContact = () => {
         if(contactEmail === email){
             return;
         }
-        existanceContact();
+        dispatch({
+            type: "existanceContact",
+            payload: {
+                email: contactEmail
+            }
+        })
+        dispatch({
+            type: "setDisplay",
+            payload: "addContact",
+        })
     }
     return (
         <form

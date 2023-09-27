@@ -1,12 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Avatar } from '@mui/material';
 import avatar from "../assets/profile-image.jpeg"
 
 const Chats = () => {
     const dispatch = useDispatch();
-
-    const [ currentChat, setCurrentChat] = useState(undefined); 
 
     const { value, isFetching } = useSelector(
         (state) => state.contact
@@ -49,13 +47,6 @@ const Chats = () => {
                 chat
               }
             })
-            // dispatch({
-            //   type: "setUser",
-            //   payload: {
-            //     email
-            //   }
-            // })
-            console.log(email)
         }
         else {
             return

@@ -39,20 +39,13 @@ const userSlice = createSlice({
     acceptNewRequest: (state=null, action) => {
       state.isFetching = false;
 
-
-      console.log(action.payload)
-
       const user = action.payload[0]
       const contact = action.payload[1]
 
       if (state.value.username === user.username) {
-        // state.value.contacts = [...state.value.contacts, contact.username]
-        // state.value.requests = user.requests
         state.value = user
       }
       if (state.value.username === contact.username) {
-        // state.value.contacts = [...state.value.contacts, user.username]
-        // state.value.requests = contact.requests
         state.value = contact
       }
 

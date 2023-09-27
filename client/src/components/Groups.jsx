@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Box, 
     Typography, 
     Button, 
@@ -8,8 +8,7 @@ import { Box,
     DialogContentText, 
     TextField, 
     DialogActions,
-    Avatar } from '@mui/material'
-import AvatarImg from "../assets/group.svg"
+} from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
@@ -25,16 +24,10 @@ const Groups = () => {
     const handleCreateGroup = () => {
         setOpen(true);
     }
-
-    const { currentRoom } = useSelector(
-        (state) => state.chat
-    );
     
-    const { groups, username, image } = useSelector(
+    const { groups, username } = useSelector(
         (state) => state.user.value
       );
-
-      let avatarProfile = image;
 
       const handleGroupChange = (index, chat) => {
         dispatch({

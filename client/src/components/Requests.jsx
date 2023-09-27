@@ -1,13 +1,11 @@
-import * as React from 'react';
 import List from '@mui/material/List';
 import { Box } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import RequestLayer from './RequestLayer';
 import { useTranslation } from "react-i18next"
 
 export default function AlignItemsList() {
-    const dispatch = useDispatch();
-    const {t, i18n} = useTranslation();
+    const {t} = useTranslation();
 
     const { requests } = useSelector(
         (state) => state.user.value

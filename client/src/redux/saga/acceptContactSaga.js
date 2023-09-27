@@ -32,7 +32,6 @@ function* acceptFriend(action) {
     };
     try {
         const userData = yield call(client.mutate, options);
-        console.log(userData)
         yield put( acceptNewRequest (userData.data.acceptContact));
     } catch (error) {
         yield console.log({ error: "add Friend Error", severity: "error" }

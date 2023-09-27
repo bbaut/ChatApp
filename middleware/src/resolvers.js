@@ -182,7 +182,6 @@ const resolvers = {
                 pubsub.publish("SEND_MESSAGE", {
                     sendMessage: createdMessage
                 })
-                console.log(createdMessage)
                 return createdMessage;
               } catch (err) {
                 const message = err.extensions.response.body.error;

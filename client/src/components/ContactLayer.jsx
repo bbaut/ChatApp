@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from 'react-redux';
 
 
-export default function ContactLayer({item, language, avatar}) {
+export default function ContactLayer({item, avatar}) {
 
     const dispatch = useDispatch()
 

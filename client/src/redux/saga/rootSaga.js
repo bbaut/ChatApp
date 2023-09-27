@@ -35,6 +35,7 @@ import chatNotification from "./chatNotificationsSaga";
 import isFetchingC from "./isFetchingContactSaga";
 import setErrorFunction from "./setErrorSaga";
 import setCurrentChatFunction from "./setCurrentChatSaga";
+import existanceContact from "./searchContactSaga";
 
 export function* watchLogin(){
     yield takeLatest("login", login);
@@ -170,6 +171,10 @@ export function* watchSetCurrentChat(){
     yield takeEvery("setCurrentChat", setCurrentChatFunction)
 }
 
+export function* watchExistanceContact(){
+    yield takeEvery("existanceContact", existanceContact)
+}
+
 export default function* rootSaga() {
     yield all([
         watchLogin(),
@@ -207,6 +212,7 @@ export default function* rootSaga() {
         watchChatNotification(),
         watchIsFetchingContact(),
         watchSetError(),
-        watchSetCurrentChat()
+        watchSetCurrentChat(),
+        watchExistanceContact()
     ]);
 }

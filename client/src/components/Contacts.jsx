@@ -1,5 +1,5 @@
 import List from '@mui/material/List';
-import { Box, Stack, Typography, colors } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import Search from "../components/SearchContact"
 import ContactLayer from '../components/ContactLayer';

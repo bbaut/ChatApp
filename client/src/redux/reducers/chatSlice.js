@@ -20,7 +20,6 @@ const chatSlice = createSlice({
     initialState,
     reducers: {
         addMessage: (state = null, action) => {
-            console.log(action.payload.chatId)
             if(state.currentRoom === action.payload.chatId) {
                 state.isFetching = false;
                 state.value = [...state.value, action.payload]
@@ -55,8 +54,6 @@ const chatSlice = createSlice({
         currentRoom: (state = null, action) => {
             state.isFetching = false;
             state.currentRoom = action.payload.chatId;
-            // state.chatMember = action.payload.chatMember;
-            // state.chatMember = [...state.chatMember, action.payload.chatMember]
         },
         getRoomMessages: (state = null, action) => {
             state.value = action.payload;
@@ -69,27 +66,14 @@ const chatSlice = createSlice({
         },
         setRemovedMember: (state = null, action) => {
               const newMembers = [];
-
-              console.log(state.chatMember.length)
-              console.log(state.groupMembers.length)
-
-            //   if(state.chatMember.length !== 0){
-            //       state.chatMember.forEach(element => {
-            //             if(element !== action.payload){
-            //                newMembers.push(element)
-            //             }
-            //         })
-            //   }
-            //   else {
-                state.groupMembers.forEach(element => {
-                    if(element !== action.payload){
-                       newMembers.push(element)
-                    }
-                })
-            // }
+            state.groupMembers.forEach(element => {
+                if(element !== action.payload){
+                    newMembers.push(element)
+                }
+            })
             state.groupMembers = newMembers;
 
-              state.chatMember = newMembers;
+            state.chatMember = newMembers;
         },
         isFetching: (state=null, action) => {
             state.isFetching = true;

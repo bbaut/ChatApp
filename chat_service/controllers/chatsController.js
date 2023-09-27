@@ -13,29 +13,29 @@ const createMessage = async (req, res) => {
 }
 
 const createChatRoom = async (req, res) => {
-    const roomCreatedOne = await Rooms.find({
+    const originalRoom = await Rooms.find({
         createdBy: req.body.createdBy,
         member: req.body.member
     })
 
-    const roomCreatedTwo = await Rooms.find({
+    const duplicateRoom = await Rooms.find({
         createdBy: req.body.member,
         member: req.body.createdBy
     })
 
     try {
-        if (roomCreatedOne.length === 0 ) {
-            if(roomCreatedTwo.length === 0 ) {
+        if (originalRoom.length === 0 ) {
+            if(duplicateRoom.length === 0 ) {
                 const room = new Rooms(req.body);
                 const roomSaved = await room.save();
                 return res.json(roomSaved);
             }
             else {
-                return res.json(roomCreatedTwo[0])
+                return res.json(duplicateRoom[0])
             }
         }
         else {
-            res.json( roomCreatedOne[0])
+            res.json(originalRoom[0])
         }
     } catch (err) {
       return res.status(500).send({ error: err.message });

@@ -19,7 +19,6 @@ const ChatMessages = ({currentMember, currentChat}) => {
 
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
-      console.log(data)
         if(data.data.data.sendMessage.sender === currentMember){
           sendedby = "sended"
 

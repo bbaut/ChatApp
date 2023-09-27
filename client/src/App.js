@@ -1,18 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AuthLayout from "./layouts/AuthLayout";
-import { ThemeProvider, createTheme } from "@mui/material";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register";
-import ProtectedRoute from "./layouts/ProtectedRoute";
-import Dashboard from "./pages/Dashboard";
-import Contacts from "./pages/Contacts";
-import {AuthProvider} from "./context/AuthProvider"
-import AddContact from "./pages/AddContact";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import AuthLayout from './layouts/AuthLayout';
+import { ThemeProvider, createTheme } from '@mui/material';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register';
+import ProtectedRoute from './layouts/ProtectedRoute';
+import Dashboard from './pages/Dashboard';
+// import Contacts from './pages/Contacts';
+import {AuthProvider} from './context/AuthProvider';
+// import AddContact from './pages/AddContact';
 import store from './redux/store';
-import Requests from "./pages/Requests";
-import Chat from "./pages/Chat";
-import Group from "./pages/Groups";
+// import Requests from './pages/Requests';
+// import Chat from './pages/Chat';
+// import Group from './pages/Groups';
 
 
 const theme = createTheme({
@@ -42,7 +42,7 @@ function App() {
           </Route>
           <Route path="/dashboard" element={ <ProtectedRoute/>}>
             <Route index element={<Dashboard/>}/>
-            <Route path="contacts" element={<Contacts/>}/>
+            {/* <Route path="contacts" element={<Contacts/>}/>
             <Route path="addcontact" element={<AddContact/>}/>
             <Route path="requests" element={<Requests/>}/>
             <Route path="chats" element={<Chat/>}>
@@ -50,7 +50,7 @@ function App() {
             </Route>
             <Route path="groups" element={<Group/>}>
               <Route path="group/:chatId" element={<Chat/>}/>
-            </Route>
+            </Route> */}
           </Route>
         </Routes>
       </AuthProvider>

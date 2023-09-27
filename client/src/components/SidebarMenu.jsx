@@ -1,7 +1,5 @@
 import React from 'react'
-import { Typography, Box, Tooltip, Avatar, Button, Link,MenuItem, IconButton, Menu } from '@mui/material'
-import { useTranslation } from "react-i18next"
-import avatar from "../assets/profile-image.jpeg"
+import { Box, Button, MenuItem, IconButton, Menu } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ContactsIcon from '@mui/icons-material/Contacts';
@@ -12,7 +10,6 @@ import { useDispatch } from 'react-redux';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const SidebarMenu = () => {
-    const {t} = useTranslation();
     const dispatch = useDispatch();
     const [anchorElNav, setAnchorElNav] = useState(null);
 

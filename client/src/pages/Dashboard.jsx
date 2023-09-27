@@ -1,13 +1,3 @@
-// import Feed from "../components/Feed"
-
-// const Dashboard = () => {
-//     return (
-//         <Feed/>
-//     )
-//   }
-  
-//   export default Dashboard
-
 import React from 'react'
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -27,8 +17,6 @@ import GroupContainerChat from '../components/Groups/GroupContainerChat';
 import { useTranslation } from "react-i18next"
 
 const BoxContainer = styled(Box)(() => ({
-    // height: "100vh",
-    // width: "100vw",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -41,7 +29,6 @@ const Dashboard = () => {
   const [alert, setAlert] = useState("");
   const {t} = useTranslation();
 
-  // const [ currentChat, setCurrentChat] = useState(undefined); 
     const { value } = useSelector(
         (state) => state.display
     );
@@ -129,7 +116,6 @@ const Dashboard = () => {
 
     useSubscription(REMOVED_MEMBER, {
         onData: (data) => {
-          console.log(data)
             dispatch({
                 type: "setRemovedMember",
                 payload: {
@@ -140,8 +126,6 @@ const Dashboard = () => {
             if(data.data.data.removedMember.username === username){
                 setAlert(t("removedOfTheGroup"))
             }
-            // setCurrentChat(undefined)
-            // navigate("/dashboard/groups")
         },
         onError: (error) => {
             console.log(error)

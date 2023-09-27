@@ -67,9 +67,6 @@ const subscriptions = {
                     if(membersArray.includes(authUser.username) || removedMember.username === authUser.username){
                         return true
                     }
-                    // if(removedMember.username === authUser.username) {
-                    //     return true
-                    // }
                 }
             )
         },

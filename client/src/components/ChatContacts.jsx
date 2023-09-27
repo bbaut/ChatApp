@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Typography, Avatar } from '@mui/material'
-import { useSelector,useDispatch } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from "react-i18next"
 import avatar from "../assets/profile-image.jpeg"
 
 const ChatContacts = ({contactsArray, currentMember, changeChat, avatarProfile, notifications}) => {
 
-  const [currentSelected, setCurrentSelected] = useState(undefined);
-  const [selectedContact, setSelectedContact] = useState("")
   const [invisible, setInvisible] = useState(true);
-  const { username } = useSelector(
-    (state) => state.user.value
-  );
 
   const {t} = useTranslation();
 
-  const { chatId } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { currentRoom } = useSelector(
     (state) => state.chat
@@ -47,27 +40,6 @@ useEffect(()=>{
     setSelectedContact(contact)
     changeChat(contact)
   }
-
-//   useEffect(() => {
-//     if(chatId){
-//         console.log(selectedContact)
-//     dispatch({
-//         type:"queryMessages",
-//         payload: 
-//         {
-//             queryInput: {
-//                 chatId: chatId,
-//                 from: username
-//             }
-//         }
-//     })
-//         changeChat(selectedContact);
-//     }
-//     else{
-//         navigate(`/dashboard/chats`)
-//         changeChat(undefined)
-//     }
-// }, [chatId])
 
   return (
     <> 

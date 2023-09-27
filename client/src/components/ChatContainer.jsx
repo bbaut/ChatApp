@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import { useParams } from 'react-router-dom';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +7,6 @@ import { useEffect } from 'react';
 
 const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
     const dispatch = useDispatch();
-    // const { chatId } = useParams();
     const {username} = useSelector(
         (state) => state.user.value
     )
@@ -30,8 +28,6 @@ const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
     }
 
     useEffect(() => {
-        console.log(currentChat)
-        console.log(currentRoom)
         if(currentChat !== "undefined"){
 
         dispatch({
@@ -45,10 +41,6 @@ const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
             }
         })
         }
-        // else{
-        //     navigate(`/dashboard/chats`)
-        //     handleChatChange(undefined)
-        // }
     }, [currentRoom])
 
     return (

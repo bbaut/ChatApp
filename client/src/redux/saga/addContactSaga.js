@@ -22,17 +22,6 @@ function* addFriend(action) {
       const data = yield call(client.mutate, options);
     } catch (error) {
       yield put(setError(error.message));
-      // if (error.message === "Request already sent") {
-      //   yield
-      //     console.log({ error: "add Friend Error", severity: "error" }
-      //   );
-      // } else if (error.message === "User not found") {
-      //   yield
-      //     console.log({ error: "user Not Found", severity: "error" }
-      //   );
-      // } else {
-      //   yield console.log({ error: error.message, severity: "error" });
-      // }
     }
   }
   
