@@ -177,6 +177,12 @@ const resolvers = {
 
         async createMessage(_, {createMessageInput}, {dataSources, req, res}){
             try {
+                const chatIdentifier = createMessageInput.chatId;
+                const usernamesArray = await dataSources.usersAPI.checkChatUser({chatIdentifier});
+
+                if(!usernamesArray.includes(createMessageInput.sender)){
+                    return;
+                }
                 const createdMessage = await dataSources.chatAPI.createMessage(createMessageInput);
 
                 pubsub.publish("SEND_MESSAGE", {

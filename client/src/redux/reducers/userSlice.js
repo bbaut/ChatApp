@@ -94,7 +94,8 @@ const userSlice = createSlice({
           state.value.chatContacts.push( action.payload.chatId);
         }
       }
-    }
+    },
+    cleanUserState: () => initialState
   },
 });
 
@@ -111,7 +112,8 @@ export const {
   deleteContact,
   createGroup,
   setError,
-  addChatContacts
+  addChatContacts,
+  cleanUserState
 } = userSlice.actions;
 
 export default userSlice.reducer;

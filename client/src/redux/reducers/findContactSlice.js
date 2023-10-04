@@ -10,10 +10,11 @@ const findContactSlice = createSlice({
     reducers: {
         contactFound: (state = null, action) => {
             state.contact = action.payload;
-        }
+        },
+        cleanFindState: () => initialState
     },
 });
 
-export const { contactFound } = findContactSlice.actions;
+export const { contactFound, cleanFindState } = findContactSlice.actions;
 
 export default findContactSlice.reducer;

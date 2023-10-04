@@ -33,7 +33,7 @@ const Feed = () => {
           maxHeight: { xs: 233, md: 167 },
           maxWidth: { xs: 350, md: 250 },
         }}
-        alt="The house from the offer."
+        alt="Robot saying hello"
         src={robot}
       />
         <h1>

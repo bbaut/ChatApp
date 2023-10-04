@@ -10,10 +10,11 @@ const displaySlice = createSlice({
     reducers: {
         setDisplay: (state = null, action) => {
             state.value = action.payload;
-        }
+        },
+        cleanDisplayState: () => initialState
     },
 });
 
-export const { setDisplay } = displaySlice.actions;
+export const { setDisplay, cleanDisplayState } = displaySlice.actions;
 
 export default displaySlice.reducer;

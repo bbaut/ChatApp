@@ -8,8 +8,6 @@ import { useParams } from 'react-router-dom';
 
 const GroupMessagesChat = ({currentMember}) => {
 
-  // const {chatId} = useParams();
-
   const { value, valueGroup, isFetching } = useSelector(
     (state) => state.chat
   );

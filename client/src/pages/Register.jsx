@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react"
-import { Link, useFetcher, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Container, Stack, TextField, Button, Typography, Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useTranslation } from "react-i18next"
 import avatar from "../assets/profile-image.jpeg"
-
-
 
 const Register = () => {
     let dispatch = useDispatch();
@@ -30,6 +28,7 @@ const Register = () => {
     const [alert, setAlert] = useState("");
     const [avatarImg, setAvatarImg] = useState("");
     const [success, setSuccess] = useState("");
+    const [passwordNotMatch, setPasswordNotMatch] = useState(false);
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
@@ -79,18 +78,21 @@ const Register = () => {
                 }
             }
         })
-        
-        setSuccess(t("succesfulCreation"))
-        setTimeout(() => {
-          setSuccess('');
-          navigate("/");
-        }, 1000)
+
+        if(error === null){
+          setSuccess(t("succesfulCreation"))
+          setTimeout(() => {
+            setSuccess('');
+            navigate("/");
+          }, 1000)
+        }
 
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
         setAvatarImg('');
+        setPasswordNotMatch(false);
     }
 
       const inputImage = (e) => {
@@ -129,16 +131,20 @@ const Register = () => {
           setAlert('');
         }, 2000)
       }
-      else if(error === "null"){
-        setSuccess(t("succesfulCreation"))
-        setAlert("")
-        setTimeout(() => {
-          setSuccess('');
-          navigate("/");
-        }, 1000)
-        console.log("great")
-      }
     }, [error])
+
+    useEffect(() => {
+      setAlert("")
+    },[])
+
+    useEffect(() => {
+      if(password != confirmPassword && confirmPassword != ""){
+        setPasswordNotMatch(true)
+      }
+      else {
+        setPasswordNotMatch(false)
+      }
+    },[password ,confirmPassword])
 
   return (
     <>
@@ -231,13 +237,26 @@ const Register = () => {
                             helperText="Password must be at least 6 characters long"
                             type="password"
                         />
-                        <TextField
+                        {passwordNotMatch ?
+                          <TextField
+                            error
+                            id="outlined-error-helper-text"
                             label={t("confirmPassword")}
                             name="confirmpassword"
                             value={confirmPassword}
                             onChange={e => setConfirmPassword(e.target.value)}
                             type="password"
-                        />
+                            helperText= {t("passwordsDontMatch")}
+                          />
+                        :
+                          <TextField
+                              label={t("confirmPassword")}
+                              name="confirmpassword"
+                              value={confirmPassword}
+                              onChange={e => setConfirmPassword(e.target.value)}
+                              type="password"
+                          />
+                        }
                     </Stack>
                     <Button variant="contained" type="submit">{t("register")}</Button>
                 </form>

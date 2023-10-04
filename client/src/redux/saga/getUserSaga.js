@@ -20,9 +20,11 @@ function* getUser(action) {
   };
 
   try {
+    // yield put(loading(true));
     const data = yield call(client.query, options);
     yield put(auth(data.data.profileUser));
-    yield put(loading(action.payload.loading));
+    // console.log(action.payload.loading)
+    yield put(loading(false));
   } catch (err) {
     yield put(
         console.log({ error: "errorQueryMessages", severity: "warning" })

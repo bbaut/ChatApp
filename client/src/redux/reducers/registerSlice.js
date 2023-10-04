@@ -15,10 +15,11 @@ const registerSlice = createSlice({
         },
         setError: (state = null, action) => {
             state.error = action.payload
-        }
+        },
+        cleanRegisterState: () => initialState
     },
 });
 
-export const { setRegisterFetching, setError } = registerSlice.actions;
+export const { setRegisterFetching, setError, cleanRegisterState } = registerSlice.actions;
 
 export default registerSlice.reducer;

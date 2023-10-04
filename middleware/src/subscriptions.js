@@ -29,7 +29,6 @@ const subscriptions = {
                 async ({sendMessage}, _, {dataSources, authUser}) => {
                     let chatIdentifier = sendMessage.chatId
                     let usernamesArray = await dataSources.usersAPI.checkChatUser({chatIdentifier})
-                    console.log(usernamesArray)
                     if (usernamesArray.includes(authUser.username)){
                         return true
                     }

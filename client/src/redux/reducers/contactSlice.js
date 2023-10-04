@@ -21,12 +21,14 @@ const contactSlice = createSlice({
       state.isFetching = false;
       state.value = action.payload
     },
+    cleanContactState: () => initialState
   },
 });
 
 export const {
   setData,
-  isFetching
+  isFetching,
+  cleanContactState
 } = contactSlice.actions;
 
 export default contactSlice.reducer;

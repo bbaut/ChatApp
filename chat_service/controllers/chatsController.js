@@ -125,7 +125,7 @@ const getGroup = async (req, res) => {
 }
 const addMemberGroup = async (req, res) => {
     const chatObject = req.body.object 
-    console.log(chatObject)
+
     try {
         const chat = await Groups.findById(chatObject.id)
         
@@ -134,7 +134,7 @@ const addMemberGroup = async (req, res) => {
                 { $push: { members: chatObject.member }},
                 { new: true }
         )
-        console.log(chatUpdated)
+
         res.json(chatUpdated)
     } catch (err) {
         return res.status(500).send(err.message);

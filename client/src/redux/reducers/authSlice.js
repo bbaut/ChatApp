@@ -7,6 +7,13 @@ const initialState = {
   auth: {},
 };
 
+const cleanState = {
+  isFetching: false,
+  error: null,
+  isLoading: false,
+  auth: {},
+};
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -23,7 +30,6 @@ const authSlice = createSlice({
         state.auth = action.payload
       },
       loading: (state=null, action) => {
-        // console.log(action.payload)
         state.isLoading = action.payload
       },
       fetching: (state=null, action) => {
@@ -31,7 +37,8 @@ const authSlice = createSlice({
       },
       loginError: (state=null, action) => {
         state.error = action.payload
-      }
+      },
+      cleanAuthState: () => cleanState
     },
   });
   
@@ -40,7 +47,8 @@ const authSlice = createSlice({
     logoutUser,
     loading,
     fetching,
-    loginError
+    loginError,
+    cleanAuthState
   } = authSlice.actions;
   
   export default authSlice.reducer;

@@ -89,11 +89,27 @@ const chatSlice = createSlice({
         },
         currentGroupChat: (state=null, action) => {
             state.currentGroup = action.payload.group
-        }
+        },
+        cleanChatState: () => initialState
     },
 });
 
-export const { addMessage, setChat, addMessageParticipants, currentRoom, currentGroup, getRoomMessages, setAddedMember, setRemovedMember, isFetching, setNotification, resetNotifications, currentChat, currentGroupChat} = chatSlice.actions;
+export const { 
+    addMessage, 
+    setChat, 
+    addMessageParticipants, 
+    currentRoom, 
+    currentGroup, 
+    getRoomMessages, 
+    setAddedMember, 
+    setRemovedMember, 
+    isFetching, 
+    setNotification, 
+    resetNotifications, 
+    currentChat, 
+    currentGroupChat,
+    cleanChatState
+} = chatSlice.actions;
 
 export default chatSlice.reducer;
 

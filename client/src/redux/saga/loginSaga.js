@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { call, put } from "redux-saga/effects";
-import { auth, fetching, loginError } from "../reducers/authSlice";
+import { auth, loginError } from "../reducers/authSlice";
 import client from "../../apolloClient";
 
 function* login(action) {

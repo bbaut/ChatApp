@@ -103,11 +103,6 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
     }
 
     const handleLeaveGroup = async () => {
-        console.log("hey")
-        console.log(username)
-        console.log(currentRoom)
-        console.log(currentGroup)
-        console.log(member)
         dispatch({
             type: "removeMember",
             payload: {
@@ -116,12 +111,16 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
                 member: username
             }
         })
+         dispatch({
+                type: "currentGroup",
+                payload: {
+                group: "undefined"
+                }
+         })
     }
 
     useEffect(() => {
         if(currentGroup !== "undefined"){
-
-        console.log(currentGroup)
 
         dispatch({
             type:"queryMessages",
