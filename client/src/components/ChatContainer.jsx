@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
     const dispatch = useDispatch();
-    const {username} = useSelector(
+    const {username, email} = useSelector(
         (state) => state.user.value
     )
 
@@ -21,7 +21,8 @@ const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
                       text: msg,
                       isScribble: isScribble
                     },
-                    sender: currentMember
+                    sender: currentMember,
+                    senderEmail: email
                   }
             }
         })

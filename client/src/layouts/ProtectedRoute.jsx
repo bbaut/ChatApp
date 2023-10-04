@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, Navigate, useParams } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { useSubscription } from "@apollo/client";
 import { CircularProgress } from "@mui/material";
@@ -10,13 +10,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ProtectedRoute = () => {
   const dispatch = useDispatch();
-  const { chatId } = useParams();
 
   const { auth, isLoading } = useSelector(
     (state) => state.auth
   );
 
-  const { notifications } = useSelector(
+  const { notifications, currentRoom } = useSelector(
     (state) => state.chat
   )
 
@@ -49,15 +48,18 @@ const ProtectedRoute = () => {
   })
 
   useEffect(() => {
-    if(notifications.sender === undefined || notifications.sender === username){
+    // console.log(notifications.chatId)
+    // console.log(value.chat)
+
+    if(notifications.sender === undefined || notifications.sender === username || currentRoom === notifications.chatId){
       return
     }
-    else if(chatId === notifications.chatId) {
-      return
-    }
-    else if(value.chatContacts.includes(notifications.chatId) || value.groups.chatId) {
-      notify(notifications.sender, "messages")
-    }
+    // else if(currentRoom === notifications.chatId) {
+    //   return
+    // }
+    // else if(value.chatContacts.includes(notifications.chatId) || value.groups.chatId) {
+    //   notify(notifications.sender, "messages")
+    // }
     else {
       for(let index in value.groups){
         if(value.groups[index].chatId === notifications.chatId){
@@ -65,6 +67,7 @@ const ProtectedRoute = () => {
           return
         }
       }
+      notify(notifications.sender, "messages")
     }
   }, [notifications])
 

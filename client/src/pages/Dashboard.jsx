@@ -78,7 +78,7 @@ const Dashboard = () => {
           dispatch({
             type: "deletedContact",
             payload: data.data.data.deleteContact,
-        })
+          })
         },
         onError:(error) => {
           console.log(error)

@@ -115,7 +115,6 @@ const getRoom = async (req, res) => {
 const getGroup = async (req, res) => {
     const id = req.query.id
 
-
     try {
         const group = await Groups.findById(id)
         res.json(group)

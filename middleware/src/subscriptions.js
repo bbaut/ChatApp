@@ -50,8 +50,6 @@ const subscriptions = {
                 () => pubsub.asyncIterator("ADDED_MEMBER"),
                 async({addedMember, chatUpdated}, _, {dataSources, authUser}) => {
                     let membersArray = chatUpdated.members;
-                    console.log(membersArray)
-                    console.log(authUser)
                     if(membersArray.includes(authUser.username)){
                         return true
                     }

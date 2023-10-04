@@ -178,6 +178,18 @@ const resolvers = {
         async createMessage(_, {createMessageInput}, {dataSources, req, res}){
             try {
                 const chatIdentifier = createMessageInput.chatId;
+                const senderEmail = createMessageInput.senderEmail;
+
+                const room = await dataSources.chatAPI.getRoom({id : chatIdentifier});
+
+                if(room){
+                    const data = await dataSources.usersAPI.userData({email: senderEmail});
+ 
+                    if(!data.contacts.includes(room.member) && !data.contacts.includes(room.createdBy) ){
+                        return;
+                    }                    
+                }
+
                 const usernamesArray = await dataSources.usersAPI.checkChatUser({chatIdentifier});
 
                 if(!usernamesArray.includes(createMessageInput.sender)){

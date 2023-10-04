@@ -32,7 +32,7 @@ function* removeMemberGroup(action) {
     try {
       const res = yield call(client.mutate, options);
     } catch (error) {
-      
+      console.log(error);
     }
   }
   

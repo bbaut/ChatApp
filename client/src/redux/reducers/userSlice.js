@@ -58,7 +58,6 @@ const userSlice = createSlice({
       }
     },
     addGroup: (state=null, action) => {
-      console.log(action.payload)
       if (state.value.username === action.payload.username){
         state.value.groups = action.payload.groups
         state.value.chatContacts = action.payload.chatContacts

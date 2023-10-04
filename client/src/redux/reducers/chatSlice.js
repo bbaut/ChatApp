@@ -24,9 +24,13 @@ const chatSlice = createSlice({
                 state.isFetching = false;
                 state.value = [...state.value, action.payload]
                 state.valueGroup =  [...state.valueGroup, action.payload]
-                if(action.payload.sender === "received"){
-                    state.notifications = true
-                }
+
+                // if(action.payload.sender === "received"){
+                //     state.notifications = {
+                //         received: currentChat,
+                //         chatId: action.payload.chatId
+                //     }
+                // }
             }
         },
         addMessageParticipants: (state = null, action) => {
@@ -61,12 +65,16 @@ const chatSlice = createSlice({
             state.isFetching = false;
         },
         setAddedMember: (state = null, action) => {
-            state.chatMember = [...state.chatMember, action.payload]
-            state.groupMembers = [...state.groupMembers, action.payload]
+            const chatContacts = action.payload.chatContacts;
+            const lastChatContact = chatContacts[chatContacts.length - 1];
+            if(lastChatContact === state.currentRoom){
+                state.chatMember = [...state.chatMember, action.payload.username]
+                state.groupMembers = [...state.groupMembers, action.payload.username]
+            }
         },
         setRemovedMember: (state = null, action) => {
               const newMembers = [];
-            state.groupMembers.forEach(element => {
+              state.groupMembers.forEach(element => {
                 if(element !== action.payload){
                     newMembers.push(element)
                 }

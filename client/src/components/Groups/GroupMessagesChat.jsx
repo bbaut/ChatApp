@@ -18,8 +18,6 @@ const GroupMessagesChat = ({currentMember}) => {
 
   useSubscription(SEND_MESSAGE, {
     onData: (data) => {
-      console.log(data.data.data.sendMessage)
-        // if(data.data.data.sendMessage.chatId === chatId){
           if(data.data.data.sendMessage.sender === currentMember){
             sendedby = "sended"
 
@@ -37,7 +35,6 @@ const GroupMessagesChat = ({currentMember}) => {
                 isScribble: data.data.data.sendMessage.message.isScribble
               },
           })
-        // }
     },
     onError: (error) => {
         console.log(error)
@@ -104,7 +101,7 @@ const GroupMessagesChat = ({currentMember}) => {
 
                 }}
                 >
-                  <img src={message.text} alt=""/>
+                  <img src={message.text} alt="" style={{height: "300px"}}/>
                 </Box>
                   :
                   <Box
@@ -126,28 +123,6 @@ const GroupMessagesChat = ({currentMember}) => {
                     </Typography>
                 </Box>
                 }
-                {/* <Box
-                  // content
-                  sx={{
-                    maxWidth: "40%",
-                    overflowWrap: "break-word",
-                    padding: "1rem",
-                    borderRadius: "1rem",
-                    color: "#d1d1d1",
-                    backgroundColor: "#4f04ff21",
-
-                  }}
-                >
-                  {message.isScribble ?
-                    <img src={message.text} alt=""/>
-                  :
-                    <Typography 
-                      variant='p'
-                    >
-                      {message.text}
-                    </Typography>
-                  }
-                </Box> */}
               </Box>
             :  
             <Box
@@ -177,7 +152,7 @@ const GroupMessagesChat = ({currentMember}) => {
                   >
                     {message.sendedBy}
                   </Typography>
-                  <img src={message.text} alt=""/>
+                  <img src={message.text} alt="" style={{height: "300px"}}/>
                 </Box>
                   :
                   <Box
@@ -205,55 +180,6 @@ const GroupMessagesChat = ({currentMember}) => {
                     </Typography>
                 </Box>
                 }
-            {/* <Box
-              // content
-              sx={{
-                maxWidth: "40%",
-                overflowWrap: "break-word",
-                padding: "1rem",
-                borderRadius: "1rem",
-                color: "#d1d1d1",
-                backgroundColor: "#9900ff20",
-              }}
-            >
-              {message.isScribble ?
-                <>
-                  <Typography 
-                    variant='subtitle2'
-                    color="black"
-                  >
-                    {message.sendedBy}
-                  </Typography>
-                  <img src={message.text} alt=""/>
-                </> 
-              :
-                <>
-                  <Typography 
-                      variant='subtitle2'
-                      color="white"
-                    >
-                      {message.sendedBy}
-                  </Typography>
-                  <Typography 
-                    variant='p'
-                  >
-                    {message.text}
-                  </Typography>
-                </>
-              } */}
-{/* 
-              <Typography 
-                  variant='subtitle2'
-                  color="white"
-              >
-                  {message.sendedBy}
-            </Typography>
-              <Typography 
-                variant='p'
-              >
-                {message.text}
-              </Typography> */}
-            {/* </Box> */}
           </Box>
             }
             </Box>

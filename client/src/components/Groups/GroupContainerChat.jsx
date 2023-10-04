@@ -1,6 +1,5 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import GroupInputChat from './GroupInputChat';
 import GroupMessagesChat from './GroupMessagesChat';
@@ -18,10 +17,8 @@ import { Box,
     DialogTitle, 
     DialogContent, 
     DialogContentText, 
-    TextField,
-    Paper, 
+    TextField, 
     DialogActions } from '@mui/material'
-import { styled } from "@mui/material/styles";
 
 const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
     const dispatch = useDispatch();
@@ -167,6 +164,7 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
                 chatName: currentGroup
             }
         })
+
         setAlert("");
         setMember("");
         setOpenR(false);
@@ -184,6 +182,17 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
         setOpenMembers(false);
         setAlert("");
     };
+
+    useEffect(() => {
+        if (!groupMembers.includes(username)){
+            dispatch({
+                type: "currentGroup",
+                payload: {
+                    group: "undefined"
+                }
+            })
+        }
+    }, [groupMembers])
 
     return (
         <Box 
