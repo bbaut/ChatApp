@@ -10,7 +10,7 @@ const Chats = () => {
         (state) => state.contact
       )
 
-      const { contacts, username, email } = useSelector(
+      const { contacts, username } = useSelector(
         (state) => state.user.value
       );
 
@@ -25,7 +25,6 @@ const Chats = () => {
 
     const handleChatChange = (index, chat) => {
         if(chat !== "undefined"){
-            // setCurrentChat(chat);
             dispatch({
               type: "currentGroup",
               payload: {
@@ -64,13 +63,8 @@ const Chats = () => {
                 }
             })
         }
-        // dispatch({
-        //     type: "setCurrentChat",
-        // })
     }, [])
 
-
-    // console.log(currentChat)
   return (
     <Box>
     {value.length === 0 || isFetching ? 

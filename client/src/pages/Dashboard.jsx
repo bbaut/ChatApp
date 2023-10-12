@@ -29,9 +29,6 @@ const Dashboard = () => {
   const [alert, setAlert] = useState("");
   const {t} = useTranslation();
 
-    const { value } = useSelector(
-        (state) => state.display
-    );
     const { currentChat, currentRoom, currentGroup} = useSelector(
         (state) => state.chat
     );

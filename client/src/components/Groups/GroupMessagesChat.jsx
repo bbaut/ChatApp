@@ -4,11 +4,10 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useSubscription } from '@apollo/client';
 import SEND_MESSAGE from '../../gql/sendMessage';
-import { useParams } from 'react-router-dom';
 
 const GroupMessagesChat = ({currentMember}) => {
 
-  const { value, valueGroup, isFetching } = useSelector(
+  const { valueGroup } = useSelector(
     (state) => state.chat
   );
 

@@ -4,13 +4,11 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next"
 
 export default function RequestLayer({item}) {
     const from = item;
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {t} = useTranslation();
 

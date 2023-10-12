@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useSelector ,useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Typography, Box, Tooltip, Avatar, Menu, MenuItem, IconButton } from '@mui/material';
 import { useTranslation } from "react-i18next"
 import avatar from "../assets/profile-image.jpeg"
 
 const SidebarHeader = () => {
     const {t} = useTranslation();
-    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 

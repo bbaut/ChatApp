@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Container, Stack, TextField, Button, Typography, Box} from "@mui/material"
 import {useDispatch, useSelector} from "react-redux";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -9,7 +9,6 @@ import avatar from "../assets/profile-image.jpeg"
 
 const Register = () => {
     let dispatch = useDispatch();
-    let navigate = useNavigate();
 
     const {t, i18n} = useTranslation();
 
@@ -79,21 +78,6 @@ const Register = () => {
             }
         })
 
-        // if(error === null){
-        //   setErrorReg(null)
-        // }
-
-        // if (errorReg === null){
-          // console.log(error)
-        // if (error === null){
-        //   setSuccess(t("succesfulCreation"))
-        //   setTimeout(() => {
-        //     setSuccess('');
-        //     navigate("/");
-        //   }, 1000)
-        //   // setErrorReg('')
-        // }
-
         setUsername('');
         setEmail('');
         setPassword('');
@@ -142,7 +126,6 @@ const Register = () => {
         setSuccess(t("succesfulCreation"))
         setTimeout(() => {
           setSuccess('');
-          // navigate("/");
           window.location.href = '/';
         }, 1000)
       }

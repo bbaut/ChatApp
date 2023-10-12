@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
         res.json(userSaved);
     }
     catch (error) {
-        console.log(error);
+        return res.status(403).json({msg: error.message});
     }
 }
 

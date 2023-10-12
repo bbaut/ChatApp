@@ -1,9 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import GroupInputChat from './GroupInputChat';
 import GroupMessagesChat from './GroupMessagesChat';
-import { useDispatch } from 'react-redux';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ErrorIcon from '@mui/icons-material/Error';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';

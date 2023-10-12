@@ -71,17 +71,6 @@ const Login = () => {
     }
   }, [error])
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "logout",
-  //     payload: {
-  //       data:{
-  //         profileUser: {}
-  //       }
-  //     }
-  //   })
-  // },[])
-
   if(Object.keys(auth).length !== 0){
     return <Navigate to="/dashboard"/>
   }

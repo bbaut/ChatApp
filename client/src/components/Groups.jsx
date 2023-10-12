@@ -9,8 +9,7 @@ import { Box,
     TextField, 
     DialogActions,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { useTranslation } from "react-i18next"
 

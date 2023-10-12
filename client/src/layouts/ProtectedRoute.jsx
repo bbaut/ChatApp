@@ -47,18 +47,9 @@ const ProtectedRoute = () => {
   })
 
   useEffect(() => {
-    // console.log(notifications.chatId)
-    // console.log(value.chat)
-
     if(notifications.sender === undefined || notifications.sender === username || currentRoom === notifications.chatId){
       return
     }
-    // else if(currentRoom === notifications.chatId) {
-    //   return
-    // }
-    // else if(value.chatContacts.includes(notifications.chatId) || value.groups.chatId) {
-    //   notify(notifications.sender, "messages")
-    // }
     else {
       for(let index in value.groups){
         if(value.groups[index].chatId === notifications.chatId){

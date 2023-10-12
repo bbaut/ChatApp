@@ -58,7 +58,7 @@ const userProfile = async (req,res) => {
         res.json(user);
     }
     catch (error) {
-        console.log(error);
+        return res.json(error)
     }
 }
 
@@ -201,7 +201,7 @@ const passIDtoUsername = async (req,res) => {
         res.json({usernames: usernameArray});
     }
     catch (error) {
-        console.log(error);
+        return res.json(error)
     }
 }
 
