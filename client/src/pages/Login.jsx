@@ -9,6 +9,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation();
 
+
   const {language} = useSelector(
     (state) => state.user
   );
@@ -28,6 +29,7 @@ const Login = () => {
       setAlert("All fields required");
       return;
     }
+
     dispatch({
       type: "login",
       payload: {
@@ -68,6 +70,17 @@ const Login = () => {
       }, 2000)
     }
   }, [error])
+
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "logout",
+  //     payload: {
+  //       data:{
+  //         profileUser: {}
+  //       }
+  //     }
+  //   })
+  // },[])
 
   if(Object.keys(auth).length !== 0){
     return <Navigate to="/dashboard"/>

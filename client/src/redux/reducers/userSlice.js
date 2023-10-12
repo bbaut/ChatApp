@@ -11,7 +11,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state=null, action) => {
+    setUserProfile: (state=null, action) => {
       state.isFetching = false;
       state.value = action.payload
     },
@@ -99,7 +99,7 @@ const userSlice = createSlice({
 });
 
 export const {
-  setUser,
+  setUserProfile,
   setUserFetching,
   addContact,
   addUsernameRequests,

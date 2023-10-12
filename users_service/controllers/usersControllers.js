@@ -23,6 +23,7 @@ const createUser = async (req,res) => {
 const userProfile = async (req,res) => {
     try {
         const user = await Users.findOne(req.query);
+
         let requestsUsername = [];
 
         const requestsArray = user.requests

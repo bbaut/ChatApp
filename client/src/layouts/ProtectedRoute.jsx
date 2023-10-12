@@ -24,7 +24,6 @@ const ProtectedRoute = () => {
   )
 
   let username;
-
   if (auth.hasOwnProperty('userAuthenticated')){
      username = auth.userAuthenticated.username
   }

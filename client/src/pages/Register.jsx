@@ -29,7 +29,7 @@ const Register = () => {
     const [avatarImg, setAvatarImg] = useState("");
     const [success, setSuccess] = useState("");
     const [passwordNotMatch, setPasswordNotMatch] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -79,13 +79,20 @@ const Register = () => {
             }
         })
 
-        if(error === null){
-          setSuccess(t("succesfulCreation"))
-          setTimeout(() => {
-            setSuccess('');
-            navigate("/");
-          }, 1000)
-        }
+        // if(error === null){
+        //   setErrorReg(null)
+        // }
+
+        // if (errorReg === null){
+          // console.log(error)
+        // if (error === null){
+        //   setSuccess(t("succesfulCreation"))
+        //   setTimeout(() => {
+        //     setSuccess('');
+        //     navigate("/");
+        //   }, 1000)
+        //   // setErrorReg('')
+        // }
 
         setUsername('');
         setEmail('');
@@ -130,6 +137,14 @@ const Register = () => {
         setTimeout(() => {
           setAlert('');
         }, 2000)
+      }
+      else if (error === null){
+        setSuccess(t("succesfulCreation"))
+        setTimeout(() => {
+          setSuccess('');
+          // navigate("/");
+          window.location.href = '/';
+        }, 1000)
       }
     }, [error])
 

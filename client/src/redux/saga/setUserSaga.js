@@ -1,6 +1,6 @@
 import { put, call } from "redux-saga/effects";
 import { gql } from "@apollo/client";
-import { setUser, setUserFetching } from "../reducers/userSlice";
+import { setUserFetching, setUserProfile } from "../reducers/userSlice";
 import client from "../../apolloClient";
 
 function* setUserAuthenticated(action) {
@@ -31,8 +31,10 @@ function* setUserAuthenticated(action) {
     };
     try {
         yield put(setUserFetching());
+        console.log("hey")
         const userData = yield call(client.query, options)
-        yield put(setUser(userData.data.profileUserData));
+        console.log(userData)
+        yield put(setUserProfile(userData.data.profileUserData));
     }
     catch (error) {
         console.log(error)

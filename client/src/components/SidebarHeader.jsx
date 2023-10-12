@@ -17,17 +17,9 @@ const SidebarHeader = () => {
     const ITEM_HEIGHT = 48;
 
     const handleLogout = () => {
-        dispatch({
-          type: "logout",
-          payload: {
-            data:{
-              profileUser: {}
-            }
-          }
-        })
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
+        localStorage.clear()
         document.cookie = `token =;expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+        window.location.href = '/';
       }
 
       const handleClose = () => {

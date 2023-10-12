@@ -19,6 +19,7 @@ function* register(action) {
 
   try {
     yield call(client.mutate, options);
+    yield put (setError(null));
   } catch (error) {
     yield put (setError(error.message))
     console.log(error)

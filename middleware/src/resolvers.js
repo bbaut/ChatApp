@@ -9,7 +9,6 @@ const resolvers = {
             const {token} = profileInput;
             const user =  await dataSources.authAPI.profile(token);
             return user
-            // return await dataSources.authAPI.profile(token);
         },
 
         async existanceContact (_,{existanceInput}, {dataSources, req, res}) {
@@ -19,7 +18,6 @@ const resolvers = {
 
         async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
             const {email} = userDataInput;
-           
             const data = await dataSources.usersAPI.userData({email});
             return  data
         },
