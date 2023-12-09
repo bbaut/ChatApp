@@ -28,12 +28,12 @@ const Groups = () => {
         (state) => state.user.value
       );
 
-      const handleGroupChange = (index, chat) => {
+      const handleGroupChange = (id, chat) => {
         dispatch({
             type: "setCurrentChat",
         })
-
-        var result = groups.find(item => item.chatName === chat);
+        
+        var result = groups.find(item => item.chatId === id);
 
         dispatch({
             type: "currentChat",
@@ -158,7 +158,7 @@ const Groups = () => {
               }
             }}
           >
-            {groupsArray.map((group, index) => {
+            {groups.map((group) => {
                 return (
                   <Box 
                     // contact 
@@ -174,8 +174,8 @@ const Groups = () => {
                       display: "flex",
                       transition: "0.5s ease-in-out"
                     }}
-                    key={index}
-                    onClick={()=>handleGroupChange(index, group)}
+                    key={group.chatId}
+                    onClick={()=>handleGroupChange(group.chatId, group.chatName)}
                   >
                     <Box
                       // groupname
@@ -185,7 +185,7 @@ const Groups = () => {
                         style={{
                           color: "white"
                         }}
-                      >{group}</h3>
+                      >{group.chatName}</h3>
                     </Box>
                   </Box>
                 )

@@ -90,8 +90,8 @@ type Query {
 type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
-    addContact(addInput: [AddInput]): UserData
-    acceptContact(acceptContactInput: [AcceptContactInput]): [UserData]
+    addContact(addInput: AddInput): UserData
+    acceptContact(acceptContactInput: AcceptContactInput): [UserData]
     deleteRequest(deleteReqInput: [DeleteReqInput]): UserData
     deleteContact(deleteContactInput: [DeleteContactInput]): [UserData]
 }

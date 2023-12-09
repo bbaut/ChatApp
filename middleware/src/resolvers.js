@@ -13,7 +13,21 @@ const resolvers = {
 
         async existanceContact (_,{existanceInput}, {dataSources, req, res}) {
             const {email} = existanceInput;
-            return await dataSources.usersAPI.existance({email});
+            try {
+                const data = await dataSources.usersAPI.existance({email})
+                return data;
+            } catch (error) {
+                let errorMsg = error.extensions.response.body.msg
+                throw new GraphQLError(errorMsg, {
+                    extensions: {
+                        code: "NOT_FOUND",
+                        http: { 
+                            status: 404,
+                            headers: "something happened"
+                        },
+                    },
+                });
+            }
         }, 
 
         async profileUserData (_,{userDataInput}, {dataSources, req, res}) {
@@ -122,12 +136,23 @@ const resolvers = {
 
         // USERS
 
-        async addContact(_,{addInput},{dataSources, req, res}){
-            const user = addInput[0];
-            const contact = addInput[1];
+        async addContact(_,{addInput},{dataSources, authUser, req, res}){
+            if(addInput.email === authUser.email) {
+                throw new GraphQLError("Action not allowed", {
+                    extensions: {
+                        code: "BAD_USER_INPUT",
+                        http: { 
+                            status: 400,
+                            headers: "something happened"
+                        },
+                    },
+                });
+            }
+
+            let usersEmail = [{email: addInput.email}, {email: authUser.email}]
 
             try {
-                const contactUpdated = await dataSources.usersAPI.add(addInput);
+                const contactUpdated = await dataSources.usersAPI.add(usersEmail);
                 
                 let contact = contactUpdated
                 
@@ -143,8 +168,9 @@ const resolvers = {
         },
 
         async acceptContact(_,{acceptContactInput}, {dataSources, authUser, req, res}){
+            let users = [{username: acceptContactInput.username}, {username: authUser.username}]
             try {
-                const friends = await dataSources.usersAPI.acceptContact(acceptContactInput);
+                const friends = await dataSources.usersAPI.acceptContact(users);
                 
                 const userUpdated = friends.userUpdated;
                 const contactUpdated = friends.contactUpdated
@@ -234,9 +260,11 @@ const resolvers = {
             }
         },
         addMemberGroup: async (_, { addMemberInput }, { dataSources, authUser }) => {
-            if(addMemberInput.username === addMemberInput.member) {
+            if(authUser.username === addMemberInput.member) {
                 return res.status(500)
             }
+
+            addMemberInput["username"] = authUser.username;
             try {
                 const userUpdated = await dataSources.usersAPI.addMember(addMemberInput);
                 const chatUpdated = await dataSources.chatAPI.addMember(addMemberInput);

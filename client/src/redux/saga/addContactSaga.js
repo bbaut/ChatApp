@@ -6,7 +6,7 @@ import { setError } from "../reducers/userSlice";
 function* addFriend(action) {
     const options = {
       mutation: gql`
-        mutation AddContact($addInput: [AddInput]) {
+        mutation AddContact($addInput: AddInput) {
           addContact(addInput: $addInput) {
             username
             email

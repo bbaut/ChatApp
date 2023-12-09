@@ -6,7 +6,7 @@ import { acceptNewRequest } from "../reducers/userSlice";
 function* acceptFriend(action) {
     const options = {
       mutation: gql`
-        mutation Mutation($acceptContactInput: [AcceptContactInput]) {
+        mutation Mutation($acceptContactInput: AcceptContactInput) {
             acceptContact(acceptContactInput: $acceptContactInput) {
                 email
                 contacts

@@ -78,6 +78,8 @@ useEffect(()=>{
             groupsArray.push(groups[i].chatName)
         }
     }
+  
+    console.log(groupsArray)
 
   return (
     <> 

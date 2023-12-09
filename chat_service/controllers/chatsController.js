@@ -125,6 +125,8 @@ const getGroup = async (req, res) => {
 const addMemberGroup = async (req, res) => {
     const chatObject = req.body.object 
 
+    if(chatObject.member === chatObject.username) return res.status(400).send("Action not allowed")
+
     try {
         const chat = await Groups.findById(chatObject.id)
         

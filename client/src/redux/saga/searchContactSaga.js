@@ -22,9 +22,7 @@ function* existanceContact(action) {
     const data = yield call(client.query, options);
     yield put(contactFound(data.data));
   } catch (err) {
-    yield put(
-      console.log({ error: "errorSendMessage", severity: "warning" })
-    );
+      console.log({ error: err, severity: "warning" })
   }
 }
 

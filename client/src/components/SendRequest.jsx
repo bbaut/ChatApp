@@ -28,10 +28,8 @@ const SendRequest = () => {
         dispatch({
             type: "addFriend",
             payload: {
-                add: [
-                    {"email":emailUser},
+                add:
                     {"email":emailContact}
-                ]
             }
         })
         dispatch({

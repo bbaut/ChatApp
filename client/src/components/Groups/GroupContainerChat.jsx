@@ -86,7 +86,6 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
         dispatch({
             type: "addMember",
             payload: {
-                username: username,
                 id: currentRoom,
                 member: member,
                 chatName: currentGroup

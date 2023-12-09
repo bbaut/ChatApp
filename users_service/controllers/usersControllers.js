@@ -111,7 +111,12 @@ const addContact = async (req,res) => {
             const error = new Error('User not found');
             return res.status(404).json({msg: error.message});
         }
-
+        
+        if(user._id.equals(contact._id)){
+            const error = new Error('Action not allowed');
+            return res.status(400).json({msg: error.message});
+        }
+        
         const contactId = contact._id; 
 
         let doubleRequest = false; 
@@ -210,8 +215,8 @@ const acceptContact = async (req,res) => {
     const userReceive = req.body.contact;
 
     try {
-        const user = await Users.findOne({username: userSend.username}); //The one who receives the contact request
-        const contact = await Users.findOne({username: userReceive.username});
+        const user = await Users.findOne({username: userSend.username}); 
+        const contact = await Users.findOne({username: userReceive.username}); //The one who receives the contact request
 
         if(!user || !contact){
             const error = new Error('User not found');
@@ -221,6 +226,19 @@ const acceptContact = async (req,res) => {
         if(user.contacts.includes(contact._id)){
             const error = new Error('Already friends');
             return res.status(404).json({msg: error.message});
+        }
+
+        const userWithRequest = await Users.find({
+            requests: {
+                $elemMatch: {
+                    from: user._id,
+                },
+            },
+        });
+
+        if(userWithRequest.length===0 || !userWithRequest[0]._id.equals(contact._id)){
+            const error = new Error('Action not allowed');
+            return res.status(400).json({msg: error.message});
         }
 
         const requestObj = { 

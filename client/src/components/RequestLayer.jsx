@@ -21,14 +21,10 @@ export default function RequestLayer({item}) {
 
         dispatch({
             type: "acceptFriend",
-            payload: [
+            payload:
                 {
                     username: from
-                },
-                {
-                    username: username
                 }
-            ]
         })
     }
     const handleDelete = (e) => {
