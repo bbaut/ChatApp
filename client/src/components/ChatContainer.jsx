@@ -35,7 +35,6 @@ const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
             {
                 queryInput: {
                     chatId: currentRoom,
-                    from: username
                 }
             }
         })

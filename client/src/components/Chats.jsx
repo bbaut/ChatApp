@@ -35,7 +35,6 @@ const Chats = () => {
                 type: "createNewRoom",
                 payload: {
                     newRoom:{
-                        createdBy: username,
                         member: chat
                     }
                 }

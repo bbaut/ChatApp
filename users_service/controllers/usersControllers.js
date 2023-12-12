@@ -312,6 +312,19 @@ const deleteRequest = async (req, res) => {
             {$pull: { requests: requestObj } },
             { new: true }
         )
+
+        let contactsUsernameUser = [];
+
+        const contactsArrayUser = contactUpdated.contacts
+
+
+        for(let i = 0; i < contactsArrayUser.length; i++) {
+            const user = await Users.findById(contactsArrayUser[i]);
+            contactsUsernameUser.push(user.username);
+        }
+
+        contactUpdated.contacts = contactsUsernameUser;
+
         return res.status(200).json(contactUpdated);
 
     }

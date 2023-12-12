@@ -103,7 +103,7 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
             payload: {
                 id: currentRoom,
                 chatName: currentGroup,
-                member: username
+                // member: username
             }
         })
          dispatch({
@@ -123,7 +123,6 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
             {
                 queryInput: {
                     chatId: currentRoom,
-                    from: username
                 }
             }
         })
@@ -156,7 +155,7 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
         dispatch({
             type: "removeMember",
             payload: {
-                username: username,
+                // username: username,
                 id: currentRoom,
                 member: member,
                 chatName: currentGroup

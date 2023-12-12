@@ -46,7 +46,8 @@ const resolvers = {
             return await dataSources.usersAPI.contact(contactDataInput)
         },
 
-        async getMessages (_, {getMessageInput}, {dataSources, req, res}) {
+        async getMessages (_, {getMessageInput}, {dataSources, authUser, req, res}) {
+            getMessageInput["from"] = authUser.username;
             return await dataSources.chatAPI.getAllMessages(getMessageInput);
         },
 
@@ -149,7 +150,7 @@ const resolvers = {
                 });
             }
 
-            let usersEmail = [{email: addInput.email}, {email: authUser.email}]
+            let usersEmail = [{email: authUser.email},{email: addInput.email}]
 
             try {
                 const contactUpdated = await dataSources.usersAPI.add(usersEmail);
@@ -237,7 +238,8 @@ const resolvers = {
               }
         },
 
-        createChatRoom: async (_, { createRoomInput }, { dataSources }) => {
+        createChatRoom: async (_, { createRoomInput }, { dataSources, authUser }) => {
+            createRoomInput["createdBy"] = authUser.username;
             try {
               const createdRoom = await dataSources.chatAPI.createChatRoom(createRoomInput);
               await dataSources.usersAPI.chatRoom(createdRoom);
@@ -249,7 +251,8 @@ const resolvers = {
             }
         },
 
-        createGroupRoom: async (_, { createGroupInput }, { dataSources }) => {
+        createGroupRoom: async (_, { createGroupInput }, { dataSources, authUser }) => {
+            createGroupInput["createdBy"] = authUser.username;
             try {
                 const createdRoom = await dataSources.chatAPI.createGroupRoom(createGroupInput);
             
@@ -286,11 +289,17 @@ const resolvers = {
                 throw new GraphQLError(message);
             }
         },
-        removeMemberGroup: async (_, { removeMemberInput }, { dataSources }) => {
+        removeMemberGroup: async (_, { removeMemberInput }, { dataSources, authUser }) => {
 
-            if(removeMemberInput.username === removeMemberInput.member) {
+            if(authUser.username === removeMemberInput.member){
                 return res.status(500)
             }
+
+            if(!removeMemberInput.member){
+                const authUsernameObj = {member: authUser.username};
+                removeMemberInput = {...removeMemberInput, ...authUsernameObj} 
+            }
+
             try {
                 const userUpdated = await dataSources.usersAPI.removeMember(removeMemberInput);
                 const chatUpdated = await dataSources.chatAPI.removeMember(removeMemberInput);

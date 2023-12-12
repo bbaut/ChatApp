@@ -49,7 +49,6 @@ type Groupdata {
 
 input GetMessageInput {
     chatId: String
-    from: String
 }
 
 input getRoomInput {
@@ -71,24 +70,20 @@ input inputContent {
 }
 
 input RoomInput {
-    createdBy: String
     member: String
 }
 
 input GroupInput {
-    createdBy: String
     groupName: String
 }
 
 input AddMemberInput {
-    username: String
     id: ID
     member: String
     chatName: String
 }
 
 input removeMemberInput {
-    username: String
     id: ID
     member: String
     chatName: String

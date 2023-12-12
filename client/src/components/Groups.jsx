@@ -65,7 +65,6 @@ const Groups = () => {
       dispatch({
           type: "createNewGroup",
           payload: {
-            createdBy: username,
             groupName: groupName
           }
       })

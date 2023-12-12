@@ -10,6 +10,10 @@ function* removeRequest(action) {
                 deleteRequest(deleteReqInput: $deleteReqInput) {
                     contacts
                     email
+                    groups {
+                        chatId
+                        chatName
+                    }
                     requests {
                         from
                         to

@@ -59,7 +59,6 @@ useEffect(()=>{
     dispatch({
         type: "createNewGroup",
         payload: {
-          createdBy: username,
           groupName: groupName
         }
     })
