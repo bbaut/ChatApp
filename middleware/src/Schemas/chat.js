@@ -62,9 +62,7 @@ input getGroupInput {
 
 input MessageInput {
     message: inputContent
-    sender: String
     chatId: String,
-    senderEmail: String
 }
 
 input inputContent {

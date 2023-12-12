@@ -57,7 +57,10 @@ const resources = {
             alreadyHaveReqError: "You already have a request from this friend",
             removedFromFriendList: "You have been removed of your friend's list",
             removedOfTheGroup: "You have been removed of the group",
-            tooLargeImageSize: "Size of image too large"
+            tooLargeImageSize: "Size of image too large",
+            newMessage: "New message received from",
+            inMessages: "in messages",
+            in: "in",
         }
     },
     es: {
@@ -115,7 +118,10 @@ const resources = {
             alreadyHaveReqError: "Tienes una solicitud de amistad de este contacto",
             removedFromFriendList: "Has sido eliminado de la lista de tus amigos",
             removedOfTheGroup: "Has sido eliminado del grupo",
-            tooLargeImageSize: "Tamaño de la imagen muy grande"
+            tooLargeImageSize: "Tamaño de la imagen muy grande",
+            newMessage: "Nuevo mensaje recibido de",
+            inMessages: "en mensajes",
+            in: "en",
         }
     },
     fr: {
@@ -173,7 +179,10 @@ const resources = {
             alreadyHaveReqError: "Vous avez déjà une invitation de cet ami",
             removedFromFriendList: "Vous avez été supprimé de votre liste d'amis",
             removedOfTheGroup: "Vous avez été supprimé du groupe",
-            tooLargeImageSize: "Taille de l'image trop grande"
+            tooLargeImageSize: "Taille de l'image trop grande",
+            newMessage: "Nouveau message reçu de",
+            inMessages: "dans les messages",
+            in: "dans"
         }
     },
     br: {
@@ -231,7 +240,10 @@ const resources = {
             alreadyHaveReqError: "Você já tem uma convite deste amigo",
             removedFromFriendList: "Você foi removido da lista de amigos",
             removedOfTheGroup: "Você foi removido do grupo",
-            tooLargeImageSize: "Tamanho da imagem muito grande"
+            tooLargeImageSize: "Tamanho da imagem muito grande",
+            newMessage: "Nova mensagem recebida de",
+            inMessages: "em mensagens",
+            in: "em"
         }
     },
     it: {
@@ -289,7 +301,10 @@ const resources = {
             alreadyHaveReqError: "Hai già una richiesta da questo amico",
             removedFromFriendList: "Sei stato rimosso dalla lista dei tuoi amici",
             removedOfTheGroup: "Sei stato rimosso dal gruppo",
-            tooLargeImageSize: "Dimensioni dell'immagine troppo grandi"
+            tooLargeImageSize: "Dimensioni dell'immagine troppo grandi",
+            newMessage: "Nuovo messaggio ricevuto da",
+            inMessages: "nei messaggi",
+            in: "in"
         }
     },
     dt: {
@@ -347,7 +362,10 @@ const resources = {
             alreadyHaveReqError: "Sie haben bereits eine Anfrage von diesem Freund",
             removedFromFriendList: "Sie wurden aus Ihrer Freundesliste entfernt",
             removedOfTheGroup: "Sie wurden aus der Gruppe entfernt",
-            tooLargeImageSize: "Bildgröße zu groß"
+            tooLargeImageSize: "Bildgröße zu groß",
+            newMessage: "Neue Nachricht erhalten von",
+            inMessages: "in Nachrichten",
+            in: "in"
         }
     }
 }

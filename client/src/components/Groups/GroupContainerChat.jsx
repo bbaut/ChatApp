@@ -38,6 +38,7 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
     const {t} = useTranslation();
 
     const handleSendMsg = async (msg, isScribble) => {
+        console.log("hey")
         dispatch({
             type: "createNewMessage",
             payload: {
@@ -47,7 +48,6 @@ const GroupContainer = ({groupMembers, currentGroup, currentRoom}) => {
                         text: msg,
                         isScribble: isScribble
                     },
-                    sender: username
                 }
             }
         })

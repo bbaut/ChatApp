@@ -100,7 +100,7 @@ const GroupMessagesChat = ({currentMember}) => {
 
                 }}
                 >
-                  <img src={message.text} alt="" style={{height: "300px"}}/>
+                  <img src={message.text} alt="" style={{height: "250px"}}/>
                 </Box>
                   :
                   <Box
@@ -151,7 +151,7 @@ const GroupMessagesChat = ({currentMember}) => {
                   >
                     {message.sendedBy}
                   </Typography>
-                  <img src={message.text} alt="" style={{height: "300px"}}/>
+                  <img src={message.text} alt="" style={{height: "250px"}}/>
                 </Box>
                   :
                   <Box

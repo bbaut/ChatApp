@@ -21,8 +21,6 @@ const ChatContainer = ({currentChat, currentMember, currentRoom}) => {
                       text: msg,
                       isScribble: isScribble
                     },
-                    sender: currentMember,
-                    senderEmail: email
                   }
             }
         })

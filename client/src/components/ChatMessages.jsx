@@ -106,7 +106,7 @@ const ChatMessages = ({currentMember, currentChat}) => {
                         backgroundColor: "#d1d1d1",
                       }}
                     >
-                        <img src={message.text} alt="" style={{height: "300px"}}/>
+                        <img src={message.text} alt="" style={{height: "250px"}}/>
                     </Box>
                     :
                     <Box
@@ -149,7 +149,7 @@ const ChatMessages = ({currentMember, currentChat}) => {
                         backgroundColor: "#d1d1d1",
                       }}
                     >
-                        <img src={message.text} alt="" style={{height: "300px"}}/>
+                        <img src={message.text} alt="" style={{height: "250px"}}/>
                     </Box>
                     :
                     <Box

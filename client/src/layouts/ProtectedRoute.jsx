@@ -7,9 +7,11 @@ import { Box } from "@mui/system";
 import SEND_MESSAGE from '../gql/sendMessage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from "react-i18next"
 
 const ProtectedRoute = () => {
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const { auth, isLoading } = useSelector(
     (state) => state.auth
@@ -63,7 +65,7 @@ const ProtectedRoute = () => {
 
   const notify = (name, type) => {
     if(type === "messages"){
-      toast(`New message received from ${name}  in messages`, {
+      toast(t("newMessage")+` ${name} `+t("inMessages"), {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -75,7 +77,7 @@ const ProtectedRoute = () => {
         });
     }
     else {
-      toast(`New message received from ${notifications.sender} in ${name} group`, {
+      toast(t("newMessage")+` ${notifications.sender} `+t("in")+` ${name}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

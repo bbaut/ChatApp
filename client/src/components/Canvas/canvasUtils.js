@@ -1,5 +1,5 @@
 export function onDraw(ctx, point, prevPoint) {
-    drawLine(prevPoint, point, ctx, "#000000", 5);
+    drawLine(prevPoint, point, ctx, "#6495ED", 5);
 }
   
 export function drawLine(start, end, ctx, color, width) {

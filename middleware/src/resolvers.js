@@ -199,10 +199,11 @@ const resolvers = {
         },
         // CHAT
 
-        async createMessage(_, {createMessageInput}, {dataSources, req, res}){
+        async createMessage(_, {createMessageInput}, {dataSources, authUser, req, res}){
             try {
                 const chatIdentifier = createMessageInput.chatId;
-                const senderEmail = createMessageInput.senderEmail;
+                const senderEmail = authUser.email;
+                const senderUsername = authUser.username;   
 
                 const room = await dataSources.chatAPI.getRoom({id : chatIdentifier});
 
@@ -216,10 +217,15 @@ const resolvers = {
 
                 const usernamesArray = await dataSources.usersAPI.checkChatUser({chatIdentifier});
 
-                if(!usernamesArray.includes(createMessageInput.sender)){
+                if(!usernamesArray.includes(senderUsername)){
                     return;
                 }
-                const createdMessage = await dataSources.chatAPI.createMessage(createMessageInput);
+
+                const authUserObject = { sender: senderUsername };
+
+                const messageObject = {...createMessageInput, ...authUserObject};
+
+                const createdMessage = await dataSources.chatAPI.createMessage(messageObject);
 
                 pubsub.publish("SEND_MESSAGE", {
                     sendMessage: createdMessage
